@@ -3,9 +3,11 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Medusa extends Actor {
-
     public Medusa(Cell cell){
         super(cell);
+        super.setHealth(30);
+        super.setDamage(15);
+        super.setExp(500);
     }
 
     @Override
