@@ -5,12 +5,31 @@ import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.map_generator.MapGenerator;
+import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
+
+    private static void generateMap() {
+        MapGenerator mapGenerator = new MapGeneratorImpl(
+                64,
+                64,
+                15,
+                5,
+                10,
+                false,
+                1,
+                3
+        );
+        mapGenerator.genLevel();
+        mapGenerator.genTilesLevel();
+    }
     public static GameMap loadMap() {
+        generateMap();
+
         InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
