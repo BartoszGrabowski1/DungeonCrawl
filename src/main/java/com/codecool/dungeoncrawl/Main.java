@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     private final int SCREEN_SIZE = 20;
@@ -23,6 +25,9 @@ public class Main extends Application {
             SCREEN_SIZE * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+
+    public Main() throws IOException {
+    }
 
     public static void main(String[] args) {
         launch(args);

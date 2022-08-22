@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class MapGeneratorImpl implements MapGenerator {
@@ -363,7 +365,7 @@ public class MapGeneratorImpl implements MapGenerator {
         }
     }
 
-    public void genTilesLevel() {
+    public void genTilesLevel() throws IOException {
         for (Tile[] row : getLEVEL()) {
             List<String> tmpTiles = new ArrayList<>();
             for (Tile col : row) {
@@ -379,11 +381,33 @@ public class MapGeneratorImpl implements MapGenerator {
             }
             getTILES_LEVEL().add(String.join("", tmpTiles));
         }
+        saveMapToFile();
+    }
 
-//        new File()
+    private void saveMapToFile() throws IOException {
+        try {
+            File map = new File("src\\main\\resources\\mapp.txt");
+            FileWriter fw = new FileWriter(map);
 
-        for (String row : getTILES_LEVEL()) {
-            System.out.println(row);
+            // TODO: add player/monsters to map
+            for (String row : getTILES_LEVEL()) {
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    sb.setCharAt(row.indexOf("."), '@');
+                    getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                    break;
+                }
+            }
+
+            fw.write(getWIDTH() + " " + getHEIGHT() + "\n");
+            for (String row : getTILES_LEVEL()) {
+                fw.write(row + "\n");
+                System.out.println(row);
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IOException();
         }
     }
 

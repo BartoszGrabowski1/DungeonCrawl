@@ -5,12 +5,13 @@ import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGenerator;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
 
-    private static void generateMap() {
+    private static InputStream generateMap() throws IOException {
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -23,11 +24,12 @@ public class MapLoader {
         );
         mapGenerator.genLevel();
         mapGenerator.genTilesLevel();
-    }
-    public static GameMap loadMap() {
-        generateMap();
 
-        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
+        return MapLoader.class.getResourceAsStream("/mapp.txt");
+    }
+    public static GameMap loadMap() throws IOException {
+
+        InputStream is = generateMap();
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
