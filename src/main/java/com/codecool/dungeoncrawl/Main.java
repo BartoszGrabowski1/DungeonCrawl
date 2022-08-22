@@ -1,15 +1,16 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.*;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -18,10 +19,10 @@ public class Main extends Application {
 
     private final int SCREEN_SIZE = 20;
     GameMap map = MapLoader.loadMap();
-    Canvas canvas = new Canvas(
-            SCREEN_SIZE * Tiles.TILE_WIDTH,
-            SCREEN_SIZE * Tiles.TILE_WIDTH);
-    GraphicsContext context = canvas.getGraphicsContext2D();
+
+    GameController gc;
+
+    GraphicsContext context;
     Label healthLabel = new Label();
 
     public static void main(String[] args) {
@@ -37,18 +38,22 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
 
-        BorderPane borderPane = new BorderPane();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        gc = fxmlLoader.getController();
 
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        context = gc.getCanvas().getGraphicsContext2D();
 
-        Scene scene = new Scene(borderPane);
+        gc.getBorderpane().setCenter(gc.getCanvas());
+        gc.getBorderpane().setRight(ui);
+
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -74,7 +79,7 @@ public class Main extends Application {
 
     private void refresh() {
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
                 try {
