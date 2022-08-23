@@ -12,13 +12,17 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,6 +40,7 @@ public class Main extends Application {
             SCREEN_SIZE * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Button pickUpItemBtn = new Button("Pick up");
 
     public Main() throws IOException {
     }
@@ -50,8 +55,17 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
+
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        pickUpItemBtn.setFocusTraversable(false);
+        ui.add(pickUpItemBtn,1,1);
+        pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            System.out.println("click!");
+            map.getPlayer().pickUpItem();
+            refresh();
+        });
+        
 
         BorderPane borderPane = new BorderPane();
 

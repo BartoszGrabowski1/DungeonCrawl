@@ -2,10 +2,27 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.Items.Item;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class Player extends Actor {
+    private List<Item> inventory = new ArrayList<>();
+
     public Player(Cell cell) {
         super(cell);
+    }
+
+    public void pickUpItem(){
+        inventory.add(this.getCell().getItem());
+        this.getCell().setItem(null);
+        for (Item i : inventory){
+            System.out.print(i.getTileName() + " ");
+        }
+
     }
 
     @Override
