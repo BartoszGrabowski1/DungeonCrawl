@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.*;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,6 +16,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     private final int SCREEN_SIZE = 20;
@@ -23,6 +27,9 @@ public class Main extends Application {
             SCREEN_SIZE * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+
+    public Main() throws IOException {
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -52,19 +59,24 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+
         switch (keyEvent.getCode()) {
+            case W:
             case UP:
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
+            case S:
             case DOWN:
                 map.getPlayer().move(0, 1);
                 refresh();
                 break;
+            case A:
             case LEFT:
                 map.getPlayer().move(-1, 0);
                 refresh();
                 break;
+            case D:
             case RIGHT:
                 map.getPlayer().move(1, 0);
                 refresh();
@@ -81,7 +93,7 @@ public class Main extends Application {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
-                    } else if (cell.getItem() != null){
+                    } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
                     } else {
                         Tiles.drawTile(context, cell, x, y);
