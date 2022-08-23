@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.controller.GameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -41,7 +42,6 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
         gc = fxmlLoader.getController();
-
         context = gc.getCanvas().getGraphicsContext2D();
 
         gc.getBorderpane().setCenter(gc.getCanvas());
@@ -74,6 +74,8 @@ public class Main extends Application {
                 map.getPlayer().move(1, 0);
                 refresh();
                 break;
+            case R:
+                gc.getFight();
         }
     }
 
