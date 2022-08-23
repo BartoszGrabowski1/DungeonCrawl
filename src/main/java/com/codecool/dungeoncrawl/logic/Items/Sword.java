@@ -11,6 +11,7 @@ public class Sword extends Item{
 
     @Override
     public String getTileName() {
+        System.out.println("czemu ten pierdolony miecz sie nei wyswietla");
         return "sword";
     }
 }
