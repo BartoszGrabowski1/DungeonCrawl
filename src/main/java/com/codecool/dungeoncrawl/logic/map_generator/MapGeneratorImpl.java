@@ -21,6 +21,7 @@ public class MapGeneratorImpl implements MapGenerator {
     private final List<String> TILES_LEVEL;
     private final Random RANDOM = new Random((System.currentTimeMillis() / 1000L));
     private final int MONSTERS;
+    private final char[] ITEMS;
 
     public int getWIDTH() {
         return WIDTH;
@@ -81,6 +82,9 @@ public class MapGeneratorImpl implements MapGenerator {
     public int getMONSTERS() {
         return MONSTERS;
     }
+    public char[] getITEMS() {
+        return ITEMS;
+    }
 
     public MapGeneratorImpl(int WIDTH,
                             int HEIGHT,
@@ -90,7 +94,7 @@ public class MapGeneratorImpl implements MapGenerator {
                             boolean ROOMS_OVERLAP,
                             int RANDOM_CONNECTIONS,
                             int RANDOM_SPURS,
-                            int MONSTERS) {
+                            int MONSTERS, char[] items) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.MAX_ROOMS = MAX_ROOMS;
@@ -105,6 +109,7 @@ public class MapGeneratorImpl implements MapGenerator {
         this.CORRIDOR_LIST = new ArrayList<>();
         this.TILES_LEVEL = new ArrayList<>();
         this.MONSTERS = MONSTERS;
+        this.ITEMS = items;
     }
 
     private int[] genRoom() {

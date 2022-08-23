@@ -17,8 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main extends Application {
 
@@ -61,7 +59,6 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-//        startDelayMovement(1000L);
 
         switch (keyEvent.getCode()) {
             case W:
@@ -86,17 +83,6 @@ public class Main extends Application {
                 break;
         }
     }
-
-//    private void startDelayMovement(long time) {
-//        Timer timer = new Timer();
-//        TimerTask task = new TimerTask() {
-//            public void run() {
-//                System.out.print("co sekunde"); // move.all()
-//                refresh();  // ta metoda juz istnieje w mainie
-//            }
-//        };
-//        timer.schedule(task, 0L, time);  // co sekunde
-//    }
 
     private void refresh() {
         context.setFill(Color.BLACK);

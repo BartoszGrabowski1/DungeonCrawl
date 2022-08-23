@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static InputStream generateMap() throws IOException {
+        char[] items = {'1', '2', '3'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -24,7 +25,8 @@ public class MapLoader {
                 false,
                 1,
                 3,
-                6
+                6,
+                items
         );
         mapGenerator.genLevel();
         mapGenerator.genTilesLevel();
@@ -65,15 +67,15 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
                             break;
-                        case 'w':
+                        case '1':
                             cell.setType(CellType.FLOOR);
                             new Sword(cell);
                             break;
-                        case 'k':
+                        case '2':
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
-                        case 'a':
+                        case '3':
                             cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;
