@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
-public class Medusa extends Actor {
+public class Medusa extends Monsters {
 
     private final float chanceOfFreeze = 0.10f;
     public Medusa(Cell cell){

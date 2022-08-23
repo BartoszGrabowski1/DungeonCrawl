@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
-public class FinalBoss extends Actor {
+public class FinalBoss extends Monsters {
 
     public FinalBoss(Cell cell){
         super(cell);

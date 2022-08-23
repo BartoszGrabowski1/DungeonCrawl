@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
-public class Skeleton extends Actor {
+public class Skeleton extends Monsters {
     public Skeleton(Cell cell) {
         super(cell);
         super.setHealth(10);
