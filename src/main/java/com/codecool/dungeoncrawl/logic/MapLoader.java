@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.*;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -34,6 +33,18 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             map.addMonsters(new Skeleton(cell));
+                            break;
+                        case 'v':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new Vampire(cell));
+                            break;
+                        case 'm':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new Medusa(cell));
+                            break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new FinalBoss(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

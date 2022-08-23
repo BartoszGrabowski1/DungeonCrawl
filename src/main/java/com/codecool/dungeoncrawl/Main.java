@@ -1,8 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.*;
-import com.codecool.dungeoncrawl.logic.actors.Monsters;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,19 +60,18 @@ public class Main extends Application {
     }
 
     private void incrementLabel() {
-        List<Monsters> monsters = map.getMonsters();
+        List<Monster> monsters = map.getMonsters();
 
         for(int i =0; i<monsters.size(); i++){
-            System.out.println(monsters.get(i).drowMoves());
             monsters.get(i).monsterMovement(map);
         }
+        refresh();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                incrementLabel();
                 refresh();
                 break;
             case DOWN:

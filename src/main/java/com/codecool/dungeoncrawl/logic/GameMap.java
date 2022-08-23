@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Monsters;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ public class GameMap {
 
     private Player player;
 
-    private List<Monsters> monsters = new ArrayList<>();
+    private List<Monster> monsters = new ArrayList<>();
 
-    public List<Monsters> getMonsters() {
+    public List<Monster> getMonsters() {
         return monsters;
     }
 
-    public void addMonsters(Monsters monster){
+    public void addMonsters(Monster monster){
         monsters.add(monster);
     }
 

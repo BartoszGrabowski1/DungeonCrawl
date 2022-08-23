@@ -1,8 +1,9 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
-public class FinalBoss extends Monsters {
+public class FinalBoss extends Monster {
 
     public FinalBoss(Cell cell){
         super(cell);
@@ -12,10 +13,9 @@ public class FinalBoss extends Monsters {
     }
 
     @Override
-    public boolean checkIfMovePossible(int x, int y) {
-        return false;
+    public void monsterMovement(GameMap map) {
+      // boss have no move
     }
-
     @Override
     public String getTileName() {
         return "boss";

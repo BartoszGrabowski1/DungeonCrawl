@@ -3,14 +3,13 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
-import javafx.scene.input.KeyEvent;
 
 import java.util.Random;
 
-public abstract class Monsters extends Actor {
+public abstract class Monster extends Actor {
 
 
-    public Monsters(Cell cell) {
+    public Monster(Cell cell) {
         super(cell);
     }
 
@@ -28,7 +27,7 @@ public abstract class Monsters extends Actor {
         if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL){
             return false;
         }
-        if(this.getCell().getNeighbor(x,y).getActor() instanceof Monsters) {
+        if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster) {
             return false;
         }
         if(this.getCell().getNeighbor(x,y).getActor() instanceof Player) {
