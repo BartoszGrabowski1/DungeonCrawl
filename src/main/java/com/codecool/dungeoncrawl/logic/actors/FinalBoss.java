@@ -10,6 +10,12 @@ public class FinalBoss extends Actor {
         super.setDamage(80);
         super.setExp(5000);
     }
+
+    @Override
+    public boolean checkIfMovePossible(int x, int y) {
+        return false;
+    }
+
     @Override
     public String getTileName() {
         return "boss";

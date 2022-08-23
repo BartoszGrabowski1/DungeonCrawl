@@ -13,6 +13,11 @@ public class Vampire extends Actor{
     }
 
     @Override
+    public boolean checkIfMovePossible(int x, int y) {
+        return false;
+    }
+
+    @Override
     public String getTileName() {
         return "vampire";
     }
