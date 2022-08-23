@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
+import java.util.List;
+
 public class Vampire extends Monsters{
 
     private final float drainageOfLife = 0.15f;
@@ -11,6 +13,8 @@ public class Vampire extends Monsters{
         super.setDamage(10);
         super.setExp(250);
     }
+
+
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {

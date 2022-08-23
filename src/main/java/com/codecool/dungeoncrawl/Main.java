@@ -1,7 +1,11 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.actors.Monsters;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,6 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.List;
 
 public class Main extends Application {
 
@@ -41,7 +48,9 @@ public class Main extends Application {
 
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.playFromStart();
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
@@ -51,10 +60,20 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    private void incrementLabel() {
+        List<Monsters> monsters = map.getMonsters();
+
+        for(int i =0; i<monsters.size(); i++){
+            System.out.println(monsters.get(i).drowMoves());
+            monsters.get(i).monsterMovement(map);
+        }
+    }
+
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
+                incrementLabel();
                 refresh();
                 break;
             case DOWN:

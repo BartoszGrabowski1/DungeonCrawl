@@ -14,7 +14,7 @@ public class Player extends Actor {
         if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL){
             return false;
         }
-        if(this.getCell().getNeighbor(x,y).getActor() instanceof Skeleton)
+        if(this.getCell().getNeighbor(x,y).getActor() instanceof Monsters)
         {
             return false;
         }
