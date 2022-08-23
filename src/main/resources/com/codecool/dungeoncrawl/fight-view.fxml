@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,13 +18,13 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.5" prefHeight="308.0" prefWidth="270.0">
+      <SplitPane dividerPositions="0.5" prefHeight="261.0" prefWidth="270.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" onAction="#test" prefHeight="26.0" prefWidth="132.0" text="Attack" />
-                  <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Block" />
-                  <Button fx:id="buttonCharge" layoutY="205.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Charge" />
+                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="132.0" text="Attack" />
+                  <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="131.0" text="Block" />
+                  <Button fx:id="buttonAbility" layoutY="205.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="131.0" text="Ability" />
                   <ComboBox fx:id="boxSpells" layoutY="231.0" prefHeight="26.0" prefWidth="131.0" promptText="          Cast spell" />
                   <VBox layoutY="24.0" prefHeight="130.0" prefWidth="131.0" />
                   <VBox layoutY="-5.0" prefHeight="158.0" prefWidth="132.0">
@@ -89,5 +90,6 @@
             </AnchorPane>
         </items>
       </SplitPane>
+      <TextArea fx:id="output" prefHeight="68.0" prefWidth="270.0" />
    </children>
 </VBox>

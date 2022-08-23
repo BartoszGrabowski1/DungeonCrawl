@@ -5,11 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 public class FightController {
+
 
     @FXML
     private ComboBox<?> boxSpells;
@@ -21,7 +22,7 @@ public class FightController {
     private Button buttonBlock;
 
     @FXML
-    private Button buttonCharge;
+    private Button buttonAbility;
 
     @FXML
     private Label labelFight;
@@ -49,54 +50,61 @@ public class FightController {
 
     @FXML
     private Label playerName;
-
     @FXML
-    void test(ActionEvent event) {
-        System.out.println("dupa");
+    private TextArea output;
+
+
+
+
+
+
+        @FXML
+        void fightMode(ActionEvent event) {
+            buttonAttack.setOnAction(e -> makeMove(Action.ATTACK));
+            buttonBlock.setOnAction(e -> makeMove(Action.BLOCK));
+            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY));
+        }
+
+
+        private void makeMove(Action userAction) {
+
+            Creature player = new Creature(100, 20, 50, 10);
+            Creature monster = new Creature(60, 10, 10, 10);
+
+            Action monsterAction = makeMonsterMove();
+
+            Action.ActionResult result = userAction.checkAgainst(monsterAction);
+
+            if (result == Action.ActionResult.DRAW) {
+
+                output.appendText("DRAW\n");
+
+            } else if (result == Action.ActionResult.WIN) {
+
+                int dmg = player.calcDamage(userAction);
+
+                monster.hp -= dmg;
+
+                output.appendText("Player deals " + dmg + " to AI \n");
+
+            } else { // LOSE
+
+                int dmg = monster.calcDamage(monsterAction);
+
+                player.hp -= dmg;
+
+                output.appendText("Monster deals " + dmg + " to player \n");
+
+            }
+        }
+
+        private Action makeMonsterMove() {
+            return Action.values()[(int) (Math.random() * Action.values().length)];
+        }
+
+        private static Random random = new Random();
+
+
+
     }
-
-
-    class Creature {
-        int hp;
-        int attackPower;
-        int mana;
-        int blockPower;
-
-        public Creature(int hp, int attackPower, int mana, int blockPower) {
-            this.hp = hp;
-            this.attackPower = attackPower;
-            this.mana = mana;
-            this.blockPower = blockPower;
-        }
-
-
-        Creature player = new Creature(100,20,50,10);
-        Creature monster = new Creature(60,10,10,10);
-
-    }
-
-
-    private enum Action {
-        ATTACK, CHARGE, BLOCK;
-
-        private static final Map<Action, Action> winMap = new HashMap<>();
-
-        static {
-            winMap.put(ATTACK, CHARGE);
-            winMap.put(CHARGE, BLOCK);
-            winMap.put(BLOCK, ATTACK);
-        }
-
-        ActionResult checkAgainst(Action action) {
-            if (this == action)
-                return ActionResult.DRAW;
-
-            return winMap.get(this) == action ? ActionResult.WIN : ActionResult.LOSE;
-        }
-
-        private enum ActionResult {
-            WIN, LOSE, DRAW
-        }
-    }
-}
 
