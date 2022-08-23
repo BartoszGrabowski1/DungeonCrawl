@@ -9,6 +9,7 @@ public class Skeleton extends Actor {
 
     @Override
     public String getTileName() {
+        System.out.println("szkielet korzysta");
         return "skeleton";
     }
 }

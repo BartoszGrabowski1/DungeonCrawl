@@ -42,15 +42,15 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
                             break;
-                        case 'W':
+                        case 'w':
                             cell.setType(CellType.FLOOR);
                             new Sword(cell);
                             break;
-                        case 'K':
+                        case 'k':
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
-                        case 'A':
+                        case 'a':
                             cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;

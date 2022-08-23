@@ -54,7 +54,7 @@ public class Cell implements Drawable {
         return item;
     }
 
-    public void setItem(Item weapon) {
-        this.item = weapon;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }
