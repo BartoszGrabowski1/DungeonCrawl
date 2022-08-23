@@ -23,7 +23,8 @@ public class MapLoader {
                 10,
                 false,
                 1,
-                3
+                3,
+                6
         );
         mapGenerator.genLevel();
         mapGenerator.genTilesLevel();

@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.*;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main extends Application {
 
@@ -57,25 +61,42 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+//        startDelayMovement(1000L);
+
         switch (keyEvent.getCode()) {
+            case W:
             case UP:
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
+            case S:
             case DOWN:
                 map.getPlayer().move(0, 1);
                 refresh();
                 break;
+            case A:
             case LEFT:
                 map.getPlayer().move(-1, 0);
                 refresh();
                 break;
+            case D:
             case RIGHT:
                 map.getPlayer().move(1, 0);
                 refresh();
                 break;
         }
     }
+
+//    private void startDelayMovement(long time) {
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            public void run() {
+//                System.out.print("co sekunde"); // move.all()
+//                refresh();  // ta metoda juz istnieje w mainie
+//            }
+//        };
+//        timer.schedule(task, 0L, time);  // co sekunde
+//    }
 
     private void refresh() {
         context.setFill(Color.BLACK);
@@ -86,7 +107,7 @@ public class Main extends Application {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
-                    } else if (cell.getItem() != null){
+                    } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
                     } else {
                         Tiles.drawTile(context, cell, x, y);
