@@ -7,9 +7,9 @@ import javafx.scene.layout.BorderPane;
 public class GameController {
 
     @FXML
-    private Canvas canvas = new Canvas(640, 640);
+    private Canvas canvas;
     @FXML
-    private BorderPane borderpane = new BorderPane();
+    private BorderPane borderpane;
 
     public Canvas getCanvas() {
         return canvas;
@@ -18,4 +18,5 @@ public class GameController {
     public BorderPane getBorderpane() {
         return borderpane;
     }
+
 }
