@@ -1,16 +1,13 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
 
-public class Skeleton extends Actor {
+public class Skeleton extends Monster {
     public Skeleton(Cell cell) {
         super(cell);
-    }
-
-    @Override
-    public boolean checkIfMovePossible(int x, int y) {
-        return false;
+        super.setHealth(10);
+        super.setDamage(5);
+        super.setExp(100);
     }
 
     @Override

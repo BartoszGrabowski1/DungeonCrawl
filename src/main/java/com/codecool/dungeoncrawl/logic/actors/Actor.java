@@ -5,8 +5,12 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
+    protected Cell cell;
     private int health = 10;
+
+    private int exp;
+
+    private int damage;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -42,5 +46,17 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

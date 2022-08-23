@@ -4,9 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
-
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Player extends Actor {
     private List<Item> inventory = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Player extends Actor {
         if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL){
             return false;
         }
-        if(this.getCell().getNeighbor(x,y).getActor() instanceof Skeleton)
+        if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)
         {
             return false;
         }

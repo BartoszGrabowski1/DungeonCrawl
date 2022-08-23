@@ -1,17 +1,43 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.Items.Armor;
 import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.map_generator.MapGenerator;
+import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
+
+    private static InputStream generateMap() throws IOException {
+        char[] items = {'1', '2', '3'};
+        MapGenerator mapGenerator = new MapGeneratorImpl(
+                64,
+                64,
+                15,
+                5,
+                10,
+                false,
+                1,
+                3,
+                6,
+                items
+        );
+        mapGenerator.genLevel();
+        mapGenerator.genTilesLevel();
+
+        return MapLoader.class.getResourceAsStream("/mapp.txt");
+    }
+
+    public static GameMap loadMap() throws IOException {
+
+        InputStream is = generateMap();
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -36,21 +62,33 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.addMonsters(new Skeleton(cell));
+                            break;
+                        case 'v':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new Vampire(cell));
+                            break;
+                        case 'm':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new Medusa(cell));
+                            break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            map.addMonsters(new FinalBoss(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
                             break;
-                        case 'w':
+                        case '1':
                             cell.setType(CellType.FLOOR);
                             new Sword(cell);
                             break;
-                        case 'k':
+                        case '2':
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
-                        case 'a':
+                        case '3':
                             cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;
