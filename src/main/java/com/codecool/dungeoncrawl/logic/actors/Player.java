@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.GameMap;
 
 public class Player extends Actor {
     public Player(Cell cell) {
@@ -14,7 +13,7 @@ public class Player extends Actor {
         if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL){
             return false;
         }
-        if(this.getCell().getNeighbor(x,y).getActor() instanceof Skeleton)
+        if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)
         {
             return false;
         }

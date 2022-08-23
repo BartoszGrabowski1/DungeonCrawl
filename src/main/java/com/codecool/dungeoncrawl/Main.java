@@ -1,5 +1,11 @@
 package com.codecool.dungeoncrawl;
 
+
+import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -15,6 +21,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.List;
 
 import java.io.IOException;
 
@@ -48,7 +57,9 @@ public class Main extends Application {
 
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.playFromStart();
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
@@ -56,6 +67,15 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+    }
+
+    private void incrementLabel() {
+        List<Monster> monsters = map.getMonsters();
+
+        for(int i =0; i<monsters.size(); i++){
+            monsters.get(i).monsterMovement(map);
+        }
+        refresh();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
