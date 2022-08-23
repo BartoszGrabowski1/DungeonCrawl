@@ -31,10 +31,14 @@ public class Tiles {
         tileMap.put("vampire", new Tile(26,8));
         tileMap.put("medusa", new Tile(31,9));
         tileMap.put("boss", new Tile(1,15));
+        tileMap.put("sword", new Tile(1,29));
+        tileMap.put("key", new Tile(16,23));
+        tileMap.put("armor", new Tile(1,23));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
         Tile tile = tileMap.get(d.getTileName());
+//        System.out.println("tile " + d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
