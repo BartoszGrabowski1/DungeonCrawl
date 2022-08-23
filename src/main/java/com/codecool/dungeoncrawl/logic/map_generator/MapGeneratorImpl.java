@@ -322,21 +322,13 @@ public class MapGeneratorImpl implements MapGenerator {
             y1 = corridor[0][1];
             x2 = corridor[1][0];
             y2 = corridor[1][1];
-            for (int i = 0; i < Math.abs(x1 - x2) + 1; i++) {
-                for (int j = 0; j < Math.abs(y1 - y2) + 1; j++) {
-                    getLEVEL()[Math.min(y1, y2) + j][Math.min(x1, x2) + i] = Tile.FLOOR;
-                }
-            }
+            setupFloor(x1, y1, x2, y2);
 
             if (corridor.length == 3) {
                 x3 = corridor[2][0];
                 y3 = corridor[2][1];
 
-                for (int i = 0; i < Math.abs(x2 - x3) + 1; i++) {
-                    for (int j = 0; j < Math.abs(y2 - y3) + 1; j++) {
-                        getLEVEL()[Math.min(y2, y3) + j][Math.min(x2, x3) + i] = Tile.FLOOR;
-                    }
-                }
+                setupFloor(x2, y2, x3, y3);
             }
         }
 
@@ -375,6 +367,14 @@ public class MapGeneratorImpl implements MapGenerator {
                         getLEVEL()[row + 1][col + 1] = Tile.WALL;
                     }
                 }
+            }
+        }
+    }
+
+    private void setupFloor(int x1, int y1, int x2, int y2) {
+        for (int i = 0; i < Math.abs(x1 - x2) + 1; i++) {
+            for (int j = 0; j < Math.abs(y1 - y2) + 1; j++) {
+                getLEVEL()[Math.min(y1, y2) + j][Math.min(x1, x2) + i] = Tile.FLOOR;
             }
         }
     }

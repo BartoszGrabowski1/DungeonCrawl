@@ -31,6 +31,7 @@ public class MapLoader {
 
         return MapLoader.class.getResourceAsStream("/mapp.txt");
     }
+
     public static GameMap loadMap() throws IOException {
 
         InputStream is = generateMap();
