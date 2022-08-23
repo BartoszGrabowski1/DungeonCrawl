@@ -20,6 +20,7 @@ public class MapGeneratorImpl implements MapGenerator {
     private final List<int[][]> CORRIDOR_LIST;
     private final List<String> TILES_LEVEL;
     private final Random RANDOM = new Random((System.currentTimeMillis() / 1000L));
+    private final int MONSTERS;
 
     public int getWIDTH() {
         return WIDTH;
@@ -77,7 +78,19 @@ public class MapGeneratorImpl implements MapGenerator {
         return RANDOM;
     }
 
-    public MapGeneratorImpl(int WIDTH, int HEIGHT, int MAX_ROOMS, int MIN_ROOM_XY, int MAX_ROOM_XY, boolean ROOMS_OVERLAP, int RANDOM_CONNECTIONS, int RANDOM_SPURS) {
+    public int getMONSTERS() {
+        return MONSTERS;
+    }
+
+    public MapGeneratorImpl(int WIDTH,
+                            int HEIGHT,
+                            int MAX_ROOMS,
+                            int MIN_ROOM_XY,
+                            int MAX_ROOM_XY,
+                            boolean ROOMS_OVERLAP,
+                            int RANDOM_CONNECTIONS,
+                            int RANDOM_SPURS,
+                            int MONSTERS) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.MAX_ROOMS = MAX_ROOMS;
@@ -91,6 +104,7 @@ public class MapGeneratorImpl implements MapGenerator {
         this.ROOM_LIST = new ArrayList<>();
         this.CORRIDOR_LIST = new ArrayList<>();
         this.TILES_LEVEL = new ArrayList<>();
+        this.MONSTERS = MONSTERS;
     }
 
     private int[] genRoom() {
@@ -390,14 +404,8 @@ public class MapGeneratorImpl implements MapGenerator {
             FileWriter fw = new FileWriter(map);
 
             // TODO: add player/monsters to map
-            for (String row : getTILES_LEVEL()) {
-                if (row.contains(".")) {
-                    StringBuilder sb = new StringBuilder(row);
-                    sb.setCharAt(row.indexOf("."), '@');
-                    getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
-                    break;
-                }
-            }
+            addPlayerToMap();
+            addMonstersToMap();
 
             fw.write(getWIDTH() + " " + getHEIGHT() + "\n");
             for (String row : getTILES_LEVEL()) {
@@ -408,6 +416,38 @@ public class MapGeneratorImpl implements MapGenerator {
         } catch (IOException e) {
             e.printStackTrace();
             throw new IOException();
+        }
+    }
+
+    private void addPlayerToMap() {
+        for (String row : getTILES_LEVEL()) {
+            if (row.contains(".")) {
+                StringBuilder sb = new StringBuilder(row);
+                sb.setCharAt(row.indexOf("."), '@');
+                getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                break;
+            }
+        }
+    }
+
+    private void addMonstersToMap() {
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        int monstersAdded = 0;
+        while (monstersAdded < getMONSTERS()) {
+            for (String row : tempArray) {
+                Collections.shuffle(tempArray);
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    try {
+                        sb.setCharAt(row.indexOf("."), 's');
+                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                        monstersAdded++;
+                        break;
+                    } catch (Exception e) {
+                        continue;
+                    }
+                }
+            }
         }
     }
 
