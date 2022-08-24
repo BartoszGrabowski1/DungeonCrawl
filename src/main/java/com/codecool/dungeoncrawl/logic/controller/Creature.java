@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.controller;
 
-public class Creature {
+class Creature {
     int hp;
     int attackPower;
     int abilityPower;
@@ -13,6 +13,17 @@ public class Creature {
         this.blockPower = blockPower;
     }
 
+    public int calcDamage(Action action) {
+        switch (action) {
+            case ATTACK:
+                return attackPower;
+            case ABILITY:
+                return abilityPower;
+            case BLOCK:
+                return blockPower;
+        }
 
+        return 0;
+    }
 
 }
