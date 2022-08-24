@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Sword extends Item{
 
     public Sword(Cell cell) {
-        super(cell);
+        super(cell,"Sword", "Sharp Sword", 112);
     }
 
 
