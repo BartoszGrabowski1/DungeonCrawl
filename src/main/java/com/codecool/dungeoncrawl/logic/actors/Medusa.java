@@ -9,6 +9,8 @@ public class Medusa extends Monster {
         super(cell);
         super.setHealth(30);
         super.setDamage(15);
+        super.setAbilityPower(20);
+        super.setBlockPower(50);
         super.setExp(500);
     }
 
