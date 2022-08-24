@@ -1,27 +1,35 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class MapGeneratorImpl implements MapGenerator {
-    private final int WIDTH;
-    private final int HEIGHT;
-    private final int MAX_ROOMS;
-    private final int MIN_ROOM_XY;
-    private final int MAX_ROOM_XY;
-    private final boolean ROOMS_OVERLAP;
-    private final int RANDOM_CONNECTIONS;
-    private final int RANDOM_SPURS;
-    private final List<Tile> TILES;
-    private final Tile[][] LEVEL;
-    private final List<int[]> ROOM_LIST;
-    private final List<int[][]> CORRIDOR_LIST;
-    private final List<String> TILES_LEVEL;
+    private int WIDTH;
+    private int HEIGHT;
+    private int MAX_ROOMS;
+    private int MIN_ROOM_XY;
+    private int MAX_ROOM_XY;
+    private boolean ROOMS_OVERLAP;
+    private int RANDOM_CONNECTIONS;
+    private int RANDOM_SPURS;
+    private List<Tile> TILES;
+    private Tile[][] LEVEL;
+    private List<int[]> ROOM_LIST;
+    private List<int[][]> CORRIDOR_LIST;
+    private List<String> TILES_LEVEL;
     private final Random RANDOM = new Random((System.currentTimeMillis() / 1000L));
     private final int MONSTERS;
     private final char[] ITEMS;
+
+    private int stairs;
+
+    public int getStairs() {
+        return stairs;
+    }
 
     public int getWIDTH() {
         return WIDTH;
@@ -82,6 +90,7 @@ public class MapGeneratorImpl implements MapGenerator {
     public int getMONSTERS() {
         return MONSTERS;
     }
+
     public char[] getITEMS() {
         return ITEMS;
     }
@@ -384,7 +393,7 @@ public class MapGeneratorImpl implements MapGenerator {
         }
     }
 
-    public void genTilesLevel() throws IOException {
+    public String genTilesLevel() throws IOException {
         for (Tile[] row : getLEVEL()) {
             List<String> tmpTiles = new ArrayList<>();
             for (Tile col : row) {
@@ -400,29 +409,25 @@ public class MapGeneratorImpl implements MapGenerator {
             }
             getTILES_LEVEL().add(String.join("", tmpTiles));
         }
-        saveMapToFile();
+        return saveMap();
     }
 
-    private void saveMapToFile() throws IOException {
-        try {
-            File map = new File("src\\main\\resources\\mapp.txt");
-            FileWriter fw = new FileWriter(map);
+    private String saveMap() throws IOException {
 
-            // TODO: add player/monsters to map
-            addPlayerToMap();
-            addMonstersToMap();
-            addItemsToMap();
+        // TODO: add player/monsters to map
+        addPlayerToMap();
+        addMonstersToMap();
+        addItemsToMap();
+        addStairsToMap();
 
-            fw.write(getWIDTH() + " " + getHEIGHT() + "\n");
-            for (String row : getTILES_LEVEL()) {
-                fw.write(row + "\n");
-                System.out.println(row);
-            }
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new IOException();
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(getWIDTH()).append(" ").append(getHEIGHT()).append("\n");
+        for (String row : getTILES_LEVEL()) {
+            sb.append(row).append("\n");
+            System.out.println(row);
         }
+        return sb.toString();
     }
 
     private void addPlayerToMap() {
@@ -435,6 +440,20 @@ public class MapGeneratorImpl implements MapGenerator {
             }
         }
     }
+
+    private void addStairsToMap() {
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        for (String row : tempArray) {
+            Collections.shuffle(tempArray);
+            if (row.contains(".")) {
+                StringBuilder sb = new StringBuilder(row);
+                sb.setCharAt(row.indexOf("."), 'H');
+                getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                break;
+            }
+        }
+    }
+
 
     private void addMonstersToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
@@ -456,6 +475,7 @@ public class MapGeneratorImpl implements MapGenerator {
             }
         }
     }
+
     private void addItemsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
         int itemsAdded = 0;
