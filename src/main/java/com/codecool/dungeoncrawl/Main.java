@@ -1,8 +1,9 @@
 package com.codecool.dungeoncrawl;
 
 
-import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.controller.MenuController;
+import com.codecool.dungeoncrawl.logic.controller.NameController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,8 +12,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,17 +23,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 import java.util.List;
 
 import java.io.IOException;
 
 public class Main extends Application {
-
     private final int SCREEN_SIZE = 20;
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
@@ -49,13 +49,28 @@ public class Main extends Application {
         launch(args);
     }
 
+    public void printMenu(){
+        try {
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Main Menu");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        printMenu();
+        if(MenuController.nextWindow && NameController.startGame){
+        map.getPlayer().setDeveloper();
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
-
-
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         pickUpItemBtn.setFocusTraversable(false);
@@ -80,7 +95,7 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
-        primaryStage.show();
+        primaryStage.show();}
     }
 
     private void incrementLabel() {
