@@ -56,7 +56,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void printMenu(){
+    public void printMenu() {
         try {
             Stage stage = new Stage();
             stage.setResizable(false);
@@ -65,7 +65,7 @@ public class Main extends Application {
             stage.setTitle("Main Menu");
             stage.setScene(scene);
             stage.showAndWait();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -73,48 +73,49 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         printMenu();
-        if(MenuController.nextWindow && NameController.startGame){
-        map.getPlayer().setDeveloper();
-        for (int i = 0; i < LEVELS_AMOUNT; i++) {
-            levels[i] = MapLoader.loadMap();
-        }
-        map = levels[level - 1];
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
-        pickUpItemBtn.setFocusTraversable(false);
-        ui.add(pickUpItemBtn,1,1);
-        pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            System.out.println("click!");
-            map.getPlayer().pickUpItem();
+        if (MenuController.nextWindow && NameController.startGame) {
+            for (int i = 0; i < LEVELS_AMOUNT; i++) {
+                levels[i] = MapLoader.loadMap();
+            }
+            map = levels[level - 1];
+            map.getPlayer().setDeveloper();
+            GridPane ui = new GridPane();
+            ui.setPrefWidth(200);
+            ui.setPadding(new Insets(10));
+            ui.add(new Label("Health: "), 0, 0);
+            ui.add(healthLabel, 1, 0);
+            pickUpItemBtn.setFocusTraversable(false);
+            ui.add(pickUpItemBtn, 1, 1);
+            pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+                System.out.println("click!");
+                map.getPlayer().pickUpItem();
+                refresh();
+            });
+
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+            gc = fxmlLoader.getController();
+            context = gc.getCanvas().getGraphicsContext2D();
+
+            gc.getBorderpane().setCenter(gc.getCanvas());
+            gc.getBorderpane().setRight(ui);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.playFromStart();
+            primaryStage.setScene(scene);
             refresh();
-        });
-        
+            scene.setOnKeyPressed(this::onKeyPressed);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
-        gc = fxmlLoader.getController();
-        context = gc.getCanvas().getGraphicsContext2D();
-
-        gc.getBorderpane().setCenter(gc.getCanvas());
-        gc.getBorderpane().setRight(ui);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.playFromStart();
-        primaryStage.setScene(scene);
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-
-        primaryStage.setTitle("Dungeon Crawl");
-        primaryStage.show();}
+            primaryStage.setTitle("Dungeon Crawl");
+            primaryStage.show();
+        }
     }
 
     private void incrementLabel() {
         List<Monster> monsters = map.getMonsters();
 
-        for(int i =0; i<monsters.size(); i++){
+        for (int i = 0; i < monsters.size(); i++) {
             monsters.get(i).monsterMovement(map);
         }
         refresh();
