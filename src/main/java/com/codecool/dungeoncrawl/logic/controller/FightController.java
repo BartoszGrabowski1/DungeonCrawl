@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.controller;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
@@ -58,15 +60,15 @@ public class FightController {
     @FXML
     private TextArea output;
 
-
+    public static Player player;
+    public static Monster monster;
+    public static boolean isFightAvailable = false;
 
 
 
 
         @FXML
         void fightMode(ActionEvent event) {
-            Player player = new Player(100, 50, 50, 50, 50);
-            Skeleton monster = new Skeleton( 40, 40, 40, 40, 40);
             buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
             buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
             buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
@@ -102,6 +104,7 @@ public class FightController {
 
             }
         }
+
 
         private Action makeMonsterMove() {
             return Action.values()[(int) (Math.random() * Action.values().length)];
