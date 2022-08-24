@@ -4,9 +4,12 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
+import com.codecool.dungeoncrawl.logic.controller.FightController;
+import com.codecool.dungeoncrawl.logic.controller.NameController;
+
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class Player extends Actor {
@@ -14,7 +17,8 @@ public class Player extends Actor {
 
     private String[] developersNames = new String[]{"BARTEK", "DAREK", "MATEUSZ", "SYLWESTER", "KAROL"};
 
-    private boolean isDeveloper;
+    private boolean developer;
+
 
     public Player(int health, int exp, int damage, int abilityPower, int blockPower) {
         super(health, exp, damage, abilityPower, blockPower);
@@ -42,16 +46,16 @@ public class Player extends Actor {
     public void setDeveloper() {
         for(String developersName : developersNames) {
             if (NameController.userName.toUpperCase(Locale.ROOT).equals(developersName)) {
-                isDeveloper = true;
+                developer = true;
                 return;
             }
         }
-        isDeveloper = false;
+        developer = false;
     }
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {
-        if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL){
+        if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL && !developer){
             return false;
         }
         if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)
