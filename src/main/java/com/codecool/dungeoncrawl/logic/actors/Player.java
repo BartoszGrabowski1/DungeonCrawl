@@ -55,7 +55,9 @@ public class Player extends Actor {
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {
-        if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL && !developer){
+        if((this.getCell().getNeighbor(x,y).getType() == CellType.WALL ||
+                this.getCell().getNeighbor(x,y).getType() == CellType.WALL_2 ||
+                this.getCell().getNeighbor(x,y).getType() == CellType.WALL_3 ) && !developer){
             return false;
         }
         if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)
