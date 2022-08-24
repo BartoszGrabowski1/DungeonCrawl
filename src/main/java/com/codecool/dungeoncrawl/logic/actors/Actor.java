@@ -17,6 +17,14 @@ public abstract class Actor implements Drawable {
 
     private int blockPower;
 
+    public int getExp() {
+        return exp;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
     public Actor(int health, int exp, int damage, int abilityPower, int blockPower) {
         this.health = health;
         this.exp = exp;
