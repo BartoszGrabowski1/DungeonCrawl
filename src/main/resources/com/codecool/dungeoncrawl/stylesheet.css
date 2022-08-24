@@ -1,0 +1,184 @@
+/*.root{*/
+/*    -fx-background-color: #131313;*/
+/*    -fx-background-image: url('C:\Users\k-zwo\Git\Projects\OOP-Java\TW3\dungeon-crawl-1-java-OchotaDariusz\src\main\resources\tiles.png');*/
+/*}*/
+/*#titleLabel{*/
+/*    -fx-background-color: #242424;*/
+/*    -fx-colo*/
+/*    -fx-color: white;*/
+/*    -fx-border-radius: 20px;*/
+/*}*/
+/*.option{*/
+/*    border:2px solid #ffffff;*/
+/*    background-color: #242424;*/
+/*    text-align: center;*/
+/*    margin: 30px 40%;*/
+/*    text-shadow: 2px 2px 4px #000000;*/
+/*    font-size: 40px;*/
+/*    color: white;*/
+/*    border-radius: 20px;*/
+/*}*/
+/*.option:hover {*/
+/*    transform: translateY(-10px);*/
+/*}*/
+/*.snake {*/
+/*    background-color: lime;*/
+/*    height: 25px;*/
+/*    width: 25px;*/
+/*    position: relative;*/
+/*}*/
+
+/*.fruit {*/
+/*    background-color: red;*/
+/*    height: 25px;*/
+/*    width: 25px;*/
+
+/*}*/
+
+/*body{*/
+/*    background:*/
+/*            linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,*/
+/*            linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,*/
+/*            linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,*/
+/*            linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,*/
+/*            linear-gradient(90deg, #1b1b1b 10px, transparent 10px),*/
+/*            linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);*/
+/*    background-color: #131313;*/
+/*    background-size: 20px 20px;*/
+/*    font-family: 'Blaka', cursive;*/
+/*}*/
+
+/*#game_board{*/
+/*    margin: auto auto;*/
+/*    width: 500px;*/
+/*    height: 500px;*/
+/*    border: 5px solid white;*/
+/*    background-color: black;*/
+/*    display: grid;*/
+/*    grid-template-rows: repeat(20,1fr);*/
+/*    grid-template-columns: repeat(20,1fr);*/
+
+/*}*/
+/*#logo{*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*    font-size: 70px;*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
+/*    margin-bottom:100px;*/
+/*    font-family: 'Blaka', cursive;*/
+/*    width:400px;*/
+/*}*/
+/*#logo:hover{*/
+/*    transform: translateY(-10px);*/
+/*}*/
+/*#statistics{*/
+/*    margin: auto auto;*/
+/*    width: 500px;*/
+/*    height: 40px;*/
+/*    color: white;*/
+/*    font-size: 30px;*/
+
+/*}*/
+/*#timer{*/
+/*    width: 250px;*/
+/*    height: 30px;*/
+/*    float:left;*/
+/*    text-align: right;*/
+/*}*/
+/*#Score{*/
+/*    width: 250px;*/
+/*    height: 30px;*/
+/*    float:left;*/
+/*    text-align: left;*/
+/*}*/
+/*.option{*/
+/*    border:2px solid #ffffff;*/
+/*    background-color: #242424;*/
+/*    text-align: center;*/
+/*    margin: 30px 40%;*/
+/*    text-shadow: 2px 2px 4px #000000;*/
+/*    font-size: 40px;*/
+/*    color: white;*/
+/*    border-radius: 20px;*/
+/*}*/
+/*.option:hover {*/
+/*    transform: translateY(-10px);*/
+/*}*/
+
+/*a:link*/
+/*{*/
+/*    color:white;*/
+/*    text-decoration: none;*/
+
+/*}*/
+/*!*Odwiedzony link*!*/
+/*a:visited*/
+/*{*/
+/*    color:white;*/
+/*    text-decoration: none;*/
+/*}*/
+/*!*Link po najechaniu kursorem*!*/
+/*a:hover*/
+/*{*/
+/*    color:white;*/
+/*    text-decoration: none;*/
+/*}*/
+/*.popout{*/
+/*    width: 500px;*/
+/*    background-color: white;*/
+/*    border-radius: 6px;*/
+/*    position: absolute;*/
+/*    top:0;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%) scale(0.1);*/
+/*    text-align: center;*/
+/*    font-size: 40px;*/
+/*    padding: 0 30px 30px;*/
+/*    visibility: hidden;*/
+/*    transition: transform 0.4s, top 0.4s;*/
+/*}*/
+/*.open-popout{*/
+/*    visibility: visible;*/
+/*    top:50%;*/
+/*    width:500px;*/
+/*    transform: translate(-50%, -50%) scale(1);*/
+/*}*/
+/*.popout button{*/
+/*    width: 100%;*/
+/*    padding: 10px 0;*/
+/*    background: black;*/
+/*    color: white;*/
+/*    margin-top: 30px;*/
+/*    border: 0;*/
+/*    outline: none;*/
+/*    font-size: 20px;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    box-shadow: 0 5px 5px ;*/
+/*}*/
+/*#input1{*/
+/*    width:300px;*/
+/*    background-color: #efefef;*/
+/*    color: #666;*/
+/*    border: 2px solid #000000;*/
+/*    border-radius: 5px;*/
+/*    font-size:20px;*/
+/*    padding:10px;*/
+/*    box-sizing: border-box;*/
+/*    cursor: text;*/
+/*}*/
+/*#snake_color{*/
+/*    width:300px;*/
+/*    background-color: #efefef;*/
+/*    color: black;*/
+/*    border: 2px solid #000000;*/
+/*    border-radius: 5px;*/
+/*    font-size:20px;*/
+/*    padding:10px;*/
+/*    box-sizing: border-box;*/
+/*    cursor: pointer;*/
+/*}*/
+/*#snake_color:hover{*/
+/*    background-color: rgba(255, 255, 255, 0);*/
+/*}*/
