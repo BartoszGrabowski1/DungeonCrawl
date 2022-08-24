@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.controller.NameController;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGenerator;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
