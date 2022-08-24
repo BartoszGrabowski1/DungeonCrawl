@@ -19,19 +19,22 @@ public class Player extends Actor {
 
     private boolean developer;
 
+    private String name;
+
 
     public Player(int health, int exp, int damage, int abilityPower, int blockPower) {
         super(health, exp, damage, abilityPower, blockPower);
     }
 
 
-    public Player(Cell cell) {
+    public Player(Cell cell,String name) {
         super(cell);
         super.setHealth(400);
         super.setDamage(100);
         super.setAbilityPower(150);
         super.setBlockPower(100);
         super.setExp(0);
+        this.name = name.toUpperCase(Locale.ROOT);
     }
 
     public void pickUpItem(){
@@ -43,19 +46,18 @@ public class Player extends Actor {
 
     }
 
-    public void setDeveloper() {
+    public boolean checkIfDeveloper() {
         for(String developersName : developersNames) {
-            if (NameController.userName.toUpperCase(Locale.ROOT).equals(developersName)) {
-                developer = true;
-                return;
+            if (this.name.equals(developersName)) {
+                return true;
             }
         }
-        developer = false;
+        return false;
     }
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {
-        if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL && !developer){
+        if(this.getCell().getNeighbor(x,y).getType() == CellType.WALL && !checkIfDeveloper()){
             return false;
         }
         if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)

@@ -21,6 +21,10 @@ public class NameController {
 
     public static String userName;
 
+    public static String getUserName() {
+        return userName;
+    }
+
     public static boolean startGame;
 
     @FXML

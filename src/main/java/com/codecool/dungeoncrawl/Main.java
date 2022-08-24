@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
+import com.sun.javafx.iio.gif.GIFImageLoader2;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,9 +31,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.nio.file.Paths;
 import java.util.List;
 
 import java.io.IOException;
+
+import static com.codecool.dungeoncrawl.logic.music.MusicPlayer.*;
 
 public class Main extends Application {
     private final int SCREEN_SIZE = 20;
@@ -70,7 +74,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         printMenu();
@@ -79,7 +82,6 @@ public class Main extends Application {
                 levels[i] = MapLoader.loadMap();
             }
             map = levels[level - 1];
-            map.getPlayer().setDeveloper();
             GridPane ui = new GridPane();
             ui.setPrefWidth(200);
             ui.setPadding(new Insets(10));
@@ -110,6 +112,7 @@ public class Main extends Application {
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
+            playSound(opening);
         }
     }
 
@@ -127,21 +130,25 @@ public class Main extends Application {
             case W:
             case UP:
                 map.getPlayer().move(0, -1);
+                playSound(stepSound);
                 refresh();
                 break;
             case S:
             case DOWN:
                 map.getPlayer().move(0, 1);
+                playSound(stepSound);
                 refresh();
                 break;
             case A:
             case LEFT:
                 map.getPlayer().move(-1, 0);
+                playSound(stepSound);
                 refresh();
                 break;
             case D:
             case RIGHT:
                 map.getPlayer().move(1, 0);
+                playSound(stepSound);
                 refresh();
                 break;
             case R:
