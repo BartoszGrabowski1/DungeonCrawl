@@ -9,6 +9,8 @@ public class FinalBoss extends Monster {
         super(cell);
         super.setHealth(200);
         super.setDamage(80);
+        super.setAbilityPower(120);
+        super.setBlockPower(150);
         super.setExp(5000);
     }
 

@@ -12,8 +12,17 @@ import java.util.List;
 public class Player extends Actor {
     private List<Item> inventory = new ArrayList<>();
 
+    public Player(int health, int exp, int damage, int abilityPower, int blockPower) {
+        super(health, exp, damage, abilityPower, blockPower);
+    }
+
     public Player(Cell cell) {
         super(cell);
+        super.setHealth(400);
+        super.setDamage(100);
+        super.setAbilityPower(150);
+        super.setBlockPower(100);
+        super.setExp(0);
     }
 
     public void pickUpItem(){

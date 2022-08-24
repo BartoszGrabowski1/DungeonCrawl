@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.controller.GameController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,6 +12,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -45,6 +47,9 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
 
+    GameController gc;
+
+
     public Main() throws IOException {
     }
 
@@ -75,14 +80,16 @@ public class Main extends Application {
         });
         
 
-        BorderPane borderPane = new BorderPane();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        gc = fxmlLoader.getController();
+        context = gc.getCanvas().getGraphicsContext2D();
 
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        gc.getBorderpane().setCenter(gc.getCanvas());
+        gc.getBorderpane().setRight(ui);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
-        Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
@@ -101,38 +108,36 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-
-        try {
-            switch (keyEvent.getCode()) {
-                case W:
-                case UP:
-                    map.getPlayer().move(0, -1);
-                    refresh();
-                    break;
-                case S:
-                case DOWN:
-                    map.getPlayer().move(0, 1);
-                    refresh();
-                    break;
-                case A:
-                case LEFT:
-                    map.getPlayer().move(-1, 0);
-                    refresh();
-                    break;
-                case D:
-                case RIGHT:
-                    map.getPlayer().move(1, 0);
-                    refresh();
-                    break;
-            }
-        } catch (IOException e) {
+        switch (keyEvent.getCode()) {
+            case W:
+            case UP:
+                map.getPlayer().move(0, -1);
+                refresh();
+                break;
+            case S:
+            case DOWN:
+                map.getPlayer().move(0, 1);
+                refresh();
+                break;
+            case A:
+            case LEFT:
+                map.getPlayer().move(-1, 0);
+                refresh();
+                break;
+            case D:
+            case RIGHT:
+                map.getPlayer().move(1, 0);
+                refresh();
+                break;
+            case R:
+                gc.getFight();
         }
     }
 
-    private void refresh() throws IOException {
+    private void refresh() {
         checkTile();
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
                 try {
@@ -152,7 +157,7 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
 
-    private void checkTile() throws IOException {
+    private void checkTile() {
         if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
             level++;
             map = levels[level - 1];
