@@ -77,16 +77,25 @@ public class Main extends Application {
 
 
         TableView tableView = new TableView<>();
+        TableColumn<Item, String> playerInv = new TableColumn<>("Player Inventory");
         TableColumn<Item, String> column1 = new TableColumn<>("Item");
         TableColumn<Item, String> column2 = new TableColumn<>("Description");
         TableColumn<Item, Integer> column3 = new TableColumn<>("Value");
         column1.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         column2.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
         column3.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
-        tableView.getColumns().add(column1);
-        tableView.getColumns().add(column2);
-        tableView.getColumns().add(column3);
+        playerInv.getColumns().addAll(column1,column2,column3);
+        tableView.getColumns().add(playerInv);
+//        tableView.getColumns().add(column1);
+//        tableView.getColumns().add(column2);
+//        tableView.getColumns().add(column3);
         tableView.setStyle("-fx-background-color: grey");
+        column1.setStyle("-fx-background-color: DimGray");
+        column2.setStyle("-fx-background-color: DimGray");
+        column3.setStyle("-fx-background-color: DimGray");
+        playerInv.setStyle("-fx-background-color: DimGray");
+        tableView.setPrefWidth(240);
+        tableView.setPrefHeight(180);
 
 
         ui.add(new Label("Health: "), 0, 0);
@@ -105,24 +114,20 @@ public class Main extends Application {
         tableView.setPlaceholder(new Label("No items found yet"));
 
 
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
         gc = fxmlLoader.getController();
         context = gc.getCanvas().getGraphicsContext2D();
 
 
 
-        BorderPane borderPane = new BorderPane();
 
         gc.getBorderpane().setCenter(gc.getCanvas());
         gc.getBorderpane().setRight(ui);
         gc.getBorderpane().setLeft(tableView);
-//        borderPane.setCenter(canvas);
-//        borderPane.setRight(ui);
-//        borderPane.setLeft(tableView);
 
-
-        gc.getBorderpane().setRight(ui);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
