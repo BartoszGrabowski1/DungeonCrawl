@@ -6,6 +6,6 @@ public interface MapGenerator {
 
     void genLevel();
 
-    void genTilesLevel() throws IOException;
+    String genTilesLevel() throws IOException;
 
 }
