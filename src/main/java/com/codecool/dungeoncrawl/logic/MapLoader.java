@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    private static InputStream generateMap() throws IOException {
+    private static String generateMap() throws IOException {
         char[] items = {'1', '2', '3'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
@@ -29,15 +29,12 @@ public class MapLoader {
                 items
         );
         mapGenerator.genLevel();
-        mapGenerator.genTilesLevel();
-
-        return MapLoader.class.getResourceAsStream("/mapp.txt");
+        return mapGenerator.genTilesLevel();
     }
 
     public static GameMap loadMap() throws IOException {
 
-        InputStream is = generateMap();
-        Scanner scanner = new Scanner(is);
+        Scanner scanner = new Scanner(generateMap());
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
@@ -78,6 +75,9 @@ public class MapLoader {
                         case '3':
                             cell.setType(CellType.FLOOR);
                             new Armor(cell);
+                            break;
+                        case 'H':
+                            cell.setType(CellType.STAIRS);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

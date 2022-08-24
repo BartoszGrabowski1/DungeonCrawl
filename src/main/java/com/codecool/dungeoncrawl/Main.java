@@ -21,7 +21,10 @@ import java.io.IOException;
 public class Main extends Application {
 
     private final int SCREEN_SIZE = 20;
-    GameMap map = MapLoader.loadMap();
+    private final int LEVELS_AMOUNT = 3;
+    private GameMap[] levels = new GameMap[3];
+    private int level = 1;
+    GameMap map;
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
             SCREEN_SIZE * Tiles.TILE_WIDTH);
@@ -37,6 +40,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        for (int i = 0; i < LEVELS_AMOUNT; i++) {
+            levels[i] = MapLoader.loadMap();
+        }
+        map = levels[level - 1];
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -60,31 +68,35 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
 
-        switch (keyEvent.getCode()) {
-            case W:
-            case UP:
-                map.getPlayer().move(0, -1);
-                refresh();
-                break;
-            case S:
-            case DOWN:
-                map.getPlayer().move(0, 1);
-                refresh();
-                break;
-            case A:
-            case LEFT:
-                map.getPlayer().move(-1, 0);
-                refresh();
-                break;
-            case D:
-            case RIGHT:
-                map.getPlayer().move(1, 0);
-                refresh();
-                break;
+        try {
+            switch (keyEvent.getCode()) {
+                case W:
+                case UP:
+                    map.getPlayer().move(0, -1);
+                    refresh();
+                    break;
+                case S:
+                case DOWN:
+                    map.getPlayer().move(0, 1);
+                    refresh();
+                    break;
+                case A:
+                case LEFT:
+                    map.getPlayer().move(-1, 0);
+                    refresh();
+                    break;
+                case D:
+                case RIGHT:
+                    map.getPlayer().move(1, 0);
+                    refresh();
+                    break;
+            }
+        } catch (IOException e) {
         }
     }
 
-    private void refresh() {
+    private void refresh() throws IOException {
+        checkTile();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
@@ -104,5 +116,12 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    private void checkTile() throws IOException {
+        if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
+            level++;
+            map = levels[level - 1];
+        }
     }
 }
