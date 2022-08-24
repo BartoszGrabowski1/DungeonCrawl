@@ -1,7 +1,5 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
-import com.codecool.dungeoncrawl.logic.GameMap;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -393,7 +391,7 @@ public class MapGeneratorImpl implements MapGenerator {
         }
     }
 
-    public String genTilesLevel() throws IOException {
+    public String genTilesLevel() {
         for (Tile[] row : getLEVEL()) {
             List<String> tmpTiles = new ArrayList<>();
             for (Tile col : row) {
@@ -412,7 +410,7 @@ public class MapGeneratorImpl implements MapGenerator {
         return saveMap();
     }
 
-    private String saveMap() throws IOException {
+    private String saveMap() {
 
         // TODO: add player/monsters to map
         addPlayerToMap();
@@ -425,7 +423,6 @@ public class MapGeneratorImpl implements MapGenerator {
         sb.append(getWIDTH()).append(" ").append(getHEIGHT()).append("\n");
         for (String row : getTILES_LEVEL()) {
             sb.append(row).append("\n");
-            System.out.println(row);
         }
         return sb.toString();
     }

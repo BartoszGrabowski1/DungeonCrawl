@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Skeleton extends Monster {
     public Skeleton(Cell cell) {
         super(cell);
-        super.setHealth(10);
+        super.setHealth(200);
         super.setDamage(5);
         super.setAbilityPower(120);
         super.setBlockPower(50);

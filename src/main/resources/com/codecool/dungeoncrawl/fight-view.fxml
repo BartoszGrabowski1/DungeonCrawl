@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.logic.controller.FightController">
    <children>
       <Label fx:id="labelFight" alignment="CENTER" prefHeight="68.0" prefWidth="270.0" text="Fight!">
@@ -22,31 +21,41 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="132.0" text="Attack" />
-                  <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="131.0" text="Block" />
-                  <Button fx:id="buttonAbility" layoutY="205.0" mnemonicParsing="false" onAction="#fightMode" prefHeight="26.0" prefWidth="131.0" text="Ability" />
+                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="Attack" />
+                  <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Block" />
+                  <Button fx:id="buttonAbility" layoutY="205.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Ability" />
                   <ComboBox fx:id="boxSpells" layoutY="231.0" prefHeight="26.0" prefWidth="131.0" promptText="          Cast spell" />
                   <VBox layoutY="24.0" prefHeight="130.0" prefWidth="131.0" />
                   <VBox layoutY="-5.0" prefHeight="158.0" prefWidth="132.0">
                      <children>
                         <Label fx:id="playerName" prefHeight="18.0" prefWidth="126.0" text="Player Name">
                            <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="playerHealth" prefHeight="18.0" prefWidth="126.0" text="Health:">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="playerMana" prefHeight="18.0" prefWidth="126.0" text="Mana:">
-                           <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="playerLvl" prefHeight="18.0" prefWidth="126.0" text="Lvl:">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerHealth" prefHeight="18.0" prefWidth="126.0" text="Health:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerDamage" prefHeight="18.0" prefWidth="126.0" text="Damage:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerMana" prefHeight="18.0" prefWidth="126.0" text="Mana:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerAbility" prefHeight="18.0" prefWidth="126.0" text="Ability:">
+                           <font>
+                              <Font size="15.0" />
                            </font>
                         </Label>
                      </children>
@@ -63,22 +72,32 @@
                      <children>
                         <Label fx:id="monsterName" prefHeight="18.0" prefWidth="129.0" text="Monster Name">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="monsterLvl" prefHeight="18.0" prefWidth="126.0" text="Lvl:">
+                           <font>
+                              <Font size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="monsterHealth" prefHeight="18.0" prefWidth="126.0" text="Health:">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="monsterDamage" prefHeight="18.0" prefWidth="126.0" text="Damage:">
+                           <font>
+                              <Font size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="monsterMana" prefHeight="18.0" prefWidth="126.0" text="Mana:">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="monsterAbility" prefHeight="18.0" prefWidth="126.0" text="Ability:">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </Label>
                      </children>

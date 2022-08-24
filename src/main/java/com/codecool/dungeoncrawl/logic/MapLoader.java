@@ -12,11 +12,12 @@ import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
 public class MapLoader {
 
-    private static String generateMap() throws IOException {
+    private static String generateMap() {
         char[] items = {'1', '2', '3'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
@@ -34,9 +35,16 @@ public class MapLoader {
         return mapGenerator.genTilesLevel();
     }
 
-    public static GameMap loadMap() throws IOException {
-
-        Scanner scanner = new Scanner(generateMap());
+    public static GameMap loadMap(boolean isBossLevel) {
+        Random random = new Random();
+        Scanner scanner;
+        if (isBossLevel) {
+            InputStream mapLevel = MapLoader.class.getResourceAsStream("/boss.txt");
+            scanner = new Scanner(mapLevel);
+        } else {
+            String mapLevel = generateMap();
+            scanner = new Scanner(mapLevel);
+        }
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
@@ -53,45 +61,58 @@ public class MapLoader {
                             cell.setType(CellType.EMPTY);
                             break;
                         case '#':
-                            cell.setType(CellType.WALL);
+                            switch (random.nextInt(3)) {
+                                case 0:
+                                    cell.setType(CellType.WALL_2);
+                                    break;
+                                case 1:
+                                    cell.setType(CellType.WALL_3);
+                                    break;
+                                default:
+                                    cell.setType(CellType.WALL);
+                                    break;
+                            }
                             break;
                         case '.':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             break;
                         case 's':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             map.addMonsters(new Skeleton(cell));
                             break;
                         case 'v':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             map.addMonsters(new Vampire(cell));
                             break;
                         case 'm':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             map.addMonsters(new Medusa(cell));
                             break;
                         case 'b':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             map.addMonsters(new FinalBoss(cell));
                             break;
                         case '@':
-                            cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell, NameController.getUserName()));
+                            addFloor(random, cell);
+                            map.setPlayer(new Player(cell));
                             break;
                         case '1':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             new Sword(cell);
                             break;
                         case '2':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             new Key(cell);
                             break;
                         case '3':
-                            cell.setType(CellType.FLOOR);
+                            addFloor(random, cell);
                             new Armor(cell);
                             break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
+                            break;
+                        case 'd':
+                            cell.setType(CellType.CLOSED_DOORS);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
@@ -100,6 +121,20 @@ public class MapLoader {
             }
         }
         return map;
+    }
+
+    private static void addFloor(Random random, Cell cell) {
+        switch (random.nextInt(3)) {
+            case 0:
+                cell.setType(CellType.FLOOR);
+                break;
+            case 1:
+                cell.setType(CellType.FLOOR_2);
+                break;
+            default:
+                cell.setType(CellType.FLOOR_3);
+                break;
+        }
     }
 
 }
