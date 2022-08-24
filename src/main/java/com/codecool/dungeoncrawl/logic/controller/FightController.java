@@ -1,5 +1,10 @@
 package com.codecool.dungeoncrawl.logic.controller;
 
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,16 +65,16 @@ public class FightController {
 
         @FXML
         void fightMode(ActionEvent event) {
-            buttonAttack.setOnAction(e -> makeMove(Action.ATTACK));
-            buttonBlock.setOnAction(e -> makeMove(Action.BLOCK));
-            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY));
+            Player player = new Player(100, 50, 50, 50, 50);
+            Skeleton monster = new Skeleton( 40, 40, 40, 40, 40);
+            buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
+            buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
+            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
         }
 
 
-        private void makeMove(Action userAction) {
+        private void makeMove(Action userAction, Player player, Monster monster) {
 
-            Creature player = new Creature(100, 20, 50, 10);
-            Creature monster = new Creature(60, 10, 10, 10);
 
             Action monsterAction = makeMonsterMove();
 
@@ -83,7 +88,7 @@ public class FightController {
 
                 int dmg = player.calcDamage(userAction);
 
-                monster.hp -= dmg;
+                monster.setHealth(monster.getHealth() - dmg);
 
                 output.appendText("Player deals " + dmg + " to AI \n");
 
@@ -91,7 +96,7 @@ public class FightController {
 
                 int dmg = monster.calcDamage(monsterAction);
 
-                player.hp -= dmg;
+                player.setHealth(player.getHealth() - dmg);
 
                 output.appendText("Monster deals " + dmg + " to player \n");
 

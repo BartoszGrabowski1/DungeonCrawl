@@ -9,6 +9,8 @@ public class Vampire extends Monster {
         super(cell);
         super.setHealth(20);
         super.setDamage(10);
+        super.setAbilityPower(20);
+        super.setBlockPower(50);
         super.setExp(250);
     }
 

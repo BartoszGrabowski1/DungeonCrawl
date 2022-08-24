@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.controller.Action;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
@@ -11,6 +12,18 @@ public abstract class Actor implements Drawable {
     private int exp;
 
     private int damage;
+
+    private int abilityPower;
+
+    private int blockPower;
+
+    public Actor(int health, int exp, int damage, int abilityPower, int blockPower) {
+        this.health = health;
+        this.exp = exp;
+        this.damage = damage;
+        this.abilityPower = abilityPower;
+        this.blockPower = blockPower;
+    }
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -21,6 +34,8 @@ public abstract class Actor implements Drawable {
         return this.cell.getActor();
     }
 
+
+
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (checkIfMovePossible(dx, dy)){
@@ -28,6 +43,27 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
+    }
+    public int calcDamage(Action action) {
+        switch (action) {
+            case ATTACK:
+                return damage;
+            case ABILITY:
+                return abilityPower;
+            case BLOCK:
+                return blockPower;
+        }
+
+        return 0;
+    }
+
+
+    public int getBlockPower() {
+        return blockPower;
+    }
+
+    public void setBlockPower(int blockPower) {
+        this.blockPower = blockPower;
     }
 
     public int getHealth() {
@@ -58,5 +94,12 @@ public abstract class Actor implements Drawable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getAbilityPower() {
+        return abilityPower;
+    }
+    public void setAbilityPower(int abilityPower) {
+        this.abilityPower = abilityPower;
     }
 }
