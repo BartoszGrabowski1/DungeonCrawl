@@ -1,6 +1,9 @@
 package com.codecool.dungeoncrawl;
 
 
+import com.codecool.dungeoncrawl.logic.*;
+import com.codecool.dungeoncrawl.logic.Items.Item;
+import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
@@ -22,10 +25,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,10 +45,12 @@ import java.util.List;
 import java.io.IOException;
 
 public class Main extends Application {
+
     private final int SCREEN_SIZE = 20;
     private final int LEVELS_AMOUNT = 3;
     private GameMap[] levels = new GameMap[3];
     private int level = 1;
+    private int eqNumber = 0;
     GameMap map;
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
@@ -83,24 +95,56 @@ public class Main extends Application {
             GridPane ui = new GridPane();
             ui.setPrefWidth(200);
             ui.setPadding(new Insets(10));
+
+
+            TableView tableView = new TableView<>();
+            TableColumn<Item, String> playerInv = new TableColumn<>("Player Inventory");
+            TableColumn<Item, String> column1 = new TableColumn<>("Item");
+            TableColumn<Item, String> column2 = new TableColumn<>("Description");
+            TableColumn<Item, Integer> column3 = new TableColumn<>("Value");
+            column1.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+            column2.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
+            column3.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
+            playerInv.getColumns().addAll(column1, column2, column3);
+            tableView.getColumns().add(playerInv);
+//        tableView.getColumns().add(column1);
+//        tableView.getColumns().add(column2);
+//        tableView.getColumns().add(column3);
+            tableView.setStyle("-fx-background-color: grey");
+            column1.setStyle("-fx-background-color: DimGray");
+            column2.setStyle("-fx-background-color: DimGray");
+            column3.setStyle("-fx-background-color: DimGray");
+            playerInv.setStyle("-fx-background-color: DimGray");
+            tableView.setPrefWidth(240);
+            tableView.setPrefHeight(180);
+
+
             ui.add(new Label("Health: "), 0, 0);
             ui.add(healthLabel, 1, 0);
             pickUpItemBtn.setFocusTraversable(false);
             ui.add(pickUpItemBtn, 1, 1);
             pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-                System.out.println("click!");
                 map.getPlayer().pickUpItem();
+//            tableView.getItems().add(map.getPlayer().getCell().getItem()); i dont know how to fucking optimalize that
+                List<Item> playerInventory = map.getPlayer().getInventory();
+                tableView.getItems().add(playerInventory.get(eqNumber));
+                eqNumber++;
                 refresh();
             });
+            pickUpItemBtn.setStyle("-fx-background-color: grey");
+            tableView.setPlaceholder(new Label("No items found yet"));
 
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+            Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
             gc = fxmlLoader.getController();
             context = gc.getCanvas().getGraphicsContext2D();
 
+
             gc.getBorderpane().setCenter(gc.getCanvas());
             gc.getBorderpane().setRight(ui);
+            gc.getBorderpane().setLeft(tableView);
+
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.playFromStart();
@@ -116,7 +160,7 @@ public class Main extends Application {
     private void incrementLabel() {
         List<Monster> monsters = map.getMonsters();
 
-        for (int i = 0; i < monsters.size(); i++) {
+        for(int i =0; i<monsters.size(); i++){
             monsters.get(i).monsterMovement(map);
         }
         refresh();

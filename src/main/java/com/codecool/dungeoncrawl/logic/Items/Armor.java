@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Armor extends Item {
     public Armor(Cell cell) {
-        super(cell);
+        super(cell, "Armor", "Iron Chest", 997);
     }
 
 
