@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
+import com.codecool.dungeoncrawl.logic.controller.FightController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class Player extends Actor {
         }
         if(this.getCell().getNeighbor(x,y).getActor() instanceof Monster)
         {
+            FightController.isFightAvailable = true;
+            FightController.monster = (Monster) this.getCell().getNeighbor(x,y).getActor();
             return false;
         }
         return true;

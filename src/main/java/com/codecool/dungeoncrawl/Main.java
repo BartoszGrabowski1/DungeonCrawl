@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -39,7 +40,7 @@ public class Main extends Application {
     private final int LEVELS_AMOUNT = 3;
     private GameMap[] levels = new GameMap[3];
     private int level = 1;
-    GameMap map;
+     public static GameMap map;
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
             SCREEN_SIZE * Tiles.TILE_WIDTH);
@@ -131,6 +132,11 @@ public class Main extends Application {
                 break;
             case R:
                 gc.getFight();
+        }
+        if (FightController.isFightAvailable ){
+            FightController.player = map.getPlayer();
+            gc.getFight();
+            FightController.isFightAvailable = false;
         }
     }
 
