@@ -34,9 +34,16 @@ public class MapLoader {
         return mapGenerator.genTilesLevel();
     }
 
-    public static GameMap loadMap() {
+    public static GameMap loadMap(boolean isBossLevel) {
         Random random = new Random();
-        Scanner scanner = new Scanner(generateMap());
+        Scanner scanner;
+        if (isBossLevel) {
+            InputStream mapLevel = MapLoader.class.getResourceAsStream("/boss.txt");
+            scanner = new Scanner(mapLevel);
+        } else {
+            String mapLevel = generateMap();
+            scanner = new Scanner(mapLevel);
+        }
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
@@ -102,6 +109,9 @@ public class MapLoader {
                             break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
+                            break;
+                        case 'd':
+                            cell.setType(CellType.CLOSED_DOORS);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

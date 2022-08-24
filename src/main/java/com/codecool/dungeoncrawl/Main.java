@@ -16,7 +16,6 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,7 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -38,6 +36,7 @@ public class Main extends Application {
     private final int SCREEN_SIZE = 20;
     private final int LEVELS_AMOUNT = 3;
     private GameMap[] levels = new GameMap[3];
+    private GameMap bossLevel;
     private int level = 1;
     GameMap map;
     Canvas canvas = new Canvas(
@@ -46,12 +45,7 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
-
     GameController gc;
-
-
-    public Main() throws IOException {
-    }
 
     public static void main(String[] args) {
         launch(args);
@@ -75,8 +69,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         printMenu();
         if (MenuController.nextWindow && NameController.startGame) {
+            bossLevel = MapLoader.loadMap(true);
             for (int i = 0; i < LEVELS_AMOUNT; i++) {
-                levels[i] = MapLoader.loadMap();
+                levels[i] = MapLoader.loadMap(false);
             }
             map = levels[level - 1];
             map.getPlayer().setDeveloper();
@@ -147,7 +142,7 @@ public class Main extends Application {
             case R:
                 gc.getFight();
         }
-        if (FightController.isFightAvailable ){
+        if (FightController.isFightAvailable) {
             FightController.player = map.getPlayer();
             gc.getFight();
             FightController.isFightAvailable = false;
@@ -180,7 +175,11 @@ public class Main extends Application {
     private void checkTile() {
         if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
             level++;
-            map = levels[level - 1];
+            if (level > LEVELS_AMOUNT) {
+                map = bossLevel;
+            } else {
+                map = levels[level - 1];
+            }
         }
     }
 }

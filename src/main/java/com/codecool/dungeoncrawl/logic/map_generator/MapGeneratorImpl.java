@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -421,7 +423,6 @@ public class MapGeneratorImpl implements MapGenerator {
         sb.append(getWIDTH()).append(" ").append(getHEIGHT()).append("\n");
         for (String row : getTILES_LEVEL()) {
             sb.append(row).append("\n");
-            System.out.println(row);
         }
         return sb.toString();
     }
