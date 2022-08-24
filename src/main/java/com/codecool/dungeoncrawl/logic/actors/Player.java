@@ -46,6 +46,11 @@ public class Player extends Actor {
         return true;
     }
 
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
     public String getTileName() {
         return "player";
     }
