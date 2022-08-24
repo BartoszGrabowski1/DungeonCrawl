@@ -50,6 +50,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
     GameController gc;
+    private Timeline animation;
 
     public static void main(String[] args) {
         launch(args);
@@ -126,9 +127,9 @@ public class Main extends Application {
             gc.getBorderpane().setRight(ui);
             gc.getBorderpane().setLeft(tableView);
 
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.playFromStart();
+            animation = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.playFromStart();
             primaryStage.setScene(scene);
             refresh();
             scene.setOnKeyPressed(this::onKeyPressed);
@@ -173,6 +174,7 @@ public class Main extends Application {
                 gc.getFight();
         }
         if (FightController.isFightAvailable) {
+            animation.stop();
             FightController.player = map.getPlayer();
             gc.getFight();
             FightController.isFightAvailable = false;
@@ -200,6 +202,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        animation.play();
     }
 
     private void checkTile() {

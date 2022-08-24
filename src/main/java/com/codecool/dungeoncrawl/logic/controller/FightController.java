@@ -111,6 +111,8 @@ public class FightController {
     }
 
 
+
+
     private Action makeMonsterMove() {
         return Action.values()[(int) (Math.random() * Action.values().length)];
     }
