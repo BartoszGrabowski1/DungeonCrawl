@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 import java.util.Random;
 
@@ -88,44 +89,34 @@ public class FightController {
     }
 
 
-        private void makeMove(Action userAction, Player player, Monster monster) {
-
-
-            Action monsterAction = makeMonsterMove();
-
-            Action.ActionResult result = userAction.checkAgainst(monsterAction);
-
-            if (result == Action.ActionResult.DRAW) {
-
-                output.appendText("DRAW\n");
-
-            } else if (result == Action.ActionResult.WIN) {
-
-                int dmg = player.calcDamage(userAction);
-
-                monster.setHealth(monster.getHealth() - dmg);
-
-                output.appendText("Player deals " + dmg + " to AI \n");
-
-            } else { // LOSE
-
-                int dmg = monster.calcDamage(monsterAction);
-
-                player.setHealth(player.getHealth() - dmg);
-
-                output.appendText("Monster deals " + dmg + " to player \n");
-
-            }
+    private void makeMove(Action userAction, Player player, Monster monster) {
+        Action monsterAction = makeMonsterMove();
+        Action.ActionResult result = userAction.checkAgainst(monsterAction);
+        if (result == Action.ActionResult.DRAW) {
+            output.appendText("DRAW\n");
+        } else if (result == Action.ActionResult.WIN) {
+            int dmg = player.calcDamage(userAction);
+            monster.setHealth(monster.getHealth() - dmg);
+            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
+        } else { // LOSE
+            int dmg = monster.calcDamage(monsterAction);
+            player.setHealth(player.getHealth() - dmg);
+            output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
         }
-
-
-        private Action makeMonsterMove() {
-            return Action.values()[(int) (Math.random() * Action.values().length)];
+        initialize();
+        if (monster.getHealth() < 0) {
+            Stage stageToClose = (Stage) output.getScene().getWindow();
+            stageToClose.close();
         }
-
-        private static Random random = new Random();
-
-
-
     }
+
+
+    private Action makeMonsterMove() {
+        return Action.values()[(int) (Math.random() * Action.values().length)];
+    }
+
+    private static Random random = new Random();
+
+
+}
 
