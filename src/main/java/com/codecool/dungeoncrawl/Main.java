@@ -10,9 +10,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.controller.GameController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,11 +34,14 @@ import java.io.IOException;
 public class Main extends Application {
 
     private final int SCREEN_SIZE = 20;
-    GameMap map = MapLoader.loadMap();
-
-    GameController gc;
-
-    GraphicsContext context;
+    private final int LEVELS_AMOUNT = 3;
+    private GameMap[] levels = new GameMap[3];
+    private int level = 1;
+    GameMap map;
+    Canvas canvas = new Canvas(
+            SCREEN_SIZE * Tiles.TILE_WIDTH,
+            SCREEN_SIZE * Tiles.TILE_WIDTH);
+    GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
 
@@ -53,9 +54,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        for (int i = 0; i < LEVELS_AMOUNT; i++) {
+            levels[i] = MapLoader.loadMap();
+        }
+        map = levels[level - 1];
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
+
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
@@ -66,7 +73,7 @@ public class Main extends Application {
             map.getPlayer().pickUpItem();
             refresh();
         });
-
+        
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
@@ -78,13 +85,13 @@ public class Main extends Application {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
+        Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-
     }
 
     private void incrementLabel() {
@@ -123,7 +130,8 @@ public class Main extends Application {
         }
     }
 
-    private void refresh() {
+    private void refresh() throws IOException {
+        checkTile();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
@@ -143,5 +151,12 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    private void checkTile() throws IOException {
+        if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
+            level++;
+            map = levels[level - 1];
+        }
     }
 }
