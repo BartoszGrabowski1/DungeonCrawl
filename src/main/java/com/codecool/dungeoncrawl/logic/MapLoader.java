@@ -94,7 +94,7 @@ public class MapLoader {
                             break;
                         case '@':
                             addFloor(random, cell);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(cell,NameController.getUserName()));
                             break;
                         case '1':
                             addFloor(random, cell);
