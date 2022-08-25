@@ -11,9 +11,6 @@ import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
-import com.codecool.dungeoncrawl.logic.controller.GameController;
-import com.codecool.dungeoncrawl.logic.music.MusicPlayer;
-import com.sun.javafx.iio.gif.GIFImageLoader2;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,12 +31,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.nio.file.Paths;
+
 import java.util.List;
 import java.io.IOException;
-import java.util.List;
+import java.util.Random;
 
 import static com.codecool.dungeoncrawl.logic.music.MusicPlayer.*;
 
@@ -52,8 +47,11 @@ public class Main extends Application {
     private int level = 1;
     private int eqNumber = 0;
 
+    private String[] skeletonSoundFiles = new String[]{};
+    private String[] vampireSoundFiles = new String[]{};
+    private String[] medusaSoundFiles = new String[]{};
 
-
+    private Random random = new Random();
 
 
     public static GameMap map;
@@ -155,13 +153,40 @@ public class Main extends Application {
             animation = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
             animation.setCycleCount(Animation.INDEFINITE);
             animation.playFromStart();
+            if (!map.getMonsters().isEmpty()) {
+                animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds()));
+                animation.setCycleCount(Animation.INDEFINITE);
+                animation.playFromStart();
+            }
+
             primaryStage.setScene(scene);
             refresh();
             scene.setOnKeyPressed(this::onKeyPressed);
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
-            playSound(opening,  (float)0.1);
+            playSound(opening, (float) 0.1);
+        }
+    }
+
+    public void playRandomMonsterTypeSound(String [] monsterTypeSounds) {
+        int soundNumber = random.nextInt(3);
+        playSound(monsterTypeSounds[soundNumber],(float)0.3);
+    }
+
+
+    public void playRandomMonsterSounds() {
+        int monsterNumber = random.nextInt(3);
+        switch (monsterNumber) {
+            case 0:
+                playRandomMonsterTypeSound(skeletonSoundFiles);
+                break;
+            case 1:
+                playRandomMonsterTypeSound(vampireSoundFiles);
+                break;
+            case 2:
+                playRandomMonsterTypeSound(medusaSoundFiles);
+                break;
         }
     }
 
@@ -249,6 +274,7 @@ public class Main extends Application {
             level++;
             if (level > LEVELS_AMOUNT) {
                 map = bossLevel;
+                playSound(bossSound, (float) 0.3);
             } else {
                 map = levels[level - 1];
             }
