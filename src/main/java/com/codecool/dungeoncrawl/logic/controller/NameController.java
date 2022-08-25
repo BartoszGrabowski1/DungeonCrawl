@@ -8,16 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class NameController {
-
-    @FXML
-    private Label adviceLabel;
-
     @FXML
     private TextField tfName;
-
-    @FXML
-    private Label titleLabel;
-
 
     public static String userName;
 

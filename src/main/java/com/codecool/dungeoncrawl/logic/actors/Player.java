@@ -20,13 +20,11 @@ public class Player extends Actor {
 
     private String[] developersNames = new String[]{"BARTEK", "DAREK", "MATEUSZ", "SYLWESTER", "KAROL"};
 
-    private boolean developer;
-
     private String name;
 
     public Player(Cell cell, String name) {
         super(cell);
-        super.setHealth(400);
+        super.setHealth(600);
         super.setDamage(30);
         super.setAbilityPower(70);
         super.setBlockPower(30);
@@ -34,6 +32,12 @@ public class Player extends Actor {
         super.setMana(100);
         this.name = name.toUpperCase(Locale.ROOT);
     }
+
+    @Override
+    public int getExp() {
+        return (int) (Math.sqrt(100 * (2 * super.getExp()+25)+50)/50);
+    }
+
 
     public void pickUpItem() {
         inventory.add(this.getCell().getItem());

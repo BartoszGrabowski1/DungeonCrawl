@@ -170,8 +170,8 @@ public class Main extends Application {
     }
 
     public void playRandomMonsterTypeSound(String [] monsterTypeSounds) {
-        int soundNumber = random.nextInt(3);
-        playSound(monsterTypeSounds[soundNumber],(float)0.3);
+        int soundNumber = random.nextInt(0,10);
+        playSound(monsterTypeSounds[soundNumber],(float)1);
     }
 
 
@@ -200,30 +200,28 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        //wywolanie okna game over
+        if (FightController.isGameOver){
+            gameOver();
+        }
         playSound(stepSound, (float) 0.1);
         switch (keyEvent.getCode()) {
             case W:
-            case UP:
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
             case S:
-            case DOWN:
                 map.getPlayer().move(0, 1);
                 refresh();
                 break;
             case A:
-            case LEFT:
                 map.getPlayer().move(-1, 0);
                 refresh();
                 break;
             case D:
-            case RIGHT:
                 map.getPlayer().move(1, 0);
                 refresh();
                 break;
-            case R:
-                gc.getFight();
             default:
                 break;
         }
@@ -232,46 +230,51 @@ public class Main extends Application {
         }
     }
 
+
+
+
+
     private void startFight() {
         animation.stop();
         FightController.player = map.getPlayer();
         gc.getFight();
         FightController.isFightAvailable = false;
+
     }
 
     private void refresh() {
-        boolean PlayerOnItem = false;
-        checkTile();
-        context.setFill(Color.BLACK);
-        context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
-            for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
-                try {
-                    Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
-                    if (cell.getActor() != null) {
-                        Tiles.drawTile(context, cell.getActor(), x, y);
-                        if (cell.getItem() != null && cell.getActor() instanceof Player) {
-                            PlayerOnItem = true;
+            boolean PlayerOnItem = false;
+            checkTile();
+            context.setFill(Color.BLACK);
+            context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+            for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
+                for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
+                    try {
+                        Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
+                        if (cell.getActor() != null) {
+                            Tiles.drawTile(context, cell.getActor(), x, y);
+                            if (cell.getItem() != null && cell.getActor() instanceof Player) {
+                                PlayerOnItem = true;
+                            }
+                        } else if (cell.getItem() != null) {
+                            Tiles.drawTile(context, cell.getItem(), x, y);
+                        } else {
+                            Tiles.drawTile(context, cell, x, y);
                         }
-                    } else if (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell.getItem(), x, y);
-                    } else {
-                        Tiles.drawTile(context, cell, x, y);
+                    } catch (Exception e) {
+                        Tiles.drawTile(context, new Cell(map, x, y, CellType.EMPTY), x, y);
                     }
-                } catch (Exception e) {
-                    Tiles.drawTile(context, new Cell(map, x, y, CellType.EMPTY), x, y);
                 }
             }
-        }
-        if (PlayerOnItem) {
-            showButton();
-        } else {
-            hideButton();
-        }
+            if (PlayerOnItem) {
+                showButton();
+            } else {
+                hideButton();
+            }
 
-        healthLabel.setText("" + map.getPlayer().getHealth());
-        animation.play();
-    }
+            healthLabel.setText("" + map.getPlayer().getHealth());
+            animation.play();
+        }
 
     private void checkTile() {
         if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
@@ -282,6 +285,14 @@ public class Main extends Application {
             } else {
                 map = levels[level - 1];
             }
+        }
+    }
+
+    private void gameOver(){
+        if (FightController.isGameOver) {
+            Stage stageToClose = (Stage) pickUpItemBtn.getScene().getWindow();
+            stageToClose.close();
+            gc.gameOverView();
         }
     }
 }

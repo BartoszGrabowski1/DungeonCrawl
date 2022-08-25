@@ -28,9 +28,6 @@ public class FightController {
     private Button buttonBlock;
 
     @FXML
-    private Label labelFight;
-
-    @FXML
     private Label monsterDamage;
 
     @FXML
@@ -69,13 +66,14 @@ public class FightController {
     public static Player player;
     public static Monster monster;
     public static boolean isFightAvailable = false;
+    public static boolean isGameOver = false;
 
 
     public void initialize() {
         playerName.setText(NameController.userName);
         playerHealth.setText("HP: " + player.getHealth());
         playerAbility.setText("ABILITY: " + player.getAbilityPower());
-        playerLvl.setText("EXP: " + player.getExp());
+        playerLvl.setText("LVL: " + player.getExp());
         playerDamage.setText("DAMAGE: " + player.getDamage());
         playerMana.setText("MANA: " + player.getMana());
 
@@ -89,7 +87,6 @@ public class FightController {
         buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
         if (player.getMana() >= 40){
             buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
-            player.setMana(player.getMana() - 40);
         } else {
             buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
         }
@@ -103,6 +100,7 @@ public class FightController {
             output.appendText("DRAW\n");
         } else if (result == Action.ActionResult.WIN) {
             int dmg = player.calcDamage(userAction);
+            if (userAction == Action.ABILITY) {player.setMana(player.getMana() - 40);}
             monster.setHealth(monster.getHealth() - dmg);
             output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
         } else { // LOSE
@@ -110,22 +108,40 @@ public class FightController {
             player.setHealth(player.getHealth() - dmg);
             output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
         }
-        player.setMana(player.getMana() + 10);
+        if (player.getMana() < 100){
+            player.setMana(player.getMana() + 10);
+        }
+        checkBattleResult(player, monster);
         initialize();
+    }
+
+    private void checkBattleResult(Player player, Monster monster) {
         if (monster.getHealth() <= 0) {
-            monster.getActor().getCell().setActor(null);
-            GameMap.removeMonster(monster);
-            Stage stageToClose = (Stage) output.getScene().getWindow();
-            stageToClose.close();
+            playerWin(monster);
+        } else if (player.getHealth() <= 0){
+            monsterWin();
         }
     }
+
+    private void playerWin(Monster monster) {
+        player.setExp(player.getExp() + monster.getExp());
+        monster.getActor().getCell().setActor(null);
+        GameMap.removeMonster(monster);
+        Stage stageToClose = (Stage) output.getScene().getWindow();
+        stageToClose.close();
+    }
+
+    private void monsterWin() {
+        Stage stageToClose = (Stage) output.getScene().getWindow();
+        stageToClose.close();
+        isGameOver = true;
+    }
+
 
 
     private Action makeMonsterMove() {
         return Action.values()[(int) (Math.random() * Action.values().length)];
     }
-
-    private static Random random = new Random();
 
 
 }
