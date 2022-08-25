@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
@@ -33,7 +34,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.nio.file.Paths;
@@ -54,7 +54,10 @@ public class Main extends Application {
 
 
 
-    GameMap map;
+
+
+    public static GameMap map;
+
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
             SCREEN_SIZE * Tiles.TILE_WIDTH);
@@ -62,6 +65,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
     GameController gc;
+    private Timeline animation;
 
 
     public static void main(String[] args) {
@@ -81,6 +85,16 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    public void hideButton() {
+        pickUpItemBtn.setVisible(false);
+    }
+
+    public void showButton() {
+        pickUpItemBtn.setVisible(true);
+    }
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         printMenu();
@@ -127,6 +141,7 @@ public class Main extends Application {
             });
             pickUpItemBtn.setStyle("-fx-background-color: grey");
             tableView.setPlaceholder(new Label("No items found yet"));
+            hideButton();
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
@@ -137,9 +152,9 @@ public class Main extends Application {
             gc.getBorderpane().setRight(ui);
             gc.getBorderpane().setLeft(tableView);
 
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.playFromStart();
+            animation = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.playFromStart();
             primaryStage.setScene(scene);
             refresh();
             scene.setOnKeyPressed(this::onKeyPressed);
@@ -188,13 +203,16 @@ public class Main extends Application {
                 break;
         }
         if (FightController.isFightAvailable) {
+            animation.stop();
             FightController.player = map.getPlayer();
             gc.getFight();
             FightController.isFightAvailable = false;
+            refresh();
         }
     }
 
     private void refresh() {
+        boolean PlayerOnItem = false;
         checkTile();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
@@ -204,6 +222,9 @@ public class Main extends Application {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
+                        if (cell.getItem() != null && cell.getActor() instanceof Player) {
+                            PlayerOnItem = true;
+                        }
                     } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
                     } else {
@@ -214,7 +235,14 @@ public class Main extends Application {
                 }
             }
         }
+        if (PlayerOnItem) {
+            showButton();
+        } else {
+            hideButton();
+        }
+
         healthLabel.setText("" + map.getPlayer().getHealth());
+        animation.play();
     }
 
     private void checkTile() {

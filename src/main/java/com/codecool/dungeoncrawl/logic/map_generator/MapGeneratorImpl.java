@@ -1,8 +1,5 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 public class MapGeneratorImpl implements MapGenerator {
@@ -20,14 +17,10 @@ public class MapGeneratorImpl implements MapGenerator {
     private List<int[][]> CORRIDOR_LIST;
     private List<String> TILES_LEVEL;
     private final Random RANDOM = new Random((System.currentTimeMillis() / 1000L));
-    private final int MONSTERS;
+    private final int SKELETONS;
+    private final int VAMPIRES;
+    private final int MEDUSAS;
     private final char[] ITEMS;
-
-    private int stairs;
-
-    public int getStairs() {
-        return stairs;
-    }
 
     public int getWIDTH() {
         return WIDTH;
@@ -85,8 +78,16 @@ public class MapGeneratorImpl implements MapGenerator {
         return RANDOM;
     }
 
-    public int getMONSTERS() {
-        return MONSTERS;
+    public int getSKELETONS() {
+        return SKELETONS;
+    }
+
+    public int getVAMPIRES() {
+        return VAMPIRES;
+    }
+
+    public int getMEDUSAS() {
+        return MEDUSAS;
     }
 
     public char[] getITEMS() {
@@ -101,7 +102,10 @@ public class MapGeneratorImpl implements MapGenerator {
                             boolean ROOMS_OVERLAP,
                             int RANDOM_CONNECTIONS,
                             int RANDOM_SPURS,
-                            int MONSTERS, char[] items) {
+                            int SKELETONS,
+                            int VAMPIRES,
+                            int MEDUSAS,
+                            char[] items) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.MAX_ROOMS = MAX_ROOMS;
@@ -115,7 +119,9 @@ public class MapGeneratorImpl implements MapGenerator {
         this.ROOM_LIST = new ArrayList<>();
         this.CORRIDOR_LIST = new ArrayList<>();
         this.TILES_LEVEL = new ArrayList<>();
-        this.MONSTERS = MONSTERS;
+        this.SKELETONS = SKELETONS;
+        this.VAMPIRES = VAMPIRES;
+        this.MEDUSAS = MEDUSAS;
         this.ITEMS = items;
     }
 
@@ -414,7 +420,9 @@ public class MapGeneratorImpl implements MapGenerator {
 
         // TODO: add player/monsters to map
         addPlayerToMap();
-        addMonstersToMap();
+        addSkeletonsToMap();
+        addVampiresToMap();
+        addMedusasToMap();
         addItemsToMap();
         addStairsToMap();
 
@@ -452,16 +460,58 @@ public class MapGeneratorImpl implements MapGenerator {
     }
 
 
-    private void addMonstersToMap() {
+    private void addSkeletonsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
         int monstersAdded = 0;
-        while (monstersAdded < getMONSTERS()) {
+        while (monstersAdded < getSKELETONS()) {
             for (String row : tempArray) {
                 Collections.shuffle(tempArray);
                 if (row.contains(".")) {
                     StringBuilder sb = new StringBuilder(row);
                     try {
                         sb.setCharAt(row.indexOf("."), 's');
+                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                        monstersAdded++;
+                        break;
+                    } catch (Exception e) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    private void addVampiresToMap() {
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        int monstersAdded = 0;
+        while (monstersAdded < getVAMPIRES()) {
+            for (String row : tempArray) {
+                Collections.shuffle(tempArray);
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    try {
+                        sb.setCharAt(row.indexOf("."), 'v');
+                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                        monstersAdded++;
+                        break;
+                    } catch (Exception e) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    private void addMedusasToMap() {
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        int monstersAdded = 0;
+        while (monstersAdded < getMEDUSAS()) {
+            for (String row : tempArray) {
+                Collections.shuffle(tempArray);
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    try {
+                        sb.setCharAt(row.indexOf("."), 'm');
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
                         monstersAdded++;
                         break;

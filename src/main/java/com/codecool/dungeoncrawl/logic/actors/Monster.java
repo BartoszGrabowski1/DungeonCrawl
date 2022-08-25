@@ -8,13 +8,8 @@ import java.util.Random;
 
 public abstract class Monster extends Actor {
 
-
     public Monster(Cell cell) {
         super(cell);
-    }
-
-    public Monster(int health, int exp, int damage, int abilityPower, int blockPower) {
-        super(health, exp, damage, abilityPower, blockPower);
     }
 
     private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
@@ -25,12 +20,13 @@ public abstract class Monster extends Actor {
         return possibleDirections[number];
     }
 
-
     @Override
     public boolean checkIfMovePossible(int x, int y) {
         if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3) {
+                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getActor() instanceof Monster) {
