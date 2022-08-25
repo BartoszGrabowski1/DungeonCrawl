@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
@@ -74,6 +75,17 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    public void hideButton(){
+        pickUpItemBtn.setVisible(false);
+    }
+
+    public void showButton(){
+        pickUpItemBtn.setVisible(true);
+    }
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         printMenu();
@@ -120,6 +132,7 @@ public class Main extends Application {
             });
             pickUpItemBtn.setStyle("-fx-background-color: grey");
             tableView.setPlaceholder(new Label("No items found yet"));
+            hideButton();
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
@@ -190,6 +203,7 @@ public class Main extends Application {
     }
 
     private void refresh() {
+        boolean PlayerOnItem = false;
         checkTile();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
@@ -199,6 +213,9 @@ public class Main extends Application {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
+                        if (cell.getItem() != null && cell.getActor() instanceof Player){
+                            PlayerOnItem = true;
+                        }
                     } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
                     } else {
@@ -209,6 +226,12 @@ public class Main extends Application {
                 }
             }
         }
+        if (PlayerOnItem){
+            showButton();
+        } else {
+            hideButton();
+        }
+
         healthLabel.setText("" + map.getPlayer().getHealth());
         animation.play();
     }
