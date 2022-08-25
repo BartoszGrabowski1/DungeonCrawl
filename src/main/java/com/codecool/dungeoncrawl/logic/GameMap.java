@@ -13,7 +13,7 @@ public class GameMap {
 
     private Player player;
 
-    private List<Monster> monsters = new ArrayList<>();
+    private static List<Monster> monsters = new ArrayList<>();
 
     public List<Monster> getMonsters() {
         return monsters;
@@ -21,6 +21,11 @@ public class GameMap {
 
     public void addMonsters(Monster monster){
         monsters.add(monster);
+    }
+
+
+    public static void removeMonster(Monster monster){
+        monsters.remove(monster);
     }
 
     public GameMap(int width, int height, CellType defaultCellType) {
