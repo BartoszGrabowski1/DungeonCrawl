@@ -27,7 +27,9 @@ public abstract class Monster extends Actor {
     public boolean checkIfMovePossible(int x, int y) {
         if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3) {
+                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getActor() instanceof Monster) {
