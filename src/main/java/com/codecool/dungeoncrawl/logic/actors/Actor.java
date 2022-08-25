@@ -25,14 +25,6 @@ public abstract class Actor implements Drawable {
         return damage;
     }
 
-    public Actor(int health, int exp, int damage, int abilityPower, int blockPower) {
-        this.health = health;
-        this.exp = exp;
-        this.damage = damage;
-        this.abilityPower = abilityPower;
-        this.blockPower = blockPower;
-    }
-
     public Actor(Cell cell) {
         this.cell = cell;
         this.cell.setActor(this);

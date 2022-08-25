@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
@@ -139,7 +140,7 @@ public class Main extends Application {
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
-            playSound(opening);
+//            playSound(opening);
         }
     }
 
@@ -186,8 +187,11 @@ public class Main extends Application {
             FightController.player = map.getPlayer();
             gc.getFight();
             FightController.isFightAvailable = false;
+            refresh();
         }
     }
+
+
 
     private void refresh() {
         checkTile();
