@@ -10,6 +10,8 @@ import javax.sound.sampled.FloatControl;
 public class MusicPlayer {
     public static String opening = "/mainSound.wav";
     public static String stepSound = "/footStepSound.wav";
+
+    public static String bossSound = "/bossSound.wav";
     public static void playSound(String fileName,float volume) {
         try {
             Clip clip = AudioSystem.getClip();
