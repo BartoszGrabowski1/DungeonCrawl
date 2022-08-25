@@ -228,11 +228,15 @@ public class Main extends Application {
                 break;
         }
         if (FightController.isFightAvailable) {
-            animation.stop();
-            FightController.player = map.getPlayer();
-            gc.getFight();
-            FightController.isFightAvailable = false;
+            startFight();
         }
+    }
+
+    private void startFight() {
+        animation.stop();
+        FightController.player = map.getPlayer();
+        gc.getFight();
+        FightController.isFightAvailable = false;
     }
 
     private void refresh() {
