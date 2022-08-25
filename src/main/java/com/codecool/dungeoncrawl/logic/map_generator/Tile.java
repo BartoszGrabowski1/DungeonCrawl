@@ -3,9 +3,7 @@ package com.codecool.dungeoncrawl.logic.map_generator;
 public enum Tile {
     STONE(" "),
     FLOOR("."),
-    WALL("#"),
-
-    STAIRS("H");
+    WALL("#");
 
     private final String tile;
 

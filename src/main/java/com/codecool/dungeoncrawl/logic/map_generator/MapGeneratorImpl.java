@@ -452,7 +452,9 @@ public class MapGeneratorImpl implements MapGenerator {
             Collections.shuffle(tempArray);
             if (row.contains(".")) {
                 StringBuilder sb = new StringBuilder(row);
-                sb.setCharAt(row.indexOf("."), 'H');
+                int randomIndex = getRANDOM().nextInt(getWIDTH());
+                if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, 'H');
+                else sb.setCharAt(row.indexOf("."), 'H');
                 getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
                 break;
             }
@@ -461,66 +463,15 @@ public class MapGeneratorImpl implements MapGenerator {
 
 
     private void addSkeletonsToMap() {
-        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
-        int monstersAdded = 0;
-        while (monstersAdded < getSKELETONS()) {
-            for (String row : tempArray) {
-                Collections.shuffle(tempArray);
-                if (row.contains(".")) {
-                    StringBuilder sb = new StringBuilder(row);
-                    try {
-                        sb.setCharAt(row.indexOf("."), 's');
-                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
-                        monstersAdded++;
-                        break;
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-            }
-        }
+        addMonsterToMap(getSKELETONS(), 's');
     }
 
     private void addVampiresToMap() {
-        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
-        int monstersAdded = 0;
-        while (monstersAdded < getVAMPIRES()) {
-            for (String row : tempArray) {
-                Collections.shuffle(tempArray);
-                if (row.contains(".")) {
-                    StringBuilder sb = new StringBuilder(row);
-                    try {
-                        sb.setCharAt(row.indexOf("."), 'v');
-                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
-                        monstersAdded++;
-                        break;
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-            }
-        }
+        addMonsterToMap(getVAMPIRES(), 'v');
     }
 
     private void addMedusasToMap() {
-        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
-        int monstersAdded = 0;
-        while (monstersAdded < getMEDUSAS()) {
-            for (String row : tempArray) {
-                Collections.shuffle(tempArray);
-                if (row.contains(".")) {
-                    StringBuilder sb = new StringBuilder(row);
-                    try {
-                        sb.setCharAt(row.indexOf("."), 'm');
-                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
-                        monstersAdded++;
-                        break;
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-            }
-        }
+        addMonsterToMap(getMEDUSAS(), 'm');
     }
 
     private void addItemsToMap() {
@@ -532,9 +483,34 @@ public class MapGeneratorImpl implements MapGenerator {
                 if (row.contains(".")) {
                     StringBuilder sb = new StringBuilder(row);
                     try {
-                        sb.setCharAt(row.indexOf("."), getITEMS()[itemsAdded]);
+                        int randomIndex = getRANDOM().nextInt(getWIDTH());
+                        if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, getITEMS()[itemsAdded]);
+                        else sb.setCharAt(row.indexOf("."), getITEMS()[itemsAdded]);
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
                         itemsAdded++;
+                        break;
+                    } catch (Exception e) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    private void addMonsterToMap(int elementsToAdd, char symbol) {
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        int elementsAdded = 0;
+        while (elementsAdded < elementsToAdd) {
+            for (String row : tempArray) {
+                Collections.shuffle(tempArray);
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    try {
+                        int randomIndex = getRANDOM().nextInt(getWIDTH());
+                        if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, symbol);
+                        else sb.setCharAt(row.indexOf("."), symbol);
+                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                        elementsAdded++;
                         break;
                     } catch (Exception e) {
                         continue;
