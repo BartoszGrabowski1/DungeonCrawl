@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic.controller;
 
+import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.fxml.FXML;
@@ -104,7 +106,9 @@ public class FightController {
             output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
         }
         initialize();
-        if (monster.getHealth() < 0) {
+        if (monster.getHealth() <= 0) {
+            monster.getActor().getCell().setActor(null);
+            GameMap.removeMonster(monster);
             Stage stageToClose = (Stage) output.getScene().getWindow();
             stageToClose.close();
         }
