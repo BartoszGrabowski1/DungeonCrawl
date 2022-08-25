@@ -40,7 +40,7 @@ public class MenuController {
     }
 
     @FXML
-    void startGame(ActionEvent event) {
+    void startGame() {
         if (nextWindow) {
             try {
                 Stage stage = new Stage();
