@@ -3,7 +3,10 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.Items.Armor;
 import com.codecool.dungeoncrawl.logic.Items.Item;
+import com.codecool.dungeoncrawl.logic.Items.Key;
+import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
 
@@ -35,11 +38,14 @@ public class Player extends Actor {
 
     public void pickUpItem(){
         inventory.add(this.getCell().getItem());
-        this.getCell().setItem(null);
-        for (Item i : inventory){
-            System.out.print(i.getTileName() + " ");
+        if (this.getCell().getItem() instanceof Sword){
+            this.setDamage(this.getDamage() + 20);
+        }else if (this.getCell().getItem() instanceof Armor){
+            this.setHealth(this.getHealth() + 20);
+        }else if (this.getCell().getItem() instanceof Key){
+            System.out.println("z kluczem robi darek :^)");
         }
-
+        this.getCell().setItem(null);
     }
 
     public boolean checkIfDeveloper() {
