@@ -11,6 +11,7 @@ import com.codecool.dungeoncrawl.logic.controller.GameController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
+import com.codecool.dungeoncrawl.logic.music.MusicPlayer;
 import com.sun.javafx.iio.gif.GIFImageLoader2;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -32,6 +33,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.io.IOException;
@@ -47,6 +51,9 @@ public class Main extends Application {
     private GameMap bossLevel;
     private int level = 1;
     private int eqNumber = 0;
+
+
+
     GameMap map;
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
@@ -55,6 +62,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Button pickUpItemBtn = new Button("Pick up");
     GameController gc;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -138,7 +146,7 @@ public class Main extends Application {
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
-            playSound(opening);
+            playSound(opening,  (float)0.1);
         }
     }
 
@@ -152,33 +160,32 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        playSound(stepSound, (float) 0.1);
         switch (keyEvent.getCode()) {
             case W:
             case UP:
                 map.getPlayer().move(0, -1);
-                playSound(stepSound);
                 refresh();
                 break;
             case S:
             case DOWN:
                 map.getPlayer().move(0, 1);
-                playSound(stepSound);
                 refresh();
                 break;
             case A:
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                playSound(stepSound);
                 refresh();
                 break;
             case D:
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                playSound(stepSound);
                 refresh();
                 break;
             case R:
                 gc.getFight();
+            default:
+                break;
         }
         if (FightController.isFightAvailable) {
             FightController.player = map.getPlayer();
