@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
+import com.codecool.dungeoncrawl.logic.music.MusicPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,14 @@ public class Player extends Actor {
         inventory.add(this.getCell().getItem());
         if (this.getCell().getItem() instanceof Sword) {
             this.setDamage(this.getDamage() + 20);
+            MusicPlayer.playSound("/equip_sword.wav", (float) 1);
         } else if (this.getCell().getItem() instanceof Armor) {
             this.setHealth(this.getHealth() + 20);
+            MusicPlayer.playSound("/equip_armor.wav", (float) 1);
         } else if (this.getCell().getItem() instanceof Key) {
             map.getCell(13, 14).setType(CellType.OPEN_DOORS);
+            MusicPlayer.playSound("/pickup_key.wav", (float) 1);
+            MusicPlayer.playSound("/opened_doors.wav", (float) 1);
         }
         this.getCell().setItem(null);
     }

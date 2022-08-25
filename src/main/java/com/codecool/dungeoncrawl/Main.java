@@ -47,10 +47,6 @@ public class Main extends Application {
     private int level = 1;
     private int eqNumber = 0;
 
-    private String[] skeletonSoundFiles = new String[]{};
-    private String[] vampireSoundFiles = new String[]{};
-    private String[] medusaSoundFiles = new String[]{};
-
     private Random random = new Random();
 
 
@@ -154,7 +150,8 @@ public class Main extends Application {
             animation.setCycleCount(Animation.INDEFINITE);
             animation.playFromStart();
             if (!map.getMonsters().isEmpty()) {
-                animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds()));
+                System.out.println("muzyczka");
+                animation = new Timeline(new KeyFrame(Duration.seconds(3.0), e -> playRandomMonsterSound(monsterSounds)));
                 animation.setCycleCount(Animation.INDEFINITE);
                 animation.playFromStart();
             }
@@ -165,30 +162,16 @@ public class Main extends Application {
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
-            playSound(opening, (float) 0.1);
+//            playSound(opening, (float) 0.1);
+            playSound(opening, (float) 0.4);
         }
     }
 
-    public void playRandomMonsterTypeSound(String [] monsterTypeSounds) {
-        int soundNumber = random.nextInt(3);
-        playSound(monsterTypeSounds[soundNumber],(float)0.3);
+    public void playRandomMonsterSound(String[] monsterTypeSounds) {
+        int soundNumber = random.nextInt(1,11);
+        playSound(monsterTypeSounds[soundNumber],(float)1);
     }
 
-
-    public void playRandomMonsterSounds() {
-        int monsterNumber = random.nextInt(3);
-        switch (monsterNumber) {
-            case 0:
-                playRandomMonsterTypeSound(skeletonSoundFiles);
-                break;
-            case 1:
-                playRandomMonsterTypeSound(vampireSoundFiles);
-                break;
-            case 2:
-                playRandomMonsterTypeSound(medusaSoundFiles);
-                break;
-        }
-    }
 
     private void incrementLabel() {
         List<Monster> monsters = map.getMonsters();
@@ -200,7 +183,7 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        playSound(stepSound, (float) 0.1);
+        playSound(stepSound, (float) 0.4);
         switch (keyEvent.getCode()) {
             case W:
             case UP:
