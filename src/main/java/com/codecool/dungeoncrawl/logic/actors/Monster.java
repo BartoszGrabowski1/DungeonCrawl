@@ -13,9 +13,6 @@ public abstract class Monster extends Actor {
         super(cell);
     }
 
-    public Monster(int health, int exp, int damage, int abilityPower, int blockPower) {
-        super(health, exp, damage, abilityPower, blockPower);
-    }
 
     private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
 

@@ -12,9 +12,6 @@ public class Skeleton extends Monster {
         super.setExp(100);
     }
 
-    public Skeleton(int health, int exp, int damage, int abilityPower, int blockPower) {
-        super(health, exp, damage, abilityPower, blockPower);
-    }
 
     @Override
     public String getTileName() {

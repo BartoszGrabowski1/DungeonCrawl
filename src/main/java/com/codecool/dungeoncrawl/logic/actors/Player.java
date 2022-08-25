@@ -22,10 +22,6 @@ public class Player extends Actor {
     private String name;
 
 
-    public Player(int health, int exp, int damage, int abilityPower, int blockPower) {
-        super(health, exp, damage, abilityPower, blockPower);
-    }
-
 
     public Player(Cell cell,String name) {
         super(cell);
