@@ -78,6 +78,7 @@ public class FightController {
         playerAbility.setText("ABILITY: " + player.getAbilityPower());
         playerLvl.setText("EXP: " + player.getExp());
         playerDamage.setText("DAMAGE: " + player.getDamage());
+        playerMana.setText("MANA: " + player.getMana());
 
         monsterName.setText(monster.getTileName());
         monsterHealth.setText("HP: " + monster.getHealth());
@@ -87,7 +88,12 @@ public class FightController {
 
         buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
         buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
-        buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
+        if (player.getMana() >= 40){
+            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
+            player.setMana(player.getMana() - 40);
+        } else {
+            buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
+        }
     }
 
 
@@ -105,6 +111,7 @@ public class FightController {
             player.setHealth(player.getHealth() - dmg);
             output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
         }
+        player.setMana(player.getMana() + 10);
         initialize();
         if (monster.getHealth() <= 0) {
             monster.getActor().getCell().setActor(null);

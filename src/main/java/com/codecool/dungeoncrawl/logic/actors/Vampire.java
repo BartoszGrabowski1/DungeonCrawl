@@ -7,7 +7,7 @@ public class Vampire extends Monster {
     private final float drainageOfLife = 0.15f;
     public Vampire(Cell cell){
         super(cell);
-        super.setHealth(20);
+        super.setHealth(2000);
         super.setDamage(10);
         super.setAbilityPower(20);
         super.setBlockPower(50);

@@ -29,10 +29,11 @@ public class Player extends Actor {
     public Player(Cell cell,String name) {
         super(cell);
         super.setHealth(400);
-        super.setDamage(100);
-        super.setAbilityPower(150);
-        super.setBlockPower(100);
+        super.setDamage(30);
+        super.setAbilityPower(70);
+        super.setBlockPower(30);
         super.setExp(0);
+        super.setMana(100);
         this.name = name.toUpperCase(Locale.ROOT);
     }
 

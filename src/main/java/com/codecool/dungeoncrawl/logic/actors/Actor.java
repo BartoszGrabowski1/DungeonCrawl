@@ -7,11 +7,13 @@ import com.codecool.dungeoncrawl.logic.controller.Action;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    private int health = 10;
+    private int health;
 
     private int exp;
 
     private int damage;
+
+    private int mana;
 
     private int abilityPower;
 
@@ -94,6 +96,14 @@ public abstract class Actor implements Drawable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 
     public int getAbilityPower() {

@@ -200,7 +200,6 @@ public class Main extends Application {
             FightController.player = map.getPlayer();
             gc.getFight();
             FightController.isFightAvailable = false;
-            refresh();
         }
     }
 
