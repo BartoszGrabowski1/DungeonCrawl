@@ -2,19 +2,14 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
-import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.controller.Action;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
     private int health = 10;
-
     private int exp;
-
     private int damage;
-
     private int abilityPower;
-
     private int blockPower;
 
     public int getExp() {
@@ -34,16 +29,15 @@ public abstract class Actor implements Drawable {
         return this.cell.getActor();
     }
 
-
-
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (checkIfMovePossible(dx, dy)){
+        if (checkIfMovePossible(dx, dy)) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
     }
+
     public int calcDamage(Action action) {
         switch (action) {
             case ATTACK:
@@ -99,6 +93,7 @@ public abstract class Actor implements Drawable {
     public int getAbilityPower() {
         return abilityPower;
     }
+
     public void setAbilityPower(int abilityPower) {
         this.abilityPower = abilityPower;
     }

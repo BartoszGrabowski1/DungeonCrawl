@@ -5,8 +5,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Medusa extends Monster {
 
     private final float chanceOfFreeze = 0.10f;
-    
-    public Medusa(Cell cell){
+
+    public Medusa(Cell cell) {
         super(cell);
         super.setHealth(30);
         super.setDamage(15);

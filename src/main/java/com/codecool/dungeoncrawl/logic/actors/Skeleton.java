@@ -12,7 +12,6 @@ public class Skeleton extends Monster {
         super.setExp(100);
     }
 
-
     @Override
     public String getTileName() {
         return "skeleton";

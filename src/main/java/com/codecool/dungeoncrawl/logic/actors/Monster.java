@@ -8,11 +8,9 @@ import java.util.Random;
 
 public abstract class Monster extends Actor {
 
-
     public Monster(Cell cell) {
         super(cell);
     }
-
 
     private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
 
@@ -21,7 +19,6 @@ public abstract class Monster extends Actor {
         int number = random.nextInt(4);
         return possibleDirections[number];
     }
-
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {

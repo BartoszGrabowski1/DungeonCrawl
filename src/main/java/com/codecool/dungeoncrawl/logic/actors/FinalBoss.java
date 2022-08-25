@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 
 public class FinalBoss extends Monster {
 
-    public FinalBoss(Cell cell){
+    public FinalBoss(Cell cell) {
         super(cell);
         super.setHealth(200);
         super.setDamage(80);
@@ -16,8 +16,9 @@ public class FinalBoss extends Monster {
 
     @Override
     public void monsterMovement(GameMap map) {
-      // boss have no move
+        // boss have no move
     }
+
     @Override
     public String getTileName() {
         return "boss";

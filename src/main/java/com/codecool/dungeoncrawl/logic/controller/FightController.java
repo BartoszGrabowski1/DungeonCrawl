@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.controller;
 
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
@@ -113,8 +112,6 @@ public class FightController {
             stageToClose.close();
         }
     }
-
-
 
 
     private Action makeMonsterMove() {

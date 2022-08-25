@@ -1,16 +1,13 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.Items.Armor;
 import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGenerator;
 import com.codecool.dungeoncrawl.logic.map_generator.MapGeneratorImpl;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 import java.util.Scanner;
@@ -18,7 +15,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static String generateMap() {
-        char[] items = {'1', '2', '3'};
+        char[] items = {'1', '3'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -28,9 +25,9 @@ public class MapLoader {
                 false,
                 1,
                 3,
-                6,
-                3,
-                3,
+                0,
+                0,
+                0,
                 items
         );
         mapGenerator.genLevel();
@@ -96,7 +93,7 @@ public class MapLoader {
                             break;
                         case '@':
                             addFloor(random, cell);
-                            map.setPlayer(new Player(cell,NameController.getUserName()));
+                            map.setPlayer(new Player(cell, NameController.getUserName()));
                             break;
                         case '1':
                             addFloor(random, cell);

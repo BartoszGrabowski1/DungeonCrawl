@@ -1,8 +1,5 @@
 package com.codecool.dungeoncrawl.logic.map_generator;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 public class MapGeneratorImpl implements MapGenerator {
@@ -84,9 +81,11 @@ public class MapGeneratorImpl implements MapGenerator {
     public int getSKELETONS() {
         return SKELETONS;
     }
+
     public int getVAMPIRES() {
         return VAMPIRES;
     }
+
     public int getMEDUSAS() {
         return MEDUSAS;
     }

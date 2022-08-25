@@ -19,12 +19,12 @@ public class GameMap {
         return monsters;
     }
 
-    public void addMonsters(Monster monster){
+    public void addMonsters(Monster monster) {
         monsters.add(monster);
     }
 
 
-    public static void removeMonster(Monster monster){
+    public static void removeMonster(Monster monster) {
         monsters.remove(monster);
     }
 

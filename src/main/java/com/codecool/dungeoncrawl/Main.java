@@ -5,15 +5,12 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.controller.FightController;
 import com.codecool.dungeoncrawl.logic.controller.GameController;
 import com.codecool.dungeoncrawl.logic.controller.MenuController;
 import com.codecool.dungeoncrawl.logic.controller.NameController;
-import com.codecool.dungeoncrawl.logic.controller.GameController;
-import com.sun.javafx.iio.gif.GIFImageLoader2;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,8 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.nio.file.Paths;
-import java.util.List;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -49,7 +45,7 @@ public class Main extends Application {
     private GameMap bossLevel;
     private int level = 1;
     private int eqNumber = 0;
-    GameMap map;
+    public static GameMap map;
     Canvas canvas = new Canvas(
             SCREEN_SIZE * Tiles.TILE_WIDTH,
             SCREEN_SIZE * Tiles.TILE_WIDTH);
@@ -77,14 +73,13 @@ public class Main extends Application {
         }
     }
 
-    public void hideButton(){
+    public void hideButton() {
         pickUpItemBtn.setVisible(false);
     }
 
-    public void showButton(){
+    public void showButton() {
         pickUpItemBtn.setVisible(true);
     }
-
 
 
     @Override
@@ -153,7 +148,7 @@ public class Main extends Application {
 
             primaryStage.setTitle("Dungeon Crawl");
             primaryStage.show();
-//            playSound(opening);
+            playSound(opening);
         }
     }
 
@@ -204,8 +199,6 @@ public class Main extends Application {
         }
     }
 
-
-
     private void refresh() {
         boolean PlayerOnItem = false;
         checkTile();
@@ -217,7 +210,7 @@ public class Main extends Application {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
-                        if (cell.getItem() != null && cell.getActor() instanceof Player){
+                        if (cell.getItem() != null && cell.getActor() instanceof Player) {
                             PlayerOnItem = true;
                         }
                     } else if (cell.getItem() != null) {
@@ -230,7 +223,7 @@ public class Main extends Application {
                 }
             }
         }
-        if (PlayerOnItem){
+        if (PlayerOnItem) {
             showButton();
         } else {
             hideButton();
