@@ -11,12 +11,11 @@ public class MapGeneratorImpl implements MapGenerator {
     private boolean ROOMS_OVERLAP;
     private int RANDOM_CONNECTIONS;
     private int RANDOM_SPURS;
-    private List<Tile> TILES;
     private Tile[][] LEVEL;
     private List<int[]> ROOM_LIST;
     private List<int[][]> CORRIDOR_LIST;
     private List<String> TILES_LEVEL;
-    private final Random RANDOM = new Random((System.currentTimeMillis() / 1000L));
+    private final Random RANDOM = new Random();
     private final int SKELETONS;
     private final int VAMPIRES;
     private final int MEDUSAS;
@@ -52,10 +51,6 @@ public class MapGeneratorImpl implements MapGenerator {
 
     public int getRANDOM_SPURS() {
         return RANDOM_SPURS;
-    }
-
-    public List<Tile> getTILES() {
-        return TILES;
     }
 
     public Tile[][] getLEVEL() {
@@ -114,7 +109,6 @@ public class MapGeneratorImpl implements MapGenerator {
         this.ROOMS_OVERLAP = ROOMS_OVERLAP;
         this.RANDOM_CONNECTIONS = RANDOM_CONNECTIONS;
         this.RANDOM_SPURS = RANDOM_SPURS;
-        this.TILES = new ArrayList<>(Arrays.asList(Tile.STONE, Tile.FLOOR, Tile.WALL));
         this.LEVEL = new Tile[this.WIDTH][this.HEIGHT];
         this.ROOM_LIST = new ArrayList<>();
         this.CORRIDOR_LIST = new ArrayList<>();
@@ -418,7 +412,6 @@ public class MapGeneratorImpl implements MapGenerator {
 
     private String saveMap() {
 
-        // TODO: add player/monsters to map
         addPlayerToMap();
         addSkeletonsToMap();
         addVampiresToMap();
