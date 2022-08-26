@@ -16,6 +16,9 @@ public enum CellType {
     GOLD_4("gold4"),
     GOLD_5("gold5"),
     GOLD_6("gold6"),
+    BLOOD_1("blood1"),
+    BLOOD_2("blood2"),
+    BLOOD_3("blood3"),
     STAIRS("stairs");
 
     private final String tileName;
