@@ -21,7 +21,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="Attack" />
+                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="26.0" prefWidth="132.0" text="Attack" />
                   <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Block" />
                   <Button fx:id="buttonAbility" layoutY="205.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Ability" />
                   <ComboBox fx:id="boxSpells" layoutY="231.0" prefHeight="26.0" prefWidth="131.0" promptText="          Cast spell" />

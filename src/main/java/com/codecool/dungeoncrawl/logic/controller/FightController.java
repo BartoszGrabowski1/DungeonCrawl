@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.controller;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -83,37 +84,37 @@ public class FightController {
         monsterLvl.setText("EXP:" + monster.getExp());
         monsterAbility.setText("ABILITY: " + monster.getAbilityPower());
 
-        buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
-        buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
-        if (player.getMana() >= 40){
-            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
-        } else {
-            buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
-        }
+//        buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
+//        buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
+//        if (player.getMana() >= 40){
+//            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
+//        } else {
+//            buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
+//        }
     }
 
 
-    private void makeMove(Action userAction, Player player, Monster monster) {
-        Action monsterAction = makeMonsterMove();
-        Action.ActionResult result = userAction.checkAgainst(monsterAction);
-        if (result == Action.ActionResult.DRAW) {
-            output.appendText("DRAW\n");
-        } else if (result == Action.ActionResult.WIN) {
-            int dmg = player.calcDamage(userAction);
-            if (userAction == Action.ABILITY) {player.setMana(player.getMana() - 40);}
-            monster.setHealth(monster.getHealth() - dmg);
-            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
-        } else { // LOSE
-            int dmg = monster.calcDamage(monsterAction);
-            player.setHealth(player.getHealth() - dmg);
-            output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
-        }
-        if (player.getMana() < 100){
-            player.setMana(player.getMana() + 10);
-        }
-        checkBattleResult(player, monster);
-        initialize();
-    }
+//    private void makeMove(Action userAction, Player player, Monster monster) {
+//        Action monsterAction = makeMonsterMove();
+//        Action.ActionResult result = userAction.checkAgainst(monsterAction);
+//        if (result == Action.ActionResult.DRAW) {
+//            output.appendText("DRAW\n");
+//        } else if (result == Action.ActionResult.WIN) {
+//            int dmg = player.calcDamage(userAction);
+//            if (userAction == Action.ABILITY) {player.setMana(player.getMana() - 40);}
+//            monster.setHealth(monster.getHealth() - dmg);
+//            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
+//        } else { // LOSE
+//            int dmg = monster.calcDamage(monsterAction);
+//            player.setHealth(player.getHealth() - dmg);
+//            output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
+//        }
+//        if (player.getMana() < 100){
+//            player.setMana(player.getMana() + 10);
+//        }
+//        checkBattleResult(player, monster);
+//        initialize();
+//    }
 
     private void checkBattleResult(Player player, Monster monster) {
         if (monster.getHealth() <= 0) {
@@ -144,5 +145,28 @@ public class FightController {
     }
 
 
+    @FXML
+    public void attackAction(ActionEvent actionEvent) {
+        Action userAction = Action.ATTACK;
+        Action monsterAction = makeMonsterMove();
+        Action.ActionResult result = userAction.checkAgainst(monsterAction);
+        if (result == Action.ActionResult.DRAW) {
+            output.appendText("DRAW\n");
+        } else if (result == Action.ActionResult.WIN) {
+            int dmg = player.calcDamage(userAction);
+            if (userAction == Action.ABILITY) {player.setMana(player.getMana() - 40);}
+            monster.setHealth(monster.getHealth() - dmg);
+            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
+        } else { // LOSE
+            int dmg = monster.calcDamage(monsterAction);
+            player.setHealth(player.getHealth() - dmg);
+            output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
+        }
+        if (player.getMana() < 100){
+            player.setMana(player.getMana() + 10);
+        }
+        checkBattleResult(player, monster);
+        initialize(); // pozbyc sie tego, sama aktualizacja playera/monstera
+    }
 }
 

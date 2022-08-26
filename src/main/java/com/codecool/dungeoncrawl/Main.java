@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -92,7 +93,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         printMenu();
-        if (MenuController.nextWindow && NameController.startGame) {
+        if (MenuController.nextWindow && NameController.startGame) {  // po zamknieciu jednego okna odpalic gre (czyli bez tego ifa)
             bossLevel = MapLoader.loadMap(true);
             for (int i = 0; i < LEVELS_AMOUNT; i++) {
                 levels[i] = MapLoader.loadMap(false);
@@ -225,7 +226,7 @@ public class Main extends Application {
     }
 
     private void refresh() {
-        boolean PlayerOnItem = false;
+        boolean playerOnItem = false;
         checkTile();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
@@ -236,7 +237,7 @@ public class Main extends Application {
                     if (cell.getActor() != null) {
                         Tiles.drawTile(context, cell.getActor(), x, y);
                         if (cell.getItem() != null && cell.getActor() instanceof Player) {
-                            PlayerOnItem = true;
+                            playerOnItem = true;
                         }
                     } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
@@ -248,7 +249,7 @@ public class Main extends Application {
                 }
             }
         }
-        if (PlayerOnItem) {
+        if (playerOnItem) {
             showButton();
         } else {
             hideButton();

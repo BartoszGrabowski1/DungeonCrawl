@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -21,7 +22,9 @@ import java.io.IOException;
 public class GameController {
 
     @FXML
-    private Canvas canvas = new Canvas(640, 640);
+    public Canvas ccanvas;
+//    @FXML
+//    private Canvas canvas = new Canvas(640, 640);
     @FXML
     private BorderPane borderpane = new BorderPane();
 
@@ -29,7 +32,7 @@ public class GameController {
 
 
     public Canvas getCanvas() {
-        return canvas;
+        return ccanvas;
     }
 
     public BorderPane getBorderpane() {
@@ -43,7 +46,11 @@ public class GameController {
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("FIGHT MODE");
             stage.setScene(scene);
+//            stage.alwaysOnTopProperty();
+//            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
+//            Stage stageToClose = (Stage) ccanvas.getScene().getWindow();
+//            stageToClose.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
