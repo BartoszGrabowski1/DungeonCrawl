@@ -60,17 +60,7 @@ public class MapLoader {
                             cell.setType(CellType.EMPTY);
                             break;
                         case '#':
-                            switch (random.nextInt(3)) {
-                                case 0:
-                                    cell.setType(CellType.WALL_2);
-                                    break;
-                                case 1:
-                                    cell.setType(CellType.WALL_3);
-                                    break;
-                                default:
-                                    cell.setType(CellType.WALL);
-                                    break;
-                            }
+                            addWalls(random, cell);
                             break;
                         case '.':
                             addFloor(random, cell);
@@ -131,6 +121,15 @@ public class MapLoader {
                         case '*':
                             cell.setType(CellType.GOLD_6);
                             break;
+                        case '[':
+                            cell.setType(CellType.BLOOD_1);
+                            break;
+                        case ']':
+                            cell.setType(CellType.BLOOD_2);
+                            break;
+                        case '{':
+                            cell.setType(CellType.BLOOD_3);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
@@ -150,6 +149,20 @@ public class MapLoader {
                 break;
             default:
                 cell.setType(CellType.FLOOR_3);
+                break;
+        }
+    }
+
+    private static void addWalls(Random random, Cell cell) {
+        switch (random.nextInt(3)) {
+            case 0:
+                cell.setType(CellType.WALL_2);
+                break;
+            case 1:
+                cell.setType(CellType.WALL_3);
+                break;
+            default:
+                cell.setType(CellType.WALL);
                 break;
         }
     }
