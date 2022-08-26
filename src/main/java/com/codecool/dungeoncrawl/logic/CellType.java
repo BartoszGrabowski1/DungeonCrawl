@@ -10,6 +10,12 @@ public enum CellType {
     WALL_3("wall3"),
     CLOSED_DOORS("closed_doors"),
     OPEN_DOORS("open_doors"),
+    GOLD_1("gold1"),
+    GOLD_2("gold2"),
+    GOLD_3("gold3"),
+    GOLD_4("gold4"),
+    GOLD_5("gold5"),
+    GOLD_6("gold6"),
     STAIRS("stairs");
 
     private final String tileName;

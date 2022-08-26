@@ -113,6 +113,24 @@ public class MapLoader {
                         case 'd':
                             cell.setType(CellType.CLOSED_DOORS);
                             break;
+                        case ',':
+                            cell.setType(CellType.GOLD_1);
+                            break;
+                        case '/':
+                            cell.setType(CellType.GOLD_2);
+                            break;
+                        case '\\':
+                            cell.setType(CellType.GOLD_3);
+                            break;
+                        case '-':
+                            cell.setType(CellType.GOLD_4);
+                            break;
+                        case '+':
+                            cell.setType(CellType.GOLD_5);
+                            break;
+                        case '*':
+                            cell.setType(CellType.GOLD_6);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
