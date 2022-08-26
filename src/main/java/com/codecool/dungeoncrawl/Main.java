@@ -32,8 +32,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.List;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 import static com.codecool.dungeoncrawl.logic.music.MusicPlayer.*;
@@ -46,10 +46,6 @@ public class Main extends Application {
     private GameMap bossLevel;
     private int level = 1;
     private int eqNumber = 0;
-
-    private String[] skeletonSoundFiles = new String[]{};
-    private String[] vampireSoundFiles = new String[]{};
-    private String[] medusaSoundFiles = new String[]{};
 
     private Random random = new Random();
 
@@ -154,7 +150,7 @@ public class Main extends Application {
             animation.setCycleCount(Animation.INDEFINITE);
             animation.playFromStart();
             if (!map.getMonsters().isEmpty()) {
-                animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds()));
+                animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds(monsterSounds)));
                 animation.setCycleCount(Animation.INDEFINITE);
                 animation.playFromStart();
             }
@@ -170,25 +166,9 @@ public class Main extends Application {
         }
     }
 
-    public void playRandomMonsterTypeSound(String [] monsterTypeSounds) {
-        int soundNumber = random.nextInt(0,10);
-        playSound(monsterTypeSounds[soundNumber],(float)1);
-    }
-
-
-    public void playRandomMonsterSounds() {
-        int monsterNumber = random.nextInt(3);
-        switch (monsterNumber) {
-            case 0:
-                playRandomMonsterTypeSound(skeletonSoundFiles);
-                break;
-            case 1:
-                playRandomMonsterTypeSound(vampireSoundFiles);
-                break;
-            case 2:
-                playRandomMonsterTypeSound(medusaSoundFiles);
-                break;
-        }
+    public void playRandomMonsterSounds(String[] monsterTypeSounds) {
+        int soundNumber = random.nextInt(0, 10);
+        playSound(monsterTypeSounds[soundNumber], (float) 1);
     }
 
     private void incrementLabel() {
@@ -202,7 +182,7 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
         //wywolanie okna game over
-        if (FightController.isGameOver){
+        if (FightController.isGameOver) {
             gameOver();
         }
         playSound(stepSound, (float) 0.1);
@@ -290,7 +270,7 @@ public class Main extends Application {
         }
     }
 
-    private void gameOver(){
+    private void gameOver() {
         if (FightController.isGameOver) {
             Stage stageToClose = (Stage) pickUpItemBtn.getScene().getWindow();
             stageToClose.close();
