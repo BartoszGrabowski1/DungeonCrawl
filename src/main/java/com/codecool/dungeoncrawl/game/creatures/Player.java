@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.codecool.dungeoncrawl.Main.map;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
 
 
 public class Player extends Creature {
@@ -88,5 +90,11 @@ public class Player extends Creature {
 
     public String getTileName() {
         return "player";
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        super.move(dx, dy);
+        playSound(stepSound, (float) 0.8); // TODO: maybe extract?
     }
 }

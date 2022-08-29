@@ -4,6 +4,9 @@ import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Drawable;
 import com.codecool.dungeoncrawl.game.controller.Action;
 
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
+
 public abstract class Creature implements Drawable {
     protected Cell cell;
     private int health;
@@ -31,13 +34,12 @@ public abstract class Creature implements Drawable {
         this.cell.setCreature(this);
     }
 
-    public Creature getActor() {
+    public Creature getCreature() {
         return this.cell.getCreature();
     }
 
-
-
     public void move(int dx, int dy) {
+
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (checkIfMovePossible(dx, dy)){
             cell.setCreature(null);
@@ -45,6 +47,7 @@ public abstract class Creature implements Drawable {
             cell = nextCell;
         }
     }
+
     public int calcDamage(Action action) {
         switch (action) {
             case ATTACK:

@@ -5,13 +5,13 @@ import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.CellType;
 import com.codecool.dungeoncrawl.game.Items.Item;
+import com.codecool.dungeoncrawl.game.MapLoader;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
+import com.codecool.dungeoncrawl.game.creatures.Player;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -21,42 +21,27 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.codecool.dungeoncrawl.Main.*;
 import static com.codecool.dungeoncrawl.game.controller.ViewController.context;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class GameController {
 
+    private static boolean isMapCreated = false;
+
     @FXML
     public Canvas ccanvas;
-    //    @FXML
-//    private Canvas canvas = new Canvas(640, 640);
-    @FXML
-    private BorderPane borderpane = new BorderPane();
-
 
     @FXML
     private Label healthLabel;
 
-    public Label getHealthLabel() {
-        return healthLabel;
-    }
-
     @FXML
     private Button pickUpItemBtn;
-
-    public Button getPickUpItemBtn() {
-        return pickUpItemBtn;
-    }
 
     @FXML
     private TableColumn<Item, String> itemDescription;
@@ -70,104 +55,105 @@ public class GameController {
     @FXML
     private TableView tableView;
 
-    public Canvas getCanvas() {
-        return ccanvas;
-    }
-
-    public BorderPane getBorderpane() {
-        return borderpane;
-    }
-
     @FXML
     public void initialize() {
+        if (!isMapCreated) initMap();
 
-        context = getCanvas().getGraphicsContext2D();
+        context = ccanvas.getGraphicsContext2D();
 
+        // TODO: extract or move to fxml
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         itemDescription.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
         itemValue.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
 
         tableView.setPlaceholder(new Label("No items found yet"));
 
+        handleItems();
+
+        moveMonsters();
+
+        playSounds();
+
+        updateGameView(pickUpItemBtn, context);
+    }
+
+    private static void playSounds() {
+        if (!map.getMonsters().isEmpty()) {
+            animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds(monsterSounds)));
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.playFromStart();
+        }
+        playSound(opening, (float) 0.4);
+    }
+
+    private void handleItems() {
         pickUpItemBtn.setFocusTraversable(false);
         pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
             tableView.getItems().add(playerInventory.get(eqNumber));
             eqNumber++;
-            refresh(pickUpItemBtn, context);
+            updateGameView(pickUpItemBtn, context);
         });
 
         hideButton(pickUpItemBtn);
-
-        animation = new Timeline(new KeyFrame(Duration.seconds(0.5), e -> incrementLabel()));
-        animation.setCycleCount(Animation.INDEFINITE);
-        animation.playFromStart();
-//        if (!map.getMonsters().isEmpty()) {
-//            animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds(monsterSounds)));
-//            animation.setCycleCount(Animation.INDEFINITE);
-//            animation.playFromStart();
-//        }
-
-//        getCanvas().getScene().setOnKeyPressed(this::onKeyPressed);
-        refresh(pickUpItemBtn, context);
     }
+
+    private static void initMap() {
+        bossLevel = MapLoader.loadMap(true);
+        for (int i = 0; i < LEVELS_AMOUNT; i++) {
+            levels[i] = MapLoader.loadMap(false);
+        }
+        map = levels[level - 1];
+        isMapCreated = true;
+    }
+
 
     public void setupKeys() {
         Main.scene.setOnKeyPressed(this::onKeyPressed);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        //wywolanie okna game over
-//        if (FightController.isGameOver) {
-//            gameOver();
-//        }
-        playSound(stepSound, (float) 0.1);
         switch (keyEvent.getCode()) {
             case W:
             case UP:
                 map.getPlayer().move(0, -1);
-                refresh(pickUpItemBtn, context);
+                updateGameView(pickUpItemBtn, context);
                 break;
             case S:
             case DOWN:
                 map.getPlayer().move(0, 1);
-                refresh(pickUpItemBtn, context);
+                updateGameView(pickUpItemBtn, context);
                 break;
             case A:
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                refresh(pickUpItemBtn, context);
+                updateGameView(pickUpItemBtn, context);
                 break;
             case D:
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                refresh(pickUpItemBtn, context);
+                updateGameView(pickUpItemBtn, context);
                 break;
-//            case R:
-//                getFight();
             default:
                 break;
         }
-//        if (FightController.isFightAvailable) {
-//            startFight();
-//        }
     }
 
-    public void refresh(Button pickUpItemBtn, GraphicsContext context) {
-//        boolean playerOnItem = false;
-//        checkTile();
+    public void updateGameView(Button pickUpItemBtn, GraphicsContext context) {
+        boolean playerOnItem = false;
+
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+        context.fillRect(0, 0, ccanvas.getWidth(), ccanvas.getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
                 try {
                     Cell cell = map.getCell(map.getPlayer().getX() + x - (SCREEN_SIZE / 2), map.getPlayer().getY() + y - (SCREEN_SIZE / 2));
                     if (cell.getCreature() != null) {
                         Tiles.drawTile(context, cell.getCreature(), x, y);
-//                        if (cell.getItem() != null && cell.getActor() instanceof Player) {
-//                            playerOnItem = true;
-//                        }
+                        if (cell.getItem() != null && cell.getCreature() instanceof Player) {
+                            playerOnItem = true;
+                        }
                     } else if (cell.getItem() != null) {
                         Tiles.drawTile(context, cell.getItem(), x, y);
                     } else {
@@ -178,43 +164,58 @@ public class GameController {
                 }
             }
         }
-//        if (playerOnItem) {
-//            showButton(pickUpItemBtn);
-//        } else {
-//            hideButton(pickUpItemBtn);
-//        }
-//
-//        gc.getHealthLabel().setText("" + map.getPlayer().getHealth());
-//        animation.play();
+
+        checkForItem(pickUpItemBtn, playerOnItem);
+        checkForStairs();
+        checkForFight();
+
+        healthLabel.setText("" + map.getPlayer().getHealth());
     }
 
-    private void incrementLabel() {
+    private static void checkForItem(Button pickUpItemBtn, boolean playerOnItem) {
+        if (playerOnItem) {
+            showButton(pickUpItemBtn);
+        } else {
+            hideButton(pickUpItemBtn);
+        }
+    }
+
+    private static void checkForStairs() {
+        if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
+            level++;
+            if (level > LEVELS_AMOUNT) {
+                map = bossLevel;
+                playSound(bossSound, (float) 0.3);
+            } else {
+                map = levels[level - 1];
+            }
+        }
+    }
+
+    private void moveMonsters() {
+        animation = new Timeline(new KeyFrame(Duration.seconds(1.0), e -> updateMonstersPosition()));
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.playFromStart();
+    }
+
+    private void updateMonstersPosition() {
         List<Monster> monsters = map.getMonsters();
 
         for (int i = 0; i < monsters.size(); i++) {
             monsters.get(i).monsterMovement(map);
         }
-        refresh(pickUpItemBtn, ccanvas.getGraphicsContext2D());
+        updateGameView(pickUpItemBtn, ccanvas.getGraphicsContext2D());
     }
 
-    public void getFight() {
-        try {
-//            Stage stage = new Stage();
-            Stage stage = (Stage) ccanvas.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fight-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("FIGHT MODE");
-            stage.setScene(scene);
-//            stage.alwaysOnTopProperty();  // niepotrtzebne bo jest to juz w pierwszym tworzeniu okna
-//            stage.initStyle(StageStyle.UNDECORATED);
-            stage.show();
-//            Stage stageToClose = (Stage) ccanvas.getScene().getWindow();  // nic nie zamykamy działamy w jednym oknie
-//            stageToClose.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void checkForFight() {
+        if (FightController.isFightAvailable) {
+            startFight();
         }
     }
 
+    public void getFight() {
+        ViewController.setFightView();
+    }
 
     private void startFight() {
         animation.stop();
@@ -223,18 +224,4 @@ public class GameController {
         FightController.isFightAvailable = false;
     }
 
-    public void gameOverView() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("end-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Game over!");
-            stage.setScene(scene);
-            stage.show();
-            Timeline animation = new Timeline(new KeyFrame(Duration.seconds(3.0), e -> stage.close()));
-            animation.play();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

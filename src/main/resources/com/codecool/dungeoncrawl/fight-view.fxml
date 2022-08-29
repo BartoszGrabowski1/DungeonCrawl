@@ -12,7 +12,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.FightController">
    <children>
-      <Label fx:id="labelFight" alignment="CENTER" prefHeight="68.0" prefWidth="270.0" text="Fight!">
+      <Label alignment="CENTER" prefHeight="68.0" prefWidth="270.0" text="Fight!">
          <font>
             <Font size="24.0" />
          </font>
@@ -21,7 +21,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="26.0" prefWidth="132.0" text="Attack" />
+                  <Button fx:id="buttonAttack" alignment="CENTER" layoutY="153.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="Attack" />
                   <Button fx:id="buttonBlock" layoutY="179.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Block" />
                   <Button fx:id="buttonAbility" layoutY="205.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Ability" />
                   <ComboBox fx:id="boxSpells" layoutY="231.0" prefHeight="26.0" prefWidth="131.0" promptText="          Cast spell" />
@@ -90,7 +90,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="monsterMana" prefHeight="18.0" prefWidth="126.0" text="Mana:">
+                        <Label prefHeight="18.0" prefWidth="126.0" text="Mana:">
                            <font>
                               <Font size="15.0" />
                            </font>

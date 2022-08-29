@@ -6,9 +6,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import java.util.Random;
 
 public class MusicPlayer {
 
+
+    private static final Random RANDOM = new Random();
     public static String[] monsterSounds = {
             "/monsters/1.wav",
             "/monsters/2.wav",
@@ -25,6 +28,12 @@ public class MusicPlayer {
     public static String stepSound = "/footStepSound.wav";
 
     public static String bossSound = "/bossSound.wav";
+
+    public static void playRandomMonsterSounds(String[] monsterTypeSounds) {
+        int soundNumber = RANDOM.nextInt(0, 10);
+        playSound(monsterTypeSounds[soundNumber], (float) 1);
+    }
+
     public static void playSound(String fileName,float volume) {
         try {
             Clip clip = AudioSystem.getClip();

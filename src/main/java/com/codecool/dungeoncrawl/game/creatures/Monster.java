@@ -33,7 +33,7 @@ public abstract class Monster extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
-            return false;
+            return false; // TODO: monster ai
         }
         return true;
     }
