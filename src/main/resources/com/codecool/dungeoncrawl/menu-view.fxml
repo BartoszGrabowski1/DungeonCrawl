@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="279.0" prefWidth="272.0" styleClass="anchor-pane" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.logic.controller.MenuController">
+<AnchorPane prefHeight="279.0" prefWidth="272.0" styleClass="anchor-pane" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.MenuController">
    <children>
       <Label fx:id="tfName" layoutX="31.0" layoutY="46.0" prefHeight="35.0" prefWidth="212.0" styleClass="menu-title-label" stylesheets="@menu.css" text="Dungeon Crawl" textAlignment="JUSTIFY" textFill="WHITE">
          <font>

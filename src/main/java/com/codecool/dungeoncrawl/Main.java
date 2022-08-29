@@ -1,44 +1,25 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.Items.Item;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Monster;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.controller.FightController;
-import com.codecool.dungeoncrawl.logic.controller.GameController;
-import com.codecool.dungeoncrawl.logic.controller.MenuController;
-import com.codecool.dungeoncrawl.logic.controller.NameController;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
+import com.codecool.dungeoncrawl.game.CellType;
+import com.codecool.dungeoncrawl.game.GameMap;
+import com.codecool.dungeoncrawl.game.MapLoader;
+import com.codecool.dungeoncrawl.game.controller.FightController;
+import com.codecool.dungeoncrawl.game.controller.GameController;
+import com.codecool.dungeoncrawl.game.controller.MenuController;
+import com.codecool.dungeoncrawl.game.controller.NameController;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import static com.codecool.dungeoncrawl.logic.music.MusicPlayer.*;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class Main extends Application {
 
