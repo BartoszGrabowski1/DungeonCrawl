@@ -23,6 +23,12 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class Main extends Application {
 
+    //refactor start
+    public static Stage stage;
+    public static Scene scene;
+
+    //old code below
+
     public static final int SCREEN_SIZE = 20;
     public static final int LEVELS_AMOUNT = 3;
     public static final GameMap[] levels = new GameMap[3];
@@ -35,13 +41,13 @@ public class Main extends Application {
 
     public static GameMap map;
     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
+//    Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
     //    Canvas canvas = new Canvas(
 //            SCREEN_SIZE * Tiles.TILE_WIDTH,
 //            SCREEN_SIZE * Tiles.TILE_WIDTH);
     GameController gc = fxmlLoader.getController();
 //    static GameController gc = new GameController();
-    GraphicsContext context = gc.getCanvas().getGraphicsContext2D();
+//    GraphicsContext context = gc.getCanvas().getGraphicsContext2D();
     Label healthLabel = new Label();
     //    Button pickUpItemBtn = new Button("Pick up");
     public static Timeline animation;
@@ -82,14 +88,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         printMenu(primaryStage);
-        if (MenuController.nextWindow && NameController.startGame) {  // po zamknieciu jednego okna odpalic gre (czyli bez tego ifa)
-            System.out.println("weszlo tu");
-            bossLevel = MapLoader.loadMap(true);
-            for (int i = 0; i < LEVELS_AMOUNT; i++) {
-                levels[i] = MapLoader.loadMap(false);
-            }
-            map = levels[level - 1];
+//        if (MenuController.nextWindow && NameController.startGame) {  // po zamknieciu jednego okna odpalic gre (czyli bez tego ifa)
+//            System.out.println("weszlo tu");
+//            bossLevel = MapLoader.loadMap(true);
+//            for (int i = 0; i < LEVELS_AMOUNT; i++) {
+//                levels[i] = MapLoader.loadMap(false);
+//            }
+//            map = levels[level - 1];
 //            GridPane ui = new GridPane();  // do wyjebania bo jest juz w fxmlu
 //            ui.setPrefWidth(200);
 //            ui.setPadding(new Insets(10));
@@ -158,7 +165,7 @@ public class Main extends Application {
 //            primaryStage.show();
 ////            playSound(opening, (float) 0.1);
 //            playSound(opening, (float) 0.4);
-        }
+//        }
         System.out.println("nie weszlo");
     }
 
@@ -254,23 +261,23 @@ public class Main extends Application {
 //        animation.play();
 //    }
 
-    private static void checkTile() {
-        if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
-            level++;
-            if (level > LEVELS_AMOUNT) {
-                map = bossLevel;
-                playSound(bossSound, (float) 0.3);
-            } else {
-                map = levels[level - 1];
-            }
-        }
-    }
-
-    private void gameOver() {
-        if (FightController.isGameOver) {
-            Stage stageToClose = (Stage) gc.getPickUpItemBtn().getScene().getWindow();
-            stageToClose.close();
-            gc.gameOverView();
-        }
-    }
+//    private static void checkTile() {
+//        if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
+//            level++;
+//            if (level > LEVELS_AMOUNT) {
+//                map = bossLevel;
+//                playSound(bossSound, (float) 0.3);
+//            } else {
+//                map = levels[level - 1];
+//            }
+//        }
+//    }
+//
+//    private void gameOver() {
+//        if (FightController.isGameOver) {
+//            Stage stageToClose = (Stage) gc.getPickUpItemBtn().getScene().getWindow();
+//            stageToClose.close();
+//            gc.gameOverView();
+//        }
+//    }
 }

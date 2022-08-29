@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -29,6 +30,9 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.codecool.dungeoncrawl.Main.*;
+import static com.codecool.dungeoncrawl.game.controller.ViewController.context;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
 
 public class GameController {
 
@@ -76,7 +80,8 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        GraphicsContext context = getCanvas().getGraphicsContext2D();
+
+        context = getCanvas().getGraphicsContext2D();
 
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         itemDescription.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
@@ -90,7 +95,7 @@ public class GameController {
             List<Item> playerInventory = map.getPlayer().getInventory();
             tableView.getItems().add(playerInventory.get(eqNumber));
             eqNumber++;
-            refresh(pickUpItemBtn, context, this);
+            refresh(pickUpItemBtn, context);
         });
 
         hideButton(pickUpItemBtn);
@@ -105,13 +110,55 @@ public class GameController {
 //        }
 
 //        getCanvas().getScene().setOnKeyPressed(this::onKeyPressed);
+        refresh(pickUpItemBtn, context);
     }
 
-    public void refresh(Button pickUpItemBtn, GraphicsContext context, GameController gc) {
+    public void setupKeys() {
+        Main.scene.setOnKeyPressed(this::onKeyPressed);
+    }
+
+    private void onKeyPressed(KeyEvent keyEvent) {
+        //wywolanie okna game over
+//        if (FightController.isGameOver) {
+//            gameOver();
+//        }
+        playSound(stepSound, (float) 0.1);
+        switch (keyEvent.getCode()) {
+            case W:
+            case UP:
+                map.getPlayer().move(0, -1);
+                refresh(pickUpItemBtn, context);
+                break;
+            case S:
+            case DOWN:
+                map.getPlayer().move(0, 1);
+                refresh(pickUpItemBtn, context);
+                break;
+            case A:
+            case LEFT:
+                map.getPlayer().move(-1, 0);
+                refresh(pickUpItemBtn, context);
+                break;
+            case D:
+            case RIGHT:
+                map.getPlayer().move(1, 0);
+                refresh(pickUpItemBtn, context);
+                break;
+//            case R:
+//                getFight();
+            default:
+                break;
+        }
+//        if (FightController.isFightAvailable) {
+//            startFight();
+//        }
+    }
+
+    public void refresh(Button pickUpItemBtn, GraphicsContext context) {
 //        boolean playerOnItem = false;
 //        checkTile();
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        context.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
                 try {
@@ -147,7 +194,7 @@ public class GameController {
         for (int i = 0; i < monsters.size(); i++) {
             monsters.get(i).monsterMovement(map);
         }
-        refresh(pickUpItemBtn, ccanvas.getGraphicsContext2D(), this);
+        refresh(pickUpItemBtn, ccanvas.getGraphicsContext2D());
     }
 
     public void getFight() {

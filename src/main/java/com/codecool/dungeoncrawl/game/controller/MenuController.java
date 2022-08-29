@@ -42,20 +42,21 @@ public class MenuController {
     @FXML
     void startGame() {
         if (nextWindow) {
-            try {
-//                Stage stage = new Stage(); // nie tworzyc nowego okna bo po chuj
-                Stage stage = (Stage) tfName.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("name-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                stage.setTitle("Name input");
-                stage.setScene(scene);
-                stage.show();
-//                stage.showAndWait();
-//                Stage stageToClose = (Stage) tfName.getScene().getWindow();  // to do wyjebania no bo nie zamykamy okna
-//                stageToClose.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ViewController.setNameSelectView();
+//            try {
+////                Stage stage = new Stage(); // nie tworzyc nowego okna bo po chuj
+//                Stage stage = (Stage) tfName.getScene().getWindow();
+//                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("name-view.fxml"));
+//                Scene scene = new Scene(fxmlLoader.load());
+//                stage.setTitle("Name input");
+//                stage.setScene(scene);
+//                stage.show();
+////                stage.showAndWait();
+////                Stage stageToClose = (Stage) tfName.getScene().getWindow();  // to do wyjebania no bo nie zamykamy okna
+////                stageToClose.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

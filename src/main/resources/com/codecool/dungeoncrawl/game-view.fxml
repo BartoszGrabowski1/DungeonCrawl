@@ -16,7 +16,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <BorderPane fx:id="borderpane" prefHeight="1000.0" prefWidth="1000.0">
+    <BorderPane fx:id="borderpane" prefHeight="650.0" prefWidth="1100.0">
       <center>
          <Canvas fx:id="ccanvas" height="640.0" width="640.0" BorderPane.alignment="CENTER" />
       </center>
