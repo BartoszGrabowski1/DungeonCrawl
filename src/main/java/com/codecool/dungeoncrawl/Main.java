@@ -3,10 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.game.CellType;
 import com.codecool.dungeoncrawl.game.GameMap;
 import com.codecool.dungeoncrawl.game.MapLoader;
-import com.codecool.dungeoncrawl.game.controller.FightController;
-import com.codecool.dungeoncrawl.game.controller.GameController;
-import com.codecool.dungeoncrawl.game.controller.MenuController;
-import com.codecool.dungeoncrawl.game.controller.NameController;
+import com.codecool.dungeoncrawl.game.controller.*;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,42 +37,39 @@ public class Main extends Application {
 
 
     public static GameMap map;
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
+//    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
 //    Scene scene = new Scene(fxmlLoader.load(), 1100, 650);
     //    Canvas canvas = new Canvas(
 //            SCREEN_SIZE * Tiles.TILE_WIDTH,
 //            SCREEN_SIZE * Tiles.TILE_WIDTH);
-    GameController gc = fxmlLoader.getController();
+//    GameController gc = fxmlLoader.getController();
 //    static GameController gc = new GameController();
 //    GraphicsContext context = gc.getCanvas().getGraphicsContext2D();
-    Label healthLabel = new Label();
+//    Label healthLabel = new Label();
     //    Button pickUpItemBtn = new Button("Pick up");
     public static Timeline animation;
-
-    public Main() throws IOException {
-    }
-
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void printMenu(Stage stage) {
-        try {
-//            Stage stage = new Stage();
-            stage.setResizable(false);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Main Menu");
-            stage.alwaysOnTopProperty();
-//            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-//            stage.showAndWait();
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void printMenu(Stage stage) {
+//        try {
+////            Stage stage = new Stage();
+//
+//            ViewController.setMenuView();
+//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
+//            Scene scene = new Scene(fxmlLoader.load());
+//            stage.setTitle("Main Menu");
+//
+////            stage.initStyle(StageStyle.UNDECORATED);
+//            stage.setScene(scene);
+////            stage.showAndWait();
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void hideButton(Button pickUpItemBtn) {
         pickUpItemBtn.setVisible(false);
@@ -87,9 +81,11 @@ public class Main extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
+        primaryStage.setResizable(false);
+        primaryStage.alwaysOnTopProperty();
         stage = primaryStage;
-        printMenu(primaryStage);
+        ViewController.setMenuView();
 //        if (MenuController.nextWindow && NameController.startGame) {  // po zamknieciu jednego okna odpalic gre (czyli bez tego ifa)
 //            System.out.println("weszlo tu");
 //            bossLevel = MapLoader.loadMap(true);

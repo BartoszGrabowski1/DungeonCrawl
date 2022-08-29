@@ -33,6 +33,7 @@ public class ViewController {
             Main.scene = new Scene(view.load());
             Main.stage.setScene(Main.scene);
             Main.stage.setTitle(title);
+            Main.stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
