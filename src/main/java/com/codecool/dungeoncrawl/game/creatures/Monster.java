@@ -4,19 +4,30 @@ import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Monster extends Creature {
+
+    private boolean chase;
+
     public Monster(Cell cell) {
         super(cell);
     }
 
     private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
 
-    public String drowMoves() {
+    private List<String> possibleDirectionWhenChaseAvailable;
+
+    public String drawMoves() {
         Random random = new Random();
-        int number = random.nextInt(4);
-        return possibleDirections[number];
+        if (!chase) {
+            int number = random.nextInt(4);
+            return possibleDirections[number];
+        }
+        int number = random.nextInt(possibleDirectionWhenChaseAvailable.size());
+        return possibleDirectionWhenChaseAvailable.get(number);
     }
 
     @Override
@@ -36,20 +47,45 @@ public abstract class Monster extends Creature {
         }
         return true;
     }
-    public void followThePlayer(GameMap map){
+
+    public void followThePlayer(GameMap map) {
         Player player = map.getPlayer();
         int playersXPosition = player.getX();
         int playersYPosition = player.getY();
-        int xCordDifference = this.getX() - playersXPosition;
-        int yCordDifference = this.getY() - playersYPosition;
-        if((this.getX() - playersXPosition <10 && this.getX() - playersXPosition>-10) && (this.getY() - playersYPosition <10 && this.getY() - playersYPosition>-10)){
-
+        int xCordDifference = playersXPosition- this.getX() ;
+        int yCordDifference = playersYPosition - this.getY();
+        if ((xCordDifference < 20 && xCordDifference > -20) && (yCordDifference < 20 && yCordDifference > -20)) {
+            chase = true;
+            possibleDirectionsWhenChaseIsAvailable(xCordDifference, yCordDifference);
         }
 
     }
 
+    public void possibleDirectionsWhenChaseIsAvailable(int xDifference, int yDifference) {
+        possibleDirectionWhenChaseAvailable = new ArrayList<>();
+        possibleXDirection(xDifference);
+        possibleYDirection(yDifference);
+
+    }
+
+    private void possibleYDirection(int yDifference) {
+        if (yDifference < 0) {
+            possibleDirectionWhenChaseAvailable.add("NORTH");
+        } else if (yDifference > 0) {
+            possibleDirectionWhenChaseAvailable.add("SOUTH");
+        }
+    }
+
+    private void possibleXDirection(int xDifference) {
+        if (xDifference < 0) {
+            possibleDirectionWhenChaseAvailable.add("WEST");
+        } else if (xDifference > 0) {
+            possibleDirectionWhenChaseAvailable.add("EAST");
+        }
+    }
+
     public void monsterMovement(GameMap map) {
-        String direction = drowMoves();
+        String direction = drawMoves();
         switch (direction) {
             case "NORTH":
                 this.move(0, -1);
@@ -64,5 +100,6 @@ public abstract class Monster extends Creature {
                 this.move(1, 0);
                 break;
         }
+        chase = false;
     }
 }
