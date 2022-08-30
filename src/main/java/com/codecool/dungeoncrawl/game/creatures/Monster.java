@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.game.map.GameMap;
 import java.util.Random;
 
 public abstract class Monster extends Creature {
-
     public Monster(Cell cell) {
         super(cell);
     }
@@ -36,6 +35,17 @@ public abstract class Monster extends Creature {
             return false; // TODO: monster ai
         }
         return true;
+    }
+    public void followThePlayer(GameMap map){
+        Player player = map.getPlayer();
+        int playersXPosition = player.getX();
+        int playersYPosition = player.getY();
+        int xCordDifference = this.getX() - playersXPosition;
+        int yCordDifference = this.getY() - playersYPosition;
+        if((this.getX() - playersXPosition <10 && this.getX() - playersXPosition>-10) && (this.getY() - playersYPosition <10 && this.getY() - playersYPosition>-10)){
+
+        }
+
     }
 
     public void monsterMovement(GameMap map) {
