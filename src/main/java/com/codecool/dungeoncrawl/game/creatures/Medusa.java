@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Medusa extends Monster {
 
@@ -13,6 +14,11 @@ public class Medusa extends Monster {
         super.setAbilityPower(20);
         super.setBlockPower(50);
         super.setExp(500);
+    }
+
+    @Override
+    public void specialAbility(GameMap map) {
+
     }
 
     @Override

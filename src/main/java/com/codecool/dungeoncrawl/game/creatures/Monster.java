@@ -4,42 +4,90 @@ import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Monster extends Creature {
+
+    protected boolean chase;
+
+    protected int specialAbilityCoolDown;
 
     public Monster(Cell cell) {
         super(cell);
     }
 
-    private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
+    private final String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
 
-    public String drowMoves() {
+    private List<String> possibleDirectionWhenChaseAvailable;
+
+    public String drawMoves() {
         Random random = new Random();
-        int number = random.nextInt(4);
-        return possibleDirections[number];
+        if (!chase) {
+            int number = random.nextInt(4);
+            return possibleDirections[number];
+        }
+        int number = random.nextInt(possibleDirectionWhenChaseAvailable.size());
+        return possibleDirectionWhenChaseAvailable.get(number);
     }
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {
-        if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {
-            return false;
-        }
-        if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            return false;
-        }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
-            return false; // TODO: monster ai
+            return false;
+        } else if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
+            return false;
+        } else if (this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_2 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_3) {
+            return true;
         }
-        return true;
+        return false;
     }
 
+    public void followThePlayer(GameMap map) {
+        Player player = map.getPlayer();
+        int xCordDifference = player.getX() - this.getX();
+        int yCordDifference = player.getY() - this.getY();
+        if ((xCordDifference < 20 && xCordDifference > -20) && (yCordDifference < 20 && yCordDifference > -20)) {
+            chase = true;
+            possibleDirectionsWhenChaseIsAvailable(xCordDifference, yCordDifference);
+        }
+
+    }
+
+    public void possibleDirectionsWhenChaseIsAvailable(int xDifference, int yDifference) {
+        possibleDirectionWhenChaseAvailable = new ArrayList<>();
+        possibleXDirection(xDifference);
+        possibleYDirection(yDifference);
+
+    }
+
+    private void possibleYDirection(int yDifference) {
+        if (yDifference < 0) {
+            possibleDirectionWhenChaseAvailable.add("NORTH");
+        } else if (yDifference > 0) {
+            possibleDirectionWhenChaseAvailable.add("SOUTH");
+        }
+    }
+
+    private void possibleXDirection(int xDifference) {
+        if (xDifference < 0) {
+            possibleDirectionWhenChaseAvailable.add("WEST");
+        } else if (xDifference > 0) {
+            possibleDirectionWhenChaseAvailable.add("EAST");
+        }
+    }
+
+    public abstract void specialAbility(GameMap map);
+
     public void monsterMovement(GameMap map) {
-        String direction = drowMoves();
+        if (specialAbilityCoolDown == 0) {
+            specialAbility(map);
+        }
+        followThePlayer(map);
+        String direction = drawMoves();
         switch (direction) {
             case "NORTH":
                 this.move(0, -1);
@@ -54,5 +102,7 @@ public abstract class Monster extends Creature {
                 this.move(1, 0);
                 break;
         }
+        chase = false;
+        specialAbilityCoolDown--;
     }
 }

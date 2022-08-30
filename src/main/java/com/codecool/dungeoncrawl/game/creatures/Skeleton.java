@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Skeleton extends Monster {
     public Skeleton(Cell cell) {
@@ -10,6 +11,11 @@ public class Skeleton extends Monster {
         super.setAbilityPower(40);
         super.setBlockPower(50);
         super.setExp(100);
+    }
+
+    @Override
+    public void specialAbility(GameMap map) {
+
     }
 
     @Override
