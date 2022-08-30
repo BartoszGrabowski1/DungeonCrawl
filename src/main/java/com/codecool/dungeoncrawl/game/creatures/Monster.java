@@ -10,8 +10,6 @@ import java.util.Random;
 
 public abstract class Monster extends Creature {
 
-    protected boolean chase;
-
     protected int specialAbilityCoolDown;
 
     public Monster(Cell cell) {
@@ -24,7 +22,7 @@ public abstract class Monster extends Creature {
 
     public String drawMoves() {
         Random random = new Random();
-        if (!chase) {
+        if (possibleDirectionWhenChaseAvailable == null || possibleDirectionWhenChaseAvailable.isEmpty()) {
             int number = random.nextInt(4);
             return possibleDirections[number];
         }
@@ -50,8 +48,7 @@ public abstract class Monster extends Creature {
         Player player = map.getPlayer();
         int xCordDifference = player.getX() - this.getX();
         int yCordDifference = player.getY() - this.getY();
-        if ((xCordDifference < 20 && xCordDifference > -20) && (yCordDifference < 20 && yCordDifference > -20)) {
-            chase = true;
+        if ((xCordDifference < 5 && xCordDifference > -5) && (yCordDifference < 5 && yCordDifference > -5)) {
             possibleDirectionsWhenChaseIsAvailable(xCordDifference, yCordDifference);
         }
 
@@ -102,7 +99,6 @@ public abstract class Monster extends Creature {
                 this.move(1, 0);
                 break;
         }
-        chase = false;
         specialAbilityCoolDown--;
     }
 }
