@@ -36,12 +36,14 @@ public abstract class Monster extends Creature {
             return false;
         } else if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
             return false;
-        } else if (this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_2 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_3) {
-            return true;
+        } else if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public void followThePlayer(GameMap map) {
