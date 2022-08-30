@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="279.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.logic.controller.MenuController">
+<AnchorPane prefHeight="279.0" prefWidth="272.0" styleClass="anchor-pane" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.MenuController">
    <children>
-      <Label fx:id="tfName" layoutX="53.0" layoutY="39.0" prefHeight="35.0" prefWidth="167.0" text="Dungeon Crawl" textAlignment="JUSTIFY">
+      <Label fx:id="tfName" layoutX="31.0" layoutY="46.0" prefHeight="35.0" prefWidth="212.0" styleClass="menu-title-label" stylesheets="@menu.css" text="Dungeon Crawl" textAlignment="JUSTIFY" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="Consolas Bold" size="29.0" />
          </font>
       </Label>
-      <Button fx:id="startButton" layoutX="85.0" layoutY="117.0" mnemonicParsing="false" onAction="#startGame" text="Start New Game" />
-      <Button fx:id="loadButton" layoutX="98.0" layoutY="167.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
-      <Button fx:id="exitButton" layoutX="119.0" layoutY="219.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      <Button layoutX="85.0" layoutY="117.0" mnemonicParsing="false" onAction="#startGame" text="Start New Game" />
+      <Button layoutX="98.0" layoutY="167.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+      <Button layoutX="119.0" layoutY="219.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />
