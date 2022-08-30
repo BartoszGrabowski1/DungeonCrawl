@@ -32,6 +32,8 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class GameController {
 
+    public static Player player;
+
     private static boolean isMapCreated = false;
 
     @FXML
@@ -100,11 +102,16 @@ public class GameController {
     }
 
     private static void initMap() {
-        bossLevel = MapLoader.loadMap(true);
-        for (int i = 0; i < LEVELS_AMOUNT; i++) {
-            levels[i] = MapLoader.loadMap(false);
+        if (level > LEVELS_AMOUNT) {
+            map = MapLoader.loadMap(true);
+        } else {
+            map = MapLoader.loadMap(false);
         }
-        map = levels[level - 1];
+//        bossLevel = MapLoader.loadMap(true);
+//        for (int i = 0; i < LEVELS_AMOUNT; i++) {
+//            levels[i] = MapLoader.loadMap(false);
+//        }
+//        map = levels[level - 1];
         isMapCreated = true;
     }
 
@@ -191,12 +198,16 @@ public class GameController {
     private static void checkForStairs() {
         if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
             level++;
+            initMap();
             if (level > LEVELS_AMOUNT) {
-                map = bossLevel;
                 playSound(bossSound, (float) 0.3);
-            } else {
-                map = levels[level - 1];
             }
+//            if (level > LEVELS_AMOUNT) {
+//                map = bossLevel;
+//                playSound(bossSound, (float) 0.3);
+//            } else {
+//                map = levels[level - 1];
+//            }
         }
     }
 

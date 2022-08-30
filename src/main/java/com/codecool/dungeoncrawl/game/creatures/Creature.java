@@ -77,6 +77,10 @@ public abstract class Creature implements Drawable {
         return cell;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
+
     public int getX() {
         return cell.getX();
     }

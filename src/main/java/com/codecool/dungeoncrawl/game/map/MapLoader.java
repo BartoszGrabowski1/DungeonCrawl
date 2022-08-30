@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Key;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.creatures.*;
+import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.controller.NameController;
 import com.codecool.dungeoncrawl.game.map.generator.MapGenerator;
 import com.codecool.dungeoncrawl.game.map.generator.MapGeneratorImpl;
@@ -84,7 +85,13 @@ public class MapLoader {
                             break;
                         case '@':
                             addFloor(random, cell);
-                            map.setPlayer(new Player(cell, NameController.getUserName()));
+                            if (GameController.player == null) {
+                                GameController.player = new Player(cell, NameController.getUserName());
+                            } else {
+                                GameController.player.setCell(cell);
+                                GameController.player.getCell().setCreature(GameController.player);
+                            }
+                            map.setPlayer(GameController.player);
                             break;
                         case '1':
                             addFloor(random, cell);
