@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
-import com.codecool.dungeoncrawl.game.CellType;
+import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.Key;
@@ -46,14 +46,14 @@ public class Player extends Creature {
         inventory.add(this.getCell().getItem());
         if (this.getCell().getItem() instanceof Sword) {
             this.setDamage(this.getDamage() + 20);
-            MusicPlayer.playSound("/equip_sword.wav", (float) 1);
+            MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/equip_sword.wav", (float) 1);
         } else if (this.getCell().getItem() instanceof Armor) {
             this.setHealth(this.getHealth() + 20);
-            MusicPlayer.playSound("/equip_armor.wav", (float) 1);
+            MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/equip_armor.wav", (float) 1);
         } else if (this.getCell().getItem() instanceof Key) {
             map.getCell(13, 14).setType(CellType.OPEN_DOORS);
-            MusicPlayer.playSound("/pickup_key.wav", (float) 1);
-            MusicPlayer.playSound("/opened_doors.wav", (float) 1);
+            MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/pickup_key.wav", (float) 1);
+            MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/opened_doors.wav", (float) 1);
         }
         this.getCell().setItem(null);
     }

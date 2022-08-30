@@ -18,7 +18,7 @@
     </padding>
     <BorderPane prefHeight="650.0" prefWidth="1100.0">
       <center>
-         <Canvas fx:id="ccanvas" height="640.0" width="640.0" BorderPane.alignment="CENTER" />
+         <Canvas fx:id="mainView" height="640.0" width="640.0" BorderPane.alignment="CENTER" />
       </center>
       <right>
          <GridPane prefWidth="200.0" BorderPane.alignment="CENTER">

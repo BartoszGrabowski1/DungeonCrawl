@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
-import com.codecool.dungeoncrawl.game.GameMap;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class FinalBoss extends Monster {
 

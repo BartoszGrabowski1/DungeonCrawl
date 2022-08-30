@@ -4,9 +4,6 @@ import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Drawable;
 import com.codecool.dungeoncrawl.game.controller.Action;
 
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
-
 public abstract class Creature implements Drawable {
     protected Cell cell;
     private int health;

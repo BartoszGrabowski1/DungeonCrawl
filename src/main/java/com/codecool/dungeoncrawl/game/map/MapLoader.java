@@ -1,12 +1,13 @@
-package com.codecool.dungeoncrawl.game;
+package com.codecool.dungeoncrawl.game.map;
 
+import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Key;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.controller.NameController;
-import com.codecool.dungeoncrawl.game.map_generator.MapGenerator;
-import com.codecool.dungeoncrawl.game.map_generator.MapGeneratorImpl;
+import com.codecool.dungeoncrawl.game.map.generator.MapGenerator;
+import com.codecool.dungeoncrawl.game.map.generator.MapGeneratorImpl;
 
 import java.io.InputStream;
 import java.util.Random;
@@ -38,7 +39,7 @@ public class MapLoader {
         Random random = new Random();
         Scanner scanner;
         if (isBossLevel) {
-            InputStream mapLevel = MapLoader.class.getResourceAsStream("/boss.txt");
+            InputStream mapLevel = MapLoader.class.getResourceAsStream("/com/codecool/dungeoncrawl/levels/boss.txt");
             scanner = new Scanner(mapLevel);
         } else {
             String mapLevel = generateMap();

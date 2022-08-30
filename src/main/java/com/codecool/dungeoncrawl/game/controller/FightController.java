@@ -1,17 +1,13 @@
 package com.codecool.dungeoncrawl.game.controller;
 
-import com.codecool.dungeoncrawl.game.GameMap;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.util.Duration;
 
 public class FightController {
 

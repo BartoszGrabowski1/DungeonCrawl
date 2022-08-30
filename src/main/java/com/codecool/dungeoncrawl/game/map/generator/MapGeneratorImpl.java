@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.game.map_generator;
+package com.codecool.dungeoncrawl.game.map.generator;
 
 import java.util.*;
 

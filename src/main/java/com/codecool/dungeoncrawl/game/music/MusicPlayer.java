@@ -13,21 +13,21 @@ public class MusicPlayer {
 
     private static final Random RANDOM = new Random();
     public static String[] monsterSounds = {
-            "/monsters/1.wav",
-            "/monsters/2.wav",
-            "/monsters/3.wav",
-            "/monsters/4.wav",
-            "/monsters/5.wav",
-            "/monsters/6.wav",
-            "/monsters/7.wav",
-            "/monsters/8.wav",
-            "/monsters/9.wav",
-            "/monsters/10.wav"
+            "/com/codecool/dungeoncrawl/sounds/monsters/1.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/2.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/3.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/4.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/5.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/6.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/7.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/8.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/9.wav",
+            "/com/codecool/dungeoncrawl/sounds/monsters/10.wav"
     };
-    public static String opening = "/mainSound.wav";
-    public static String stepSound = "/footStepSound.wav";
+    public static String opening = "/com/codecool/dungeoncrawl/sounds/mainSound.wav";
+    public static String stepSound = "/com/codecool/dungeoncrawl/sounds/footStepSound.wav";
 
-    public static String bossSound = "/bossSound.wav";
+    public static String bossSound = "/com/codecool/dungeoncrawl/sounds/bossSound.wav";
 
     public static void playRandomMonsterSounds(String[] monsterTypeSounds) {
         int soundNumber = RANDOM.nextInt(0, 10);

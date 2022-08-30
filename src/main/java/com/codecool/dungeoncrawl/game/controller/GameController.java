@@ -1,11 +1,11 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.Tiles;
+import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
-import com.codecool.dungeoncrawl.game.CellType;
+import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Item;
-import com.codecool.dungeoncrawl.game.MapLoader;
+import com.codecool.dungeoncrawl.game.map.MapLoader;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 import javafx.animation.Animation;
@@ -35,7 +35,7 @@ public class GameController {
     private static boolean isMapCreated = false;
 
     @FXML
-    public Canvas ccanvas;
+    public Canvas mainView;
 
     @FXML
     private Label healthLabel;
@@ -59,7 +59,7 @@ public class GameController {
     public void initialize() {
         if (!isMapCreated) initMap();
 
-        context = ccanvas.getGraphicsContext2D();
+        context = mainView.getGraphicsContext2D();
 
         // TODO: extract or move to fxml
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -144,7 +144,7 @@ public class GameController {
         boolean playerOnItem = false;
 
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, ccanvas.getWidth(), ccanvas.getHeight());
+        context.fillRect(0, 0, mainView.getWidth(), mainView.getHeight());
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
                 try {
@@ -170,6 +170,14 @@ public class GameController {
         checkForFight();
 
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    public static void hideButton(Button pickUpItemBtn) {
+        pickUpItemBtn.setVisible(false);
+    }
+
+    public static void showButton(Button pickUpItemBtn) {
+        pickUpItemBtn.setVisible(true);
     }
 
     private static void checkForItem(Button pickUpItemBtn, boolean playerOnItem) {
@@ -204,7 +212,7 @@ public class GameController {
         for (int i = 0; i < monsters.size(); i++) {
             monsters.get(i).monsterMovement(map);
         }
-        updateGameView(pickUpItemBtn, ccanvas.getGraphicsContext2D());
+        updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());
     }
 
     private void checkForFight() {

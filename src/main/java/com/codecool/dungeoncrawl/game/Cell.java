@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.game;
 
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.creatures.Creature;
+import com.codecool.dungeoncrawl.game.map.CellType;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Cell implements Drawable {
     private CellType type;

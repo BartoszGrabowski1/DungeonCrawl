@@ -1,5 +1,6 @@
-package com.codecool.dungeoncrawl.game;
+package com.codecool.dungeoncrawl.game.map;
 
+import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 

@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.game;
+package com.codecool.dungeoncrawl.game.map;
 
 public enum CellType {
     EMPTY("empty"),

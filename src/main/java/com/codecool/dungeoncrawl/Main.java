@@ -1,11 +1,10 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.game.GameMap;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.controller.*;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -24,15 +23,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-    public static void hideButton(Button pickUpItemBtn) {
-        pickUpItemBtn.setVisible(false);
-    }
-
-    public static void showButton(Button pickUpItemBtn) {
-        pickUpItemBtn.setVisible(true);
-    }
-
 
     @Override
     public void start(Stage primaryStage) {

@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.game;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.game.creatures.Skeleton;
 import com.codecool.dungeoncrawl.game.controller.NameController;
+import com.codecool.dungeoncrawl.game.map.CellType;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
