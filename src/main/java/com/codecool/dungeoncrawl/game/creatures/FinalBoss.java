@@ -15,6 +15,11 @@ public class FinalBoss extends Monster {
     }
 
     @Override
+    public void specialAbility(GameMap map) {
+
+    }
+
+    @Override
     public void monsterMovement(GameMap map) {
         // boss have no move
     }

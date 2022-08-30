@@ -221,7 +221,6 @@ public class GameController {
         List<Monster> monsters = map.getMonsters();
 
         for (int i = 0; i < monsters.size(); i++) {
-            monsters.get(i).followThePlayer(map);
             monsters.get(i).monsterMovement(map);
         }
         updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());

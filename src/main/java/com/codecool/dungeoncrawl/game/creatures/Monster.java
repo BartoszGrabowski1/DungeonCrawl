@@ -10,13 +10,15 @@ import java.util.Random;
 
 public abstract class Monster extends Creature {
 
-    private boolean chase;
+    protected boolean chase;
+
+    protected int specialAbilityCoolDown;
 
     public Monster(Cell cell) {
         super(cell);
     }
 
-    private String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
+    private final String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
 
     private List<String> possibleDirectionWhenChaseAvailable;
 
@@ -32,28 +34,22 @@ public abstract class Monster extends Creature {
 
     @Override
     public boolean checkIfMovePossible(int x, int y) {
-        if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
-                this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {
-            return false;
-        }
-        if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            return false;
-        }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
-            return false; // TODO: monster ai
+            return false;
+        } else if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
+            return false;
+        } else if (this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_2 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.FLOOR_3) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void followThePlayer(GameMap map) {
         Player player = map.getPlayer();
-        int playersXPosition = player.getX();
-        int playersYPosition = player.getY();
-        int xCordDifference = playersXPosition- this.getX() ;
-        int yCordDifference = playersYPosition - this.getY();
+        int xCordDifference = player.getX() - this.getX();
+        int yCordDifference = player.getY() - this.getY();
         if ((xCordDifference < 20 && xCordDifference > -20) && (yCordDifference < 20 && yCordDifference > -20)) {
             chase = true;
             possibleDirectionsWhenChaseIsAvailable(xCordDifference, yCordDifference);
@@ -84,7 +80,13 @@ public abstract class Monster extends Creature {
         }
     }
 
+    public abstract void specialAbility(GameMap map);
+
     public void monsterMovement(GameMap map) {
+        if (specialAbilityCoolDown == 0) {
+            specialAbility(map);
+        }
+        followThePlayer(map);
         String direction = drawMoves();
         switch (direction) {
             case "NORTH":
@@ -101,5 +103,6 @@ public abstract class Monster extends Creature {
                 break;
         }
         chase = false;
+        specialAbilityCoolDown--;
     }
 }
