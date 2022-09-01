@@ -44,11 +44,11 @@ public class Player extends Creature {
 
     public void pickUpItem() {
         inventory.add(this.getCell().getItem());
-        if (this.getCell().getItem() instanceof Sword) {
-            this.setDamage(this.getDamage() + 20);
+        if (this.getCell().getItem() instanceof Sword sword) {
+            this.setDamage(this.getDamage() + sword.getItemValue());
             MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/equip_sword.wav", (float) 1);
-        } else if (this.getCell().getItem() instanceof Armor) {
-            this.setHealth(this.getHealth() + 20);
+        } else if (this.getCell().getItem() instanceof Armor armor) {
+            this.setHealth(this.getHealth() + armor.getItemValue());
             MusicPlayer.playSound("/com/codecool/dungeoncrawl/sounds/equip_armor.wav", (float) 1);
         } else if (this.getCell().getItem() instanceof Key) {
             map.getCell(13, 14).setType(CellType.OPEN_DOORS);

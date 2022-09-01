@@ -1,3 +1,6 @@
 .main-window {
     -fx-background-image: url('/com/codecool/dungeoncrawl/img/game-view.jpg');
 }
+
+.pickup-button {
+}

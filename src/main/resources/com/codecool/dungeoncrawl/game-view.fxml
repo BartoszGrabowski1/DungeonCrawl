@@ -30,14 +30,26 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <children>
-               <Label text="Health: " />
-               <Label fx:id="healthLabel" text="Label" GridPane.columnIndex="1" />
-               <Button fx:id="pickUpItemBtn" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <Label text="Health: " translateY="-40.0" />
+               <Label fx:id="healthLabel" text="Label" translateY="-40.0" GridPane.columnIndex="1" />
+               <Label text="Mana: " translateY="-20.0" />
+               <Label fx:id="manaLabel" text="Label" translateY="-20.0" GridPane.columnIndex="1" />
+               <Label text="EXP: " />
+               <Label fx:id="expLabel" text="Label" GridPane.columnIndex="1" />
+               <Label text="Damage: " translateY="20.0" />
+               <Label fx:id="dmgLabel" text="Label" translateY="20.0" GridPane.columnIndex="1" />
+               <Label text="Ability Power: " translateY="40.0" />
+               <Label fx:id="apLabel" text="Label" translateY="40.0" GridPane.columnIndex="1" />
+               <Label text="Block Power: " translateY="60.0" />
+               <Label fx:id="blockLabel" text="Label" translateY="60.0" GridPane.columnIndex="1" />
+               <Button fx:id="pickUpItemBtn" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" translateX="-28.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
          </GridPane>
       </right>

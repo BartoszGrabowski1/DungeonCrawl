@@ -1,36 +1,41 @@
 package com.codecool.dungeoncrawl.game.music;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.utils.Utils;
+import javafx.animation.Timeline;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import java.util.Random;
+
+import static com.codecool.dungeoncrawl.game.controller.GameController.isMusicPlaying;
 
 public class MusicPlayer {
 
-
-    private static final Random RANDOM = new Random();
+    public static Clip mainClip;
+    public static Thread playMainClipDelay;
+    public static Timeline monstersSounds;
+    private static int mainClipFramePosition = 0;
     public static String[] monsterSounds = {
-            "/com/codecool/dungeoncrawl/sounds/monsters/1.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/2.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/3.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/4.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/5.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/6.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/7.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/8.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/9.wav",
-            "/com/codecool/dungeoncrawl/sounds/monsters/10.wav"
+            Sounds.MONSTERS_SOUNDS_1.getFile(),
+            Sounds.MONSTERS_SOUNDS_2.getFile(),
+            Sounds.MONSTERS_SOUNDS_3.getFile(),
+            Sounds.MONSTERS_SOUNDS_4.getFile(),
+            Sounds.MONSTERS_SOUNDS_5.getFile(),
+            Sounds.MONSTERS_SOUNDS_6.getFile(),
+            Sounds.MONSTERS_SOUNDS_7.getFile(),
+            Sounds.MONSTERS_SOUNDS_8.getFile(),
+            Sounds.MONSTERS_SOUNDS_9.getFile(),
+            Sounds.MONSTERS_SOUNDS_10.getFile()
     };
-    public static String opening = "/com/codecool/dungeoncrawl/sounds/mainSound.wav";
-    public static String stepSound = "/com/codecool/dungeoncrawl/sounds/footStepSound.wav";
+    public static String opening = Sounds.MAIN.getFile();
+    public static String stepSound = Sounds.STEP_SOUNDS.getFile();
 
-    public static String bossSound = "/com/codecool/dungeoncrawl/sounds/bossSound.wav";
+    public static String bossSound = Sounds.BOSS_SOUNDS.getFile();
 
     public static void playRandomMonsterSounds(String[] monsterTypeSounds) {
-        int soundNumber = RANDOM.nextInt(0, 10);
+        int soundNumber = Utils.RANDOM.nextInt(0, 10);
         playSound(monsterTypeSounds[soundNumber], (float) 1);
     }
 
@@ -41,7 +46,11 @@ public class MusicPlayer {
                     Main.class.getResourceAsStream(fileName));
             clip.open(inputStream);
             setVolume(volume,clip);
+            if (mainClipFramePosition > 0) clip.setFramePosition(mainClipFramePosition);
             clip.start();
+            if (fileName.equals(Sounds.MAIN.getFile())) {
+                mainClip = clip;
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -51,5 +60,14 @@ public class MusicPlayer {
             throw new IllegalArgumentException("Volume not valid: " + volume);
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
+    public static void stopSounds() {
+        if (mainClipFramePosition > 0 && mainClipFramePosition < Sounds.MAIN.getLengthInFrames()) mainClipFramePosition = mainClip.getFramePosition();
+        else mainClipFramePosition = 0;
+        mainClip.stop();
+        monstersSounds.stop();
+        isMusicPlaying = false;
+        playMainClipDelay.stop();
     }
 }

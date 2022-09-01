@@ -3,25 +3,26 @@ package com.codecool.dungeoncrawl.game.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
 
 public class EndGameController {
 
     @FXML
-    private Button btn;
-
-    @FXML
-    private ImageView gameOverImg;
-
-    @FXML
-    private AnchorPane pane;
-
-    @FXML
     void initialize() {
-        Timeline animation = new Timeline(new KeyFrame(Duration.seconds(3.0), e -> ViewController.closeView()));
+        delayClose(3.0d);
+    }
+
+    /**
+     * Delay Close
+     * <p></p>
+     * Stops all sounds and closes the app after delayed time
+     * @param seconds after this time app will be closed
+     */
+    private static void delayClose(double seconds) {
+        stopSounds();
+        Timeline animation = new Timeline(new KeyFrame(Duration.seconds(seconds), e -> ViewController.closeView()));
         animation.play();
     }
 
