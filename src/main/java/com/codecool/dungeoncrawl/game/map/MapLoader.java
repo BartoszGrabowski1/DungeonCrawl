@@ -30,6 +30,7 @@ public class MapLoader {
                 6,
                 5,
                 3,
+                1,
                 items
         );
         mapGenerator.genLevel();
@@ -78,6 +79,10 @@ public class MapLoader {
                         case 'm':
                             addFloor(random, cell);
                             map.addMonsters(new Medusa(cell));
+                            break;
+                        case 'n':
+                            addFloor(random, cell);
+                            map.addNpc(new Npc(cell));
                             break;
                         case 'b':
                             addFloor(random, cell);
