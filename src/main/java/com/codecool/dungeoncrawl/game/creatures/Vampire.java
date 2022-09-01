@@ -19,6 +19,11 @@ public class Vampire extends Monster {
         super.setExp(250);
     }
 
+    @Override
+    public void lootItems() {
+
+    }
+
 
     @Override
     public String getTileName() {

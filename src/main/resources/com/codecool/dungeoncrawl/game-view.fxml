@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,7 +19,7 @@
     </padding>
     <BorderPane prefHeight="650.0" prefWidth="1100.0">
       <center>
-         <Canvas fx:id="mainView" height="640.0" width="640.0" BorderPane.alignment="CENTER" />
+         <Canvas fx:id="mainView" height="649.0" width="640.0" BorderPane.alignment="CENTER" />
       </center>
       <right>
          <GridPane prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -42,7 +43,7 @@
          </GridPane>
       </right>
       <left>
-         <TableView fx:id="tableView" prefHeight="180.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+         <TableView fx:id="tableView" prefHeight="647.0" prefWidth="240.0" BorderPane.alignment="CENTER">
            <columns>
              <TableColumn fx:id="itemName" prefWidth="75.0" text="Item" />
              <TableColumn fx:id="itemDescription" prefWidth="75.0" text="Description" />
@@ -50,5 +51,8 @@
            </columns>
          </TableView>
       </left>
+      <bottom>
+         <TextArea prefHeight="87.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
+      </bottom>
     </BorderPane>
 </VBox>

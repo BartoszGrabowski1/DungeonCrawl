@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl.game.controller;
 
+import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
+import com.codecool.dungeoncrawl.game.map.MapLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -135,6 +137,7 @@ public class FightController {
 
     private void playerWin(Monster monster) {
         player.setExp(player.getExp() + monster.getExp());
+        monster.lootItems();
         monster.getCreature().getCell().setCreature(null);
         GameMap.removeMonster(monster);
         ViewController.setGameView();

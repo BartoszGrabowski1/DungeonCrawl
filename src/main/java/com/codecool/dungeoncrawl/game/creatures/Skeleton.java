@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Skeleton extends Monster {
@@ -11,6 +12,11 @@ public class Skeleton extends Monster {
         super.setAbilityPower(40);
         super.setBlockPower(50);
         super.setExp(100);
+    }
+
+    @Override
+    public void lootItems() {
+        this.getCreature().getCell().setItem(new SkeletonSkull(this.getCell()));
     }
 
     @Override

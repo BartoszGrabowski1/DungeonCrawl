@@ -79,8 +79,12 @@ public abstract class Monster extends Creature {
             possibleDirectionWhenChaseAvailable.add("EAST");
         }
     }
-
+    public abstract void lootItems();
     public abstract void specialAbility(GameMap map);
+
+    public void lootChance(int chance){
+
+    }
 
     public void monsterMovement(GameMap map) {
         if (specialAbilityCoolDown == 0) {

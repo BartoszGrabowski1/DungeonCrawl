@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static String generateMap() {
-        char[] items = {'1', '3', 'B'};
+        char[] items = {'1', '3'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -112,10 +112,10 @@ public class MapLoader {
                             addFloor(random, cell);
                             new Armor(cell);
                             break;
-                        case 'B':
-                            addFloor(random, cell);
-                            new SkeletonSkull(cell);
-                            break;
+//                        case 'B':
+//                            addFloor(random, cell);
+//                            new SkeletonSkull(cell);
+//                            break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
                             break;
