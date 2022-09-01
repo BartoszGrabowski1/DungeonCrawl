@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.game.map;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Key;
+import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.controller.GameController;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static String generateMap() {
-        char[] items = {'1', '3'};
+        char[] items = {'1', '3', 'B'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -110,6 +111,10 @@ public class MapLoader {
                         case '3':
                             addFloor(random, cell);
                             new Armor(cell);
+                            break;
+                        case 'B':
+                            addFloor(random, cell);
+                            new SkeletonSkull(cell);
                             break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
