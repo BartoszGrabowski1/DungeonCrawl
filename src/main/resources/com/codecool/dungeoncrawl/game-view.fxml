@@ -7,22 +7,23 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
+<VBox alignment="CENTER" prefHeight="761.0" prefWidth="1138.0" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <BorderPane prefHeight="650.0" prefWidth="1100.0">
+    <BorderPane prefHeight="602.0" prefWidth="1100.0">
       <center>
-         <Canvas fx:id="mainView" height="649.0" width="640.0" BorderPane.alignment="CENTER" />
+         <Canvas fx:id="mainView" height="603.0" width="686.0" BorderPane.alignment="CENTER" />
       </center>
       <right>
-         <GridPane prefWidth="200.0" BorderPane.alignment="CENTER">
+         <GridPane prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
            <columnConstraints>
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,7 +44,7 @@
          </GridPane>
       </right>
       <left>
-         <TableView fx:id="tableView" prefHeight="647.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+         <TableView fx:id="tableView" prefHeight="635.0" prefWidth="234.0" BorderPane.alignment="CENTER">
            <columns>
              <TableColumn fx:id="itemName" prefWidth="75.0" text="Item" />
              <TableColumn fx:id="itemDescription" prefWidth="75.0" text="Description" />
@@ -51,8 +52,11 @@
            </columns>
          </TableView>
       </left>
-      <bottom>
-         <TextArea prefHeight="87.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
-      </bottom>
     </BorderPane>
+   <VBox prefHeight="110.0" prefWidth="1098.0">
+      <children>
+         <TextArea fx:id="output" prefHeight="105.0" prefWidth="1098.0" />
+         <TextField fx:id="input" prefHeight="62.0" prefWidth="1100.0" />
+      </children>
+   </VBox>
 </VBox>

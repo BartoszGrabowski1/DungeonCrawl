@@ -26,6 +26,8 @@ public class Player extends Creature {
 
     private String name;
 
+    public static boolean isFirstMissionOn = false;
+
     public Player(Cell cell, String name) {
         super(cell);
         super.setHealth(600);
@@ -84,7 +86,7 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
-            GameController.isNpcAbove = true;
+            GameController.isNpcAvaiable = true;
             return false;
         }
         return true;

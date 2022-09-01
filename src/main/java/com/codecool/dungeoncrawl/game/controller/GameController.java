@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
@@ -14,10 +15,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +23,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.codecool.dungeoncrawl.Main.*;
 import static com.codecool.dungeoncrawl.game.controller.ViewController.context;
@@ -36,7 +36,9 @@ public class GameController {
 
     private static boolean isMapCreated = false;
 
-    public static boolean isNpcAbove = false;
+    public static boolean isNpcAvaiable = false;
+
+    public static boolean isSkullInInventory = false;
 
     @FXML
     public Canvas mainView;
@@ -58,6 +60,14 @@ public class GameController {
 
     @FXML
     private TableView tableView;
+
+
+    @FXML
+    private TextArea output;
+
+    @FXML
+    private TextField input;
+
 
     @FXML
     public void initialize() {
@@ -144,6 +154,9 @@ public class GameController {
                 map.getPlayer().move(1, 0);
                 updateGameView(pickUpItemBtn, context);
                 break;
+            case R:
+                firstMissionAccess();
+                firstMissionFinish();
             default:
                 break;
         }
@@ -176,7 +189,6 @@ public class GameController {
         checkForItem(pickUpItemBtn, playerOnItem);
         checkForStairs();
         checkForFight();
-        checkForNpcInteraction();
 
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
@@ -229,12 +241,56 @@ public class GameController {
     }
 
 
-    private void checkForNpcInteraction(){
-        if (isNpcAbove) {
-            System.out.println("dupa");
+    private void firstMissionAccess(){
+        if (isNpcAvaiable && !Player.isFirstMissionOn) {
+            output.appendText("What you want? mission \n");
+            input.setOnAction(e -> {
+                String inputText = input.getText();
+                if (!Objects.equals(inputText, "mission") && !Objects.equals(inputText, "fight")){
+                    output.appendText("Wrong answer motherfucker! \n");
+                    firstMissionAccess();
+                } else {
+                    System.out.println("gowno");
+                    output.appendText("Give me 3 skulls suko and I will give you some doświadczenie albo nie wiem \n");
+                    Player.isFirstMissionOn = true;
+                }
+                System.out.println("dupa");
+                input.clear();
+            });
+
         }
 
     }
+    
+    private void firstMissionFinish() {
+        if(Player.isFirstMissionOn) {
+            output.appendText("Do you have 3 skulls? yes \n");
+            input.setOnAction(e -> {
+                String inputText = input.getText();
+                if (!Objects.equals(inputText, "yes")) {
+                    output.appendText("Wrong answer motherfucker! \n");
+                    firstMissionFinish();
+                }else if (Objects.equals(inputText, "no")) {
+                    output.appendText("Back when you get it! \n");
+                }
+                else {
+                    for (Item item : player.getInventory()) {
+                        if (item instanceof SkeletonSkull) {
+                            isSkullInInventory = true;
+                        }
+                        if (isSkullInInventory) {
+                            output.appendText("You did it! Here is your reward \n");
+                            player.setExp(player.getExp() + 2000);
+                            output.appendText("+2000 exp");
+                        } else {
+                            output.appendText("Back when you get this shit!");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     private void checkForFight() {
         if (FightController.isFightAvailable) {
             startFight();
