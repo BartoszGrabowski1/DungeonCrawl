@@ -83,6 +83,7 @@ public class MapLoader {
                         case 'n':
                             addFloor(random, cell);
                             map.addNpc(new Npc(cell));
+                            cell.setType(CellType.NPC);
                             break;
                         case 'b':
                             addFloor(random, cell);
@@ -143,6 +144,7 @@ public class MapLoader {
                         case '{':
                             cell.setType(CellType.BLOOD_3);
                             break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

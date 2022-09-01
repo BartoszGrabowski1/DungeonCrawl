@@ -5,8 +5,6 @@ import com.codecool.dungeoncrawl.game.Drawable;
 
 public class Npc extends Creature {
 
-    protected Cell cell;
-
     public Npc(Cell cell) {
         super(cell);
     }

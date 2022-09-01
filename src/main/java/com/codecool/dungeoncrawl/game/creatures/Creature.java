@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Drawable;
-import com.codecool.dungeoncrawl.game.controller.Action;
+import com.codecool.dungeoncrawl.game.controller.FightAction;
 
 public abstract class Creature implements Drawable {
     protected Cell cell;
@@ -45,7 +45,7 @@ public abstract class Creature implements Drawable {
         }
     }
 
-    public int calcDamage(Action action) {
+    public int calcDamage(FightAction action) {
         switch (action) {
             case ATTACK:
                 return damage;

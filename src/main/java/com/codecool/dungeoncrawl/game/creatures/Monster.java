@@ -38,6 +38,7 @@ public abstract class Monster extends Creature {
             return false;
         } else if (this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.NPC ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.STAIRS) {

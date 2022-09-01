@@ -3,10 +3,10 @@ package com.codecool.dungeoncrawl.game.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Action {
+public enum FightAction {
     ATTACK, ABILITY, BLOCK;
 
-    private static final Map<Action, Action> winMap = new HashMap<>();
+    private static final Map<FightAction, FightAction> winMap = new HashMap<>();
 
     static {
         winMap.put(ATTACK, ABILITY);
@@ -14,7 +14,7 @@ public enum Action {
         winMap.put(BLOCK, ATTACK);
     }
 
-    ActionResult checkAgainst(Action action) {
+    ActionResult checkAgainst(FightAction action) {
         if (this == action)
             return ActionResult.DRAW;
 
