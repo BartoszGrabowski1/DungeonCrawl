@@ -23,7 +23,6 @@ public class GameMap {
         return monsters;
     }
 
-    public List<Npc> getNpc() { return npcs;}
 
     public void addNpc(Npc npc) { npcs.add(npc); }
 

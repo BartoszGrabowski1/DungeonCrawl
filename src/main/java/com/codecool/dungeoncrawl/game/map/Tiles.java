@@ -36,7 +36,7 @@ public class Tiles {
         tileMap.put("skeleton", new Tile(18, 74));
         tileMap.put("vampire", new Tile(13, 77));
         tileMap.put("medusa", new Tile(6, 77));
-        tileMap.put("npc", new Tile(10,68));
+        tileMap.put("arthur", new Tile(10,68));
         tileMap.put("boss", new Tile(0, 66));
         tileMap.put("sword", new Tile(1, 46));
         tileMap.put("key", new Tile(55, 40));

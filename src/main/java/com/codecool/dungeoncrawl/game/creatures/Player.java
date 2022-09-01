@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Item;
@@ -80,6 +81,10 @@ public class Player extends Creature {
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
             FightController.isFightAvailable = true;
             FightController.monster = (Monster) this.getCell().getNeighbor(x, y).getCreature();
+            return false;
+        }
+        if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
+            GameController.isNpcAbove = true;
             return false;
         }
         return true;

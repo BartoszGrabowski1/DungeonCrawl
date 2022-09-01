@@ -36,6 +36,8 @@ public class GameController {
 
     private static boolean isMapCreated = false;
 
+    public static boolean isNpcAbove = false;
+
     @FXML
     public Canvas mainView;
 
@@ -171,10 +173,10 @@ public class GameController {
                 }
             }
         }
-
         checkForItem(pickUpItemBtn, playerOnItem);
         checkForStairs();
         checkForFight();
+        checkForNpcInteraction();
 
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
@@ -226,6 +228,13 @@ public class GameController {
         updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());
     }
 
+
+    private void checkForNpcInteraction(){
+        if (isNpcAbove) {
+            System.out.println("dupa");
+        }
+
+    }
     private void checkForFight() {
         if (FightController.isFightAvailable) {
             startFight();

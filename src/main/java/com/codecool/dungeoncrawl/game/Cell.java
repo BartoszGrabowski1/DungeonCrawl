@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.game;
 
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.creatures.Creature;
+import com.codecool.dungeoncrawl.game.creatures.Npc;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
@@ -9,6 +10,7 @@ public class Cell implements Drawable {
     private CellType type;
     private Creature creature;
     private Item item;
+    private Npc npc;
     private GameMap gameMap;
     private int x, y;
 
@@ -33,6 +35,10 @@ public class Cell implements Drawable {
 
     public Creature getCreature() {
         return creature;
+    }
+
+    public Npc getNpc() {
+        return npc;
     }
 
     public Cell getNeighbor(int dx, int dy) {

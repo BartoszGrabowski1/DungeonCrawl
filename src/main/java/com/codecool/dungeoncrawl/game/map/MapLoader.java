@@ -83,7 +83,7 @@ public class MapLoader {
                             break;
                         case 'n':
                             addFloor(random, cell);
-                            map.addNpc(new Npc(cell));
+                            map.addNpc(new Arthur(cell));
                             cell.setType(CellType.NPC);
                             break;
                         case 'b':

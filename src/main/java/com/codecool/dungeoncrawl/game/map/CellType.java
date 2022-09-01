@@ -20,7 +20,6 @@ public enum CellType {
     BLOOD_2("blood2"),
     BLOOD_3("blood3"),
     NPC("npc"),
-    SKULL("skull"),
     STAIRS("stairs");
 
     private final String tileName;
