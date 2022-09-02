@@ -3,15 +3,20 @@ package com.codecool.dungeoncrawl.game.controller;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
+import com.codecool.dungeoncrawl.game.utils.Utils;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
-import javax.swing.*;
+import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
 
 public class FightController {
 
     @FXML
-    private ComboBox<FightAction> boxSpells;
+    private ComboBox<?> boxSpells;
 
     @FXML
     private Button buttonAbility;
@@ -100,12 +105,26 @@ public class FightController {
         buttonAttack.setOnAction(e -> makeMove(FightAction.ATTACK, player, monster));
         buttonBlock.setOnAction(e -> makeMove(FightAction.BLOCK, player, monster));
         boxSpells.setOnAction(e -> makeMove(FightAction.SPECIAL, player, monster));
+        stopSounds();
+        stopAllMonstersMoving();
+
+        initBattleButtons();
+
+        updateStats();
+    }
+
+    private void initBattleButtons() {
+        buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
+        buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
         if (player.getMana() >= 40){
-            buttonAbility.setOnAction(e -> makeMove(FightAction.ABILITY, player, monster));
+            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
         } else {
             buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
         }
-        updateStats();
+    }
+
+    private static void stopAllMonstersMoving() {
+        monstersMoving.stop();
     }
 
     private void makeMove(FightAction userAction, Player player, Monster monster) {
@@ -165,7 +184,7 @@ public class FightController {
     }
 
     private FightAction makeMonsterMove() {
-        return FightAction.values()[(int) (Math.random() * FightAction.values().length - 1)];
+        return FightAction.values()[(int) (Utils.RANDOM.nextInt(0, FightAction.values().length - 1))];
     }
 
 }

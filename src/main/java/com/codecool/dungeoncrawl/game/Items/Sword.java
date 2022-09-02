@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.game.Cell;
 public class Sword extends Item {
 
     public Sword(Cell cell) {
-        super(cell, "Sword", "Sharp Sword", 112);
+        super(cell, "Sword", "Sharp Sword", 100);
     }
 
 

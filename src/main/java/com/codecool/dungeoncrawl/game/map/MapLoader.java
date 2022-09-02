@@ -10,9 +10,9 @@ import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.controller.NameController;
 import com.codecool.dungeoncrawl.game.map.generator.MapGenerator;
 import com.codecool.dungeoncrawl.game.map.generator.MapGeneratorImpl;
+import com.codecool.dungeoncrawl.game.utils.Utils;
 
 import java.io.InputStream;
-import java.util.Random;
 import java.util.Scanner;
 
 public class MapLoader {
@@ -22,12 +22,12 @@ public class MapLoader {
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
-                15,
+                30,
+                3,
+                20,
+                false,
                 5,
                 10,
-                false,
-                1,
-                3,
                 6,
                 5,
                 3,
@@ -39,7 +39,6 @@ public class MapLoader {
     }
 
     public static GameMap loadMap(boolean isBossLevel) {
-        Random random = new Random();
         Scanner scanner;
         if (isBossLevel) {
             InputStream mapLevel = MapLoader.class.getResourceAsStream("/com/codecool/dungeoncrawl/levels/boss.txt");
@@ -64,21 +63,21 @@ public class MapLoader {
                             cell.setType(CellType.EMPTY);
                             break;
                         case '#':
-                            addWalls(random, cell);
+                            addWalls(cell);
                             break;
                         case '.':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             break;
                         case 's':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             map.addMonsters(new Skeleton(cell));
                             break;
                         case 'v':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             map.addMonsters(new Vampire(cell));
                             break;
                         case 'm':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             map.addMonsters(new Medusa(cell));
                             break;
                         case 'n':
@@ -87,11 +86,11 @@ public class MapLoader {
                             cell.setType(CellType.NPC);
                             break;
                         case 'b':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             map.addMonsters(new FinalBoss(cell));
                             break;
                         case '@':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             if (GameController.player == null) {
                                 GameController.player = new Player(cell, NameController.getUserName());
                             } else {
@@ -101,15 +100,15 @@ public class MapLoader {
                             map.setPlayer(GameController.player);
                             break;
                         case '1':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             new Sword(cell);
                             break;
                         case '2':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             new Key(cell);
                             break;
                         case '3':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             new Armor(cell);
                             break;
 //                        case 'B':
@@ -159,8 +158,8 @@ public class MapLoader {
         return map;
     }
 
-    private static void addFloor(Random random, Cell cell) {
-        switch (random.nextInt(3)) {
+    private static void addFloor(Cell cell) {
+        switch (Utils.RANDOM.nextInt(3)) {
             case 0:
                 cell.setType(CellType.FLOOR);
                 break;
@@ -173,8 +172,8 @@ public class MapLoader {
         }
     }
 
-    private static void addWalls(Random random, Cell cell) {
-        switch (random.nextInt(3)) {
+    private static void addWalls(Cell cell) {
+        switch (Utils.RANDOM.nextInt(3)) {
             case 0:
                 cell.setType(CellType.WALL_2);
                 break;

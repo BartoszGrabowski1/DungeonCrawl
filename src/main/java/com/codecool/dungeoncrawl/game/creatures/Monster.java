@@ -4,10 +4,10 @@ import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
+import com.codecool.dungeoncrawl.game.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Monster extends Creature {
@@ -18,17 +18,22 @@ public abstract class Monster extends Creature {
         super(cell);
     }
 
-    private final String[] possibleDirections = new String[]{"NORTH", "SOUTH", "WEST", "EAST"};
+    private final Directions[] possibleDirections = {
+            Directions.NORTH, Directions.SOUTH, Directions.WEST, Directions.EAST
+    };
 
-    private List<String> possibleDirectionWhenChaseAvailable;
+    private enum Directions {
+        NORTH, SOUTH, WEST, EAST;
+    }
 
-    public String drawMoves() {
-        Random random = new Random();
+    private List<Directions> possibleDirectionWhenChaseAvailable;
+
+    public Directions drawMoves() {
         if (possibleDirectionWhenChaseAvailable == null || possibleDirectionWhenChaseAvailable.isEmpty()) {
-            int number = random.nextInt(4);
+            int number = Utils.RANDOM.nextInt(4);
             return possibleDirections[number];
         }
-        int number = random.nextInt(possibleDirectionWhenChaseAvailable.size());
+        int number = Utils.RANDOM.nextInt(possibleDirectionWhenChaseAvailable.size());
         return possibleDirectionWhenChaseAvailable.get(number);
     }
 
@@ -68,17 +73,17 @@ public abstract class Monster extends Creature {
 
     private void possibleYDirection(int yDifference) {
         if (yDifference < 0) {
-            possibleDirectionWhenChaseAvailable.add("NORTH");
+            possibleDirectionWhenChaseAvailable.add(Directions.NORTH);
         } else if (yDifference > 0) {
-            possibleDirectionWhenChaseAvailable.add("SOUTH");
+            possibleDirectionWhenChaseAvailable.add(Directions.SOUTH);
         }
     }
 
     private void possibleXDirection(int xDifference) {
         if (xDifference < 0) {
-            possibleDirectionWhenChaseAvailable.add("WEST");
+            possibleDirectionWhenChaseAvailable.add(Directions.WEST);
         } else if (xDifference > 0) {
-            possibleDirectionWhenChaseAvailable.add("EAST");
+            possibleDirectionWhenChaseAvailable.add(Directions.EAST);
         }
     }
     public abstract void lootItems();
@@ -94,18 +99,18 @@ public abstract class Monster extends Creature {
             specialAbility(map);
         }
         followThePlayer(map);
-        String direction = drawMoves();
+        Directions direction = drawMoves();
         switch (direction) {
-            case "NORTH":
+            case NORTH:
                 this.move(0, -1);
                 break;
-            case "SOUTH":
+            case SOUTH:
                 this.move(0, 1);
                 break;
-            case "WEST":
+            case WEST:
                 this.move(-1, 0);
                 break;
-            case "EAST":
+            case EAST:
                 this.move(1, 0);
                 break;
         }

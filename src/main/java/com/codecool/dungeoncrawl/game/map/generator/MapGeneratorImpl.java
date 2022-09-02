@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.game.map.generator;
 
+import com.codecool.dungeoncrawl.game.utils.Utils;
+
 import java.util.*;
 
 public class MapGeneratorImpl implements MapGenerator {
@@ -15,7 +17,6 @@ public class MapGeneratorImpl implements MapGenerator {
     private List<int[]> ROOM_LIST;
     private List<int[][]> CORRIDOR_LIST;
     private List<String> TILES_LEVEL;
-    private final Random RANDOM = new Random();
     private final int SKELETONS;
     private final int VAMPIRES;
     private final int MEDUSAS;
@@ -75,10 +76,6 @@ public class MapGeneratorImpl implements MapGenerator {
         return TILES_LEVEL;
     }
 
-    public Random getRANDOM() {
-        return RANDOM;
-    }
-
     public int getSKELETONS() {
         return SKELETONS;
     }
@@ -128,10 +125,10 @@ public class MapGeneratorImpl implements MapGenerator {
     }
 
     private int[] genRoom() {
-        int w = getRANDOM().nextInt(getMIN_ROOM_XY(), getMAX_ROOM_XY() + 1);
-        int h = getRANDOM().nextInt(getMIN_ROOM_XY(), getMAX_ROOM_XY() + 1);
-        int x = getRANDOM().nextInt(1, (getWIDTH() - w));
-        int y = getRANDOM().nextInt(1, (getHEIGHT() - h));
+        int w = Utils.RANDOM.nextInt(getMIN_ROOM_XY(), getMAX_ROOM_XY() + 1);
+        int h = Utils.RANDOM.nextInt(getMIN_ROOM_XY(), getMAX_ROOM_XY() + 1);
+        int x = Utils.RANDOM.nextInt(1, (getWIDTH() - w));
+        int y = Utils.RANDOM.nextInt(1, (getHEIGHT() - h));
         return new int[]{x, y, w, h};
     }
 
@@ -171,7 +168,7 @@ public class MapGeneratorImpl implements MapGenerator {
         } else if ((joinType.equals(JoinType.EITHER) && setC.retainAll(setD)) || setE.retainAll(setF)) {
             join = JoinType.TOP;
         } else if (joinType.equals(JoinType.EITHER)) {
-            if (getRANDOM().nextInt(1, 3) == 1) {
+            if (Utils.RANDOM.nextInt(1, 3) == 1) {
                 join = JoinType.TOP;
             } else {
                 join = JoinType.BOTTOM;
@@ -210,7 +207,7 @@ public class MapGeneratorImpl implements MapGenerator {
         y2_2 = y2 + h2 - 1;
 
         if (x1 < (x2 + w2) && x2 < (x1 + w1)) {
-            jx1 = getRANDOM().nextInt(x2, x1_2 + 1);
+            jx1 = Utils.RANDOM.nextInt(x2, x1_2 + 1);
             jx2 = jx1;
             tmpY = new int[]{y1, y2, y1_2, y2_2};
             Arrays.sort(tmpY);
@@ -220,10 +217,10 @@ public class MapGeneratorImpl implements MapGenerator {
             getCORRIDOR_LIST().add(corridors);
         } else if (y1 < (y2 + h2) && y2 < (y1 + h1)) {
             if (y2 > y1) {
-                jy1 = getRANDOM().nextInt(y2, y1_2 + 1);
+                jy1 = Utils.RANDOM.nextInt(y2, y1_2 + 1);
                 jy2 = jy1;
             } else {
-                jy1 = getRANDOM().nextInt(y1, y2_2 + 1);
+                jy1 = Utils.RANDOM.nextInt(y1, y2_2 + 1);
                 jy2 = jy1;
             }
 
@@ -236,7 +233,7 @@ public class MapGeneratorImpl implements MapGenerator {
         } else {
             JoinType join = joinType;
             if (joinType.equals(JoinType.EITHER)) {
-                if (getRANDOM().nextInt(1, 3) == 1) {
+                if (Utils.RANDOM.nextInt(1, 3) == 1) {
                     join = JoinType.TOP;
                 } else {
                     join = JoinType.BOTTOM;
@@ -246,31 +243,31 @@ public class MapGeneratorImpl implements MapGenerator {
             if (join.equals(JoinType.TOP)) {
                 if (y2 > y1) {
                     jx1 = x1_2 + 1;
-                    jy1 = getRANDOM().nextInt(y1, y1_2 + 1);
-                    jx2 = getRANDOM().nextInt(x2, x2_2 + 1);
+                    jy1 = Utils.RANDOM.nextInt(y1, y1_2 + 1);
+                    jx2 = Utils.RANDOM.nextInt(x2, x2_2 + 1);
                     jy2 = y2 - 1;
                     corridors = corridorBetweenPoints(jx1, jy1, jx2, jy2, JoinType.BOTTOM);
                     getCORRIDOR_LIST().add(corridors);
                 } else {
-                    jx1 = getRANDOM().nextInt(x1, x1_2 + 1);
+                    jx1 = Utils.RANDOM.nextInt(x1, x1_2 + 1);
                     jy1 = y1 - 1;
                     jx2 = x2 - 1;
-                    jy2 = getRANDOM().nextInt(y2, y2_2 + 1);
+                    jy2 = Utils.RANDOM.nextInt(y2, y2_2 + 1);
                     corridors = corridorBetweenPoints(jx1, jy1, jx2, jy2, JoinType.TOP);
                     getCORRIDOR_LIST().add(corridors);
                 }
             } else if (join.equals(JoinType.BOTTOM)) {
                 if (y2 > y1) {
-                    jx1 = getRANDOM().nextInt(x1, x1_2 + 1);
+                    jx1 = Utils.RANDOM.nextInt(x1, x1_2 + 1);
                     jy1 = y1_2 + 1;
                     jx2 = x2 - 1;
-                    jy2 = getRANDOM().nextInt(y2, y2_2 + 1);
+                    jy2 = Utils.RANDOM.nextInt(y2, y2_2 + 1);
                     corridors = corridorBetweenPoints(jx1, jy1, jx2, jy2, JoinType.TOP);
                     getCORRIDOR_LIST().add(corridors);
                 } else {
                     jx1 = x1_2 + 1;
-                    jy1 = getRANDOM().nextInt(y1, y1_2 + 1);
-                    jx2 = getRANDOM().nextInt(x2, x2_2 + 1);
+                    jy1 = Utils.RANDOM.nextInt(y1, y1_2 + 1);
+                    jx2 = Utils.RANDOM.nextInt(x2, x2_2 + 1);
                     jy2 = y2_2 + 1;
                     corridors = corridorBetweenPoints(jx1, jy1, jx2, jy2, JoinType.BOTTOM);
                     getCORRIDOR_LIST().add(corridors);
@@ -312,19 +309,19 @@ public class MapGeneratorImpl implements MapGenerator {
         }
 
         for (int i = 0; i < getRANDOM_CONNECTIONS(); i++) {
-            int[] room1 = getROOM_LIST().get(getRANDOM().nextInt(0, getROOM_LIST().size()));
-            int[] room2 = getROOM_LIST().get(getRANDOM().nextInt(0, getROOM_LIST().size()));
+            int[] room1 = getROOM_LIST().get(Utils.RANDOM.nextInt(0, getROOM_LIST().size()));
+            int[] room2 = getROOM_LIST().get(Utils.RANDOM.nextInt(0, getROOM_LIST().size()));
             joinRooms(room1, room2, JoinType.EITHER);
         }
 
         for (int i = 0; i < getRANDOM_SPURS(); i++) {
             int[] room1 = new int[]{
-                    getRANDOM().nextInt(2, getWIDTH() - 1),
-                    getRANDOM().nextInt(2, getHEIGHT() - 1),
+                    Utils.RANDOM.nextInt(2, getWIDTH() - 1),
+                    Utils.RANDOM.nextInt(2, getHEIGHT() - 1),
                     1,
                     1
             };
-            int[] room2 = getROOM_LIST().get(getRANDOM().nextInt(0, getROOM_LIST().size()));
+            int[] room2 = getROOM_LIST().get(Utils.RANDOM.nextInt(0, getROOM_LIST().size()));
             joinRooms(room1, room2, JoinType.EITHER);
         }
 
@@ -454,7 +451,7 @@ public class MapGeneratorImpl implements MapGenerator {
             Collections.shuffle(tempArray);
             if (row.contains(".")) {
                 StringBuilder sb = new StringBuilder(row);
-                int randomIndex = getRANDOM().nextInt(getWIDTH());
+                int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
                 if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, 'H');
                 else sb.setCharAt(row.indexOf("."), 'H');
                 getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
@@ -487,7 +484,7 @@ public class MapGeneratorImpl implements MapGenerator {
                 if (row.contains(".")) {
                     StringBuilder sb = new StringBuilder(row);
                     try {
-                        int randomIndex = getRANDOM().nextInt(getWIDTH());
+                        int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
                         if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, getITEMS()[itemsAdded]);
                         else sb.setCharAt(row.indexOf("."), getITEMS()[itemsAdded]);
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
@@ -510,7 +507,7 @@ public class MapGeneratorImpl implements MapGenerator {
                 if (row.contains(".")) {
                     StringBuilder sb = new StringBuilder(row);
                     try {
-                        int randomIndex = getRANDOM().nextInt(getWIDTH());
+                        int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
                         if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, symbol);
                         else sb.setCharAt(row.indexOf("."), symbol);
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
