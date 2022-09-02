@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
@@ -16,7 +17,9 @@ public class Skeleton extends Monster {
 
     @Override
     public void lootItems() {
-        this.getCreature().getCell().setItem(new SkeletonSkull(this.getCell()));
+        if (lootChance(50)) {
+            this.getCreature().getCell().setItem(new SkeletonSkull(this.getCell()));
+        }
     }
 
     @Override

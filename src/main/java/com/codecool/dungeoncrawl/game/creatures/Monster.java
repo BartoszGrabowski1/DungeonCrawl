@@ -1,12 +1,14 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Monster extends Creature {
 
@@ -82,8 +84,9 @@ public abstract class Monster extends Creature {
     public abstract void lootItems();
     public abstract void specialAbility(GameMap map);
 
-    public void lootChance(int chance){
-
+    public boolean lootChance(int ratio){
+        int chance = ThreadLocalRandom.current().nextInt(100);
+        return chance < ratio;
     }
 
     public void monsterMovement(GameMap map) {
