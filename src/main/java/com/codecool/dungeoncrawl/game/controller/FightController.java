@@ -136,22 +136,30 @@ public class FightController {
         if (result == FightAction.ActionResult.DRAW) {
             output.appendText("DRAW\n");
         } else if (result == FightAction.ActionResult.WIN) {
-            int dmg = player.calcDamage(userAction);
-            if (userAction == FightAction.ABILITY) {
-                player.setMana(player.getMana() - 40);
-            } else if (userAction == FightAction.SPECIAL){
-                boxSpells.setPromptText("Items");
-                player.setHealth(player.getHealth() + 100);
-            }
-            monster.setHealth(monster.getHealth() - dmg);
-            manaRegeneration(player);
-            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
+            dealDamageToMonster(userAction, player, monster);
         } else { // LOSE
-            int dmg = monster.calcDamage(monsterAction);
-            player.setHealth(player.getHealth() - dmg);
-            manaRegeneration(player);
-            output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
+            dealDamageToPlayer(player, monster, monsterAction);
         }
+    }
+
+    private void dealDamageToMonster(FightAction userAction, Player player, Monster monster) {
+        int dmg = player.calcDamage(userAction);
+        if (userAction == FightAction.ABILITY) {
+            player.setMana(player.getMana() - 40);
+        } else if (userAction == FightAction.SPECIAL){
+            boxSpells.setPromptText("Items");
+            player.setHealth(player.getHealth() + 100);
+        }
+        monster.setHealth(monster.getHealth() - dmg);
+        manaRegeneration(player);
+        output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
+    }
+
+    private void dealDamageToPlayer(Player player, Monster monster, FightAction monsterAction) {
+        int dmg = monster.calcDamage(monsterAction);
+        player.setHealth(player.getHealth() - dmg);
+        manaRegeneration(player);
+        output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
     }
 
     private static void manaRegeneration(Player player) {
