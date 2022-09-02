@@ -26,6 +26,7 @@ public class GameMap {
 
     public void addNpc(Npc npc) { npcs.add(npc); }
 
+    public void removeNpc(Npc npc) { npcs.remove(npc);}
 
     public void addMonsters(Monster monster) {
         monsters.add(monster);

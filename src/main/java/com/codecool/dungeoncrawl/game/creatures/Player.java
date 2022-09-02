@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
-import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Item;
@@ -9,6 +8,7 @@ import com.codecool.dungeoncrawl.game.Items.Key;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
+import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,6 @@ public class Player extends Creature {
 
     private String name;
 
-    public static boolean isFirstMissionOn = false;
 
     public Player(Cell cell, String name) {
         super(cell);
@@ -85,7 +84,8 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
-            GameController.isNpcAvaiable = true;
+            FirstQuest.isFirstNpcAvailable = true;
+            FirstQuest.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
             return false;
         }
         return true;
