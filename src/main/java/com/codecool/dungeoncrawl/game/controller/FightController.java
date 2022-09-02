@@ -5,10 +5,7 @@ import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.game.utils.Utils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
 import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
@@ -16,7 +13,7 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
 public class FightController {
 
     @FXML
-    private ComboBox<?> boxSpells;
+    private ComboBox<FightAction> boxSpells;
 
     @FXML
     private Button buttonAbility;
@@ -114,10 +111,10 @@ public class FightController {
     }
 
     private void initBattleButtons() {
-        buttonAttack.setOnAction(e -> makeMove(Action.ATTACK, player, monster));
-        buttonBlock.setOnAction(e -> makeMove(Action.BLOCK, player, monster));
+        buttonAttack.setOnAction(e -> makeMove(FightAction.ATTACK, player, monster));
+        buttonBlock.setOnAction(e -> makeMove(FightAction.BLOCK, player, monster));
         if (player.getMana() >= 40){
-            buttonAbility.setOnAction(e -> makeMove(Action.ABILITY, player, monster));
+            buttonAbility.setOnAction(e -> makeMove(FightAction.ABILITY, player, monster));
         } else {
             buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
         }

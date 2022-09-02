@@ -280,9 +280,6 @@ public class GameController {
         blockLabel.setText("" + map.getPlayer().getBlockPower());
     }
 
-
-
-    public static void hideButton(Button pickUpItemBtn) {
     /**
      * Hide PickUp Button
      * <p></p>
@@ -364,8 +361,6 @@ public class GameController {
         }
         updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());
     }
-
-
 
     /**
      * Check For Fight

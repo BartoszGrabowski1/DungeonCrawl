@@ -56,6 +56,7 @@ public class MapGeneratorImpl implements MapGenerator {
         return RANDOM_SPURS;
     }
 
+
     public Tile[][] getLEVEL() {
         return LEVEL;
     }
@@ -530,7 +531,7 @@ public class MapGeneratorImpl implements MapGenerator {
                 if (row.contains(".")) {
                     StringBuilder sb = new StringBuilder(row);
                     try {
-                        int randomIndex = getRANDOM().nextInt(getWIDTH());
+                        int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
                         if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, symbol);
                         else sb.setCharAt(row.indexOf("."), symbol);
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());

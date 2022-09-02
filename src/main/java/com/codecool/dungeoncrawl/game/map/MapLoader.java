@@ -81,7 +81,7 @@ public class MapLoader {
                             map.addMonsters(new Medusa(cell));
                             break;
                         case 'n':
-                            addFloor(random, cell);
+                            addFloor(cell);
                             map.addNpc(new Arthur(cell));
                             cell.setType(CellType.NPC);
                             break;

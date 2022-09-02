@@ -81,7 +81,7 @@ public class FirstQuest {
                             npc.getCreature().getCell().setCreature(null);
                             input.setVisible(false);
                         } else {
-                            output.appendText("Back when you get this shit!");
+                            output.appendText("Back when you get this shit! \n");
                         }
                     }
                 }
