@@ -1,20 +1,17 @@
 package com.codecool.dungeoncrawl.game.controller;
 
-import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
-import com.codecool.dungeoncrawl.game.map.MapLoader;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+
+import javax.swing.*;
 
 public class FightController {
 
     @FXML
-    private ComboBox<?> boxSpells;
+    private ComboBox<FightAction> boxSpells;
 
     @FXML
     private Button buttonAbility;
@@ -89,8 +86,20 @@ public class FightController {
 
     @FXML
     void initialize() {
+        boxSpells.setButtonCell(new ListCell<>() {
+            public void updateItem(FightAction item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(boxSpells.getPromptText());
+                } else {
+                    setText("             Items");
+                }
+            }
+        });
+        boxSpells.getItems().add(FightAction.SPECIAL);
         buttonAttack.setOnAction(e -> makeMove(FightAction.ATTACK, player, monster));
         buttonBlock.setOnAction(e -> makeMove(FightAction.BLOCK, player, monster));
+        boxSpells.setOnAction(e -> makeMove(FightAction.SPECIAL, player, monster));
         if (player.getMana() >= 40){
             buttonAbility.setOnAction(e -> makeMove(FightAction.ABILITY, player, monster));
         } else {
@@ -114,14 +123,22 @@ public class FightController {
             int dmg = player.calcDamage(userAction);
             if (userAction == FightAction.ABILITY) {
                 player.setMana(player.getMana() - 40);
+            } else if (userAction == FightAction.SPECIAL){
+                boxSpells.setPromptText("Items");
+                player.setHealth(player.getHealth() + 100);
             }
             monster.setHealth(monster.getHealth() - dmg);
+            manaRegeneration(player);
             output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
         } else { // LOSE
             int dmg = monster.calcDamage(monsterAction);
             player.setHealth(player.getHealth() - dmg);
+            manaRegeneration(player);
             output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
         }
+    }
+
+    private static void manaRegeneration(Player player) {
         if (player.getMana() < 100){
             player.setMana(player.getMana() + 10);
         }
@@ -148,7 +165,7 @@ public class FightController {
     }
 
     private FightAction makeMonsterMove() {
-        return FightAction.values()[(int) (Math.random() * FightAction.values().length)];
+        return FightAction.values()[(int) (Math.random() * FightAction.values().length - 1)];
     }
 
 }
