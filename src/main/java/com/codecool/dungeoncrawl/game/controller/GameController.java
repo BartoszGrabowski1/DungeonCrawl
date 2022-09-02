@@ -40,6 +40,8 @@ public class GameController {
 
     public static boolean isSkullInInventory = false;
 
+    public static boolean isFirstMissionFinished = false;
+
     @FXML
     public Canvas mainView;
 
@@ -242,16 +244,16 @@ public class GameController {
 
 
     private void firstMissionAccess(){
-        if (isNpcAvaiable && !Player.isFirstMissionOn) {
+        if (isNpcAvaiable && !Player.isFirstMissionOn && !isFirstMissionFinished) {
             output.appendText("What you want? mission \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
-                if (!Objects.equals(inputText, "mission") && !Objects.equals(inputText, "fight")){
+                if (!Objects.equals(inputText, "mission")){
                     output.appendText("Wrong answer motherfucker! \n");
                     firstMissionAccess();
                 } else {
                     System.out.println("gowno");
-                    output.appendText("Give me 3 skulls suko and I will give you some doświadczenie albo nie wiem \n");
+                    output.appendText("Give me 3 skulls suko and I will give you some doświadczenie albo nie wiem, baj baj \n");
                     Player.isFirstMissionOn = true;
                 }
                 System.out.println("dupa");
@@ -261,13 +263,13 @@ public class GameController {
         }
 
     }
-    
+
     private void firstMissionFinish() {
         if(Player.isFirstMissionOn) {
-            output.appendText("Do you have 3 skulls? yes \n");
+            output.appendText("Do you have 3 skulls? yes/no \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
-                if (!Objects.equals(inputText, "yes")) {
+                if (!Objects.equals(inputText, "yes") && !Objects.equals(inputText, "no")) {
                     output.appendText("Wrong answer motherfucker! \n");
                     firstMissionFinish();
                 }else if (Objects.equals(inputText, "no")) {
@@ -282,6 +284,7 @@ public class GameController {
                             output.appendText("You did it! Here is your reward \n");
                             player.setExp(player.getExp() + 2000);
                             output.appendText("+2000 exp");
+                            isFirstMissionFinished = true;
                         } else {
                             output.appendText("Back when you get this shit!");
                         }

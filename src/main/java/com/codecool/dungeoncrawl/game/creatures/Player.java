@@ -44,7 +44,6 @@ public class Player extends Creature {
         return (int) (Math.sqrt(100 * (2 * super.getExp()+25)+50)/50);
     }
 
-
     public void pickUpItem() {
         inventory.add(this.getCell().getItem());
         if (this.getCell().getItem() instanceof Sword) {
