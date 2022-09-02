@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.game.quests;
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.creatures.Npc;
+import com.codecool.dungeoncrawl.game.map.CellType;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -22,6 +24,7 @@ public class FirstQuest {
     public static boolean isFirstMissionOn = false;
 
     public static void firstMissionAccess(TextArea output, TextField input){
+        input.setVisible(true);
         if (isFirstNpcAvailable && !FirstQuest.isFirstMissionOn && !isFirstMissionFinished) {
             output.appendText("What you want? (mission) \n");
             input.setOnAction(e -> {
@@ -34,6 +37,7 @@ public class FirstQuest {
                     FirstQuest.isFirstMissionOn = true;
                 }
                 input.clear();
+                input.setVisible(false);
             });
 
         } else {
@@ -43,6 +47,7 @@ public class FirstQuest {
     }
 
     public static void firstMissionFinish(TextArea output, TextField input) {
+        input.setVisible(true);
         if(FirstQuest.isFirstMissionOn && !isFirstMissionFinished) {
             output.appendText("Do you have skull? (yes/no) \n");
             input.setOnAction(e -> {
@@ -70,8 +75,11 @@ public class FirstQuest {
                             output.appendText("You did it! Here is your reward \n");
                             player.setExp(player.getExp() + 2000);
                             output.appendText("+2000 exp");
-                            isSkullInInventory = false;
                             isFirstMissionFinished = true;
+                            GameMap.removeNpc(npc);
+                            npc.getCreature().getCell().setType(CellType.FLOOR);
+                            npc.getCreature().getCell().setCreature(null);
+                            input.setVisible(false);
                         } else {
                             output.appendText("Back when you get this shit!");
                         }
@@ -80,5 +88,4 @@ public class FirstQuest {
             });
         }
     }
-
 }

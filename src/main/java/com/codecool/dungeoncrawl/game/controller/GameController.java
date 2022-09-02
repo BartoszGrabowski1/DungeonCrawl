@@ -149,7 +149,9 @@ public class GameController {
                 updateGameView(pickUpItemBtn, context);
                 break;
             case R:
-                FirstQuest.firstMissionAccess(output, input);
+                if(!FirstQuest.isFirstMissionFinished) {
+                    FirstQuest.firstMissionAccess(output, input);
+                }
             default:
                 break;
         }

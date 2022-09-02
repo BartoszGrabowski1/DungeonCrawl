@@ -56,7 +56,7 @@
    <VBox prefHeight="110.0" prefWidth="1098.0">
       <children>
          <TextArea fx:id="output" prefHeight="105.0" prefWidth="1098.0" />
-         <TextField fx:id="input" prefHeight="62.0" prefWidth="1100.0" />
+         <TextField fx:id="input" prefHeight="62.0" prefWidth="1100.0" visible="false" />
       </children>
    </VBox>
 </VBox>
