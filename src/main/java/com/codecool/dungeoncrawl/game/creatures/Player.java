@@ -1,12 +1,12 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.Key;
 import com.codecool.dungeoncrawl.game.Items.Sword;
-import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.quests.FirstQuest;
