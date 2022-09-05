@@ -49,6 +49,10 @@ public class Tiles {
         tileMap.put("blood2", new Tile(1, 52));
         tileMap.put("blood3", new Tile(2, 52));
         tileMap.put("armor", new Tile(9, 38));
+        tileMap.put("helmet", new Tile(55, 36));
+        tileMap.put("shoes", new Tile(27, 36));
+        tileMap.put("shield", new Tile(23, 37));
+        tileMap.put("gloves", new Tile(32, 36));
         tileMap.put("stairs", new Tile(53, 11));
         tileMap.put("closed_doors", new Tile(52, 10));
         tileMap.put("open_doors", new Tile(48, 10));
