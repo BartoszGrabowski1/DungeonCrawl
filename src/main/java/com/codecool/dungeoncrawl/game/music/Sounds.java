@@ -3,6 +3,10 @@ package com.codecool.dungeoncrawl.game.music;
 public enum Sounds {
     MAIN("/com/codecool/dungeoncrawl/sounds/mainSound.wav", 510_000, 28_050_000),
     STEP_SOUNDS("/com/codecool/dungeoncrawl/sounds/footStepSound.wav"),
+    EQUIP_SWORD("/com/codecool/dungeoncrawl/sounds/equip_sword.wav"),
+    EQUIP_ARMOR("/com/codecool/dungeoncrawl/sounds/equip_armor.wav"),
+    PICKUP_KEY("/com/codecool/dungeoncrawl/sounds/pickup_key.wav"),
+    OPEN_DOORS("/com/codecool/dungeoncrawl/sounds/opened_doors.wav"),
     BOSS_SOUNDS("/com/codecool/dungeoncrawl/sounds/bossSound.wav"),
     MONSTERS_SOUNDS_1("/com/codecool/dungeoncrawl/sounds/monsters/1.wav"),
     MONSTERS_SOUNDS_2("/com/codecool/dungeoncrawl/sounds/monsters/2.wav"),
