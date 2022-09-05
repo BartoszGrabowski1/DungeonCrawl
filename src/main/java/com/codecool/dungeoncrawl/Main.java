@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl;
-
-import com.codecool.dungeoncrawl.game.map.GameMap;
+import com.codecool.dungeoncrawl.game.map.*;
 import com.codecool.dungeoncrawl.game.controller.*;
 import javafx.animation.Timeline;
 import javafx.application.Application;

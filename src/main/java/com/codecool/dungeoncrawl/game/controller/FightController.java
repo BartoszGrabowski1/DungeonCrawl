@@ -61,6 +61,11 @@ public class FightController {
     public void updateStats() {
         updatePlayerStats();
         updateMonsterStats();
+        if (player.getMana() >= 40){
+            buttonAbility.setOnMouseClicked(e -> makeMove(FightAction.ABILITY, player, monster));
+        } else {
+            buttonAbility.setOnMouseClicked(e -> output.appendText("You dont have enough mana \n"));
+        }
     }
 
     private void updateMonsterStats() {
@@ -97,11 +102,6 @@ public class FightController {
     private void initBattleButtons() {
         buttonAttack.setOnMouseClicked(e -> makeMove(FightAction.ATTACK, player, monster));
         buttonBlock.setOnMouseClicked(e -> makeMove(FightAction.BLOCK, player, monster));
-        if (player.getMana() >= 40){
-            buttonAbility.setOnMouseClicked(e -> makeMove(FightAction.ABILITY, player, monster));
-        } else {
-            buttonAbility.setOnMouseClicked(e -> output.appendText("You dont have enough mana \n"));
-        }
     }
 
     private void initEnemyGraphics() {
