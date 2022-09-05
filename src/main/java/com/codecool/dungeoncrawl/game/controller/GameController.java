@@ -341,8 +341,8 @@ public class GameController {
     private void updateMonstersPosition() {
         List<Monster> monsters = map.getMonsters();
 
-        for (int i = 0; i < monsters.size(); i++) {
-            monsters.get(i).monsterMovement(map);
+        for (Monster monster : monsters) {
+            monster.monsterMovement(map);
         }
         updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());
     }

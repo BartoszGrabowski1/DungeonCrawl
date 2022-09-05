@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.utils.Utils;
@@ -38,6 +39,8 @@ public abstract class Monster extends Creature {
     @Override
     public boolean checkIfMovePossible(int x, int y) {
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
+            FightController.isFightAvailable = true;
+            FightController.monster = this;
             return false;
         } else if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
             return false;
