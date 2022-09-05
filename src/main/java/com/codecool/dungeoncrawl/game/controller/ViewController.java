@@ -57,4 +57,8 @@ public class ViewController {
         setView(endViewLoader, "Game Over");
     }
 
+    public static void setConfView() {
+        endViewLoader = new FXMLLoader(Main.class.getResource("conf-view.fxml"));
+        setView(endViewLoader, "Game Over");
+    }
 }

@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.controller.NameController;
+import com.codecool.dungeoncrawl.game.map.generator.MapConfig;
 import com.codecool.dungeoncrawl.game.map.generator.MapGenerator;
 import com.codecool.dungeoncrawl.game.map.generator.MapGeneratorImpl;
 import com.codecool.dungeoncrawl.game.utils.Utils;
@@ -16,20 +17,20 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static String generateMap() {
-        char[] items = {'1', '3', '4', '5', '6', '7'};
+        char[] items = MapConfig.ITEMS.getItems();
         MapGenerator mapGenerator = new MapGeneratorImpl(
-                64,
-                64,
-                30,
-                3,
-                20,
-                false,
-                5,
-                10,
-                6,
-                5,
-                3,
-                1,
+                MapConfig.WIDTH.getNumber(),
+                MapConfig.HEIGHT.getNumber(),
+                MapConfig.MAX_ROOMS.getNumber(),
+                MapConfig.MIN_ROOM_XY.getNumber(),
+                MapConfig.MAX_ROOM_XY.getNumber(),
+                MapConfig.ROOM_OVERLAP.isRoomOverlap(),
+                MapConfig.RANDOM_CONNECTIONS.getNumber(),
+                MapConfig.RANDOM_SPURS.getNumber(),
+                MapConfig.SKELETONS.getNumber(),
+                MapConfig.VAMPIRES.getNumber(),
+                MapConfig.MEDUSAS.getNumber(),
+                MapConfig.NPCS.getNumber(),
                 items
         );
         mapGenerator.genLevel();

@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.game.map.*;
 import com.codecool.dungeoncrawl.game.controller.*;
+import com.codecool.dungeoncrawl.game.map.generator.MapConfig;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,8 +12,8 @@ public class Main extends Application {
     public static Stage stage;
     public static Scene scene;
     public static final int SCREEN_SIZE = 20;
-    public static final int LEVELS_AMOUNT = 3;
-    public static final GameMap[] levels = new GameMap[3];
+    public static int LEVELS_AMOUNT = MapConfig.LEVELS.getNumber();
+    public static GameMap[] levels = new GameMap[3];
     public static GameMap bossLevel;
     public static int level = 1;
     public static int eqNumber = 0;

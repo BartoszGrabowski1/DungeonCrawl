@@ -20,7 +20,9 @@ public class NameController {
     @FXML
     void startGame(KeyEvent event) {
         userName = tfName.getText();
-        if (event.getCode().equals(KeyCode.ENTER)) {
+        if (event.getCode().equals(KeyCode.ENTER) && userName.equals("DAREK")) {
+            ViewController.setConfView();
+        } else if (event.getCode().equals(KeyCode.ENTER)) {
             ViewController.setGameView();
         }
     }
