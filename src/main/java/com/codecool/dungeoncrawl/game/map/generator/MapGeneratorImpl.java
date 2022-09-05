@@ -23,6 +23,7 @@ public class MapGeneratorImpl implements MapGenerator {
 
     private final int NPCS;
     private final char[] ITEMS;
+    private final int PENTAGRAM;
 
     public int getWIDTH() {
         return WIDTH;
@@ -105,6 +106,7 @@ public class MapGeneratorImpl implements MapGenerator {
                             int VAMPIRES,
                             int MEDUSAS,
                             int NPCS,
+                            int PENTAGRAM,
                             char[] items) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
@@ -122,6 +124,7 @@ public class MapGeneratorImpl implements MapGenerator {
         this.VAMPIRES = VAMPIRES;
         this.MEDUSAS = MEDUSAS;
         this.NPCS = NPCS;
+        this.PENTAGRAM = PENTAGRAM;
         this.ITEMS = items;
     }
 

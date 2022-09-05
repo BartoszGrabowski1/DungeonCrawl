@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.controller.FightController;
+import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Item;
@@ -30,8 +31,8 @@ public class Player extends Creature {
 
     public Player(Cell cell, String name) {
         super(cell);
-        super.setHealth(600);
-        super.setDamage(30);
+        super.setHealth(12600);
+        super.setDamage(3000);
         super.setAbilityPower(70);
         super.setBlockPower(30);
         super.setExp(0);
@@ -86,8 +87,8 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
-            FirstQuest.isFirstNpcAvailable = true;
-            FirstQuest.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
+            GameController.isNpcAvailable = true;
+            GameController.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
             return false;
         }
         return true;

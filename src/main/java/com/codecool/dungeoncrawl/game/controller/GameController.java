@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.creatures.Npc;
 import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
@@ -13,6 +14,7 @@ import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 import com.codecool.dungeoncrawl.game.creatures.Creature;
 import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
+import com.codecool.dungeoncrawl.game.quests.SecondQuest;
 import com.codecool.dungeoncrawl.game.utils.Utils;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -36,8 +38,10 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 public class GameController {
 
     public static Player player;
+    public static Npc npc;
     private static boolean isMapCreated = false;
     public static boolean isMusicPlaying = false;
+    public static boolean isNpcAvailable = false;
     public static Timeline monstersMoving;
 
     @FXML
@@ -201,11 +205,19 @@ public class GameController {
                 updateGameView(pickUpItemBtn, context);
                 break;
             case R:
-                if(!FirstQuest.isFirstMissionFinished) {
-                    FirstQuest.firstMissionAccess(output, input);
-                }
+                npcInteraction();
             default:
                 break;
+        }
+    }
+
+    private void npcInteraction() {
+        if(isNpcAvailable && !FirstQuest.isFirstMissionFinished) {
+            FirstQuest.firstMissionAccess(output, input);
+        } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
+            SecondQuest.secondMissionAccess(output, input);
+        } else {
+            input.setVisible(false);
         }
     }
 

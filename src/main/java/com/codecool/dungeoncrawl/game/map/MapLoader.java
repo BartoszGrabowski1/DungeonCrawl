@@ -30,6 +30,7 @@ public class MapLoader {
                 5,
                 3,
                 1,
+                1,
                 items
         );
         mapGenerator.genLevel();
@@ -80,8 +81,11 @@ public class MapLoader {
                             break;
                         case 'n':
                             addFloor(cell);
-                            if(Main.level == 1) {
+                            if(Main.level == 2) {
                                 map.addNpc(new Arthur(cell));
+                                cell.setType(CellType.NPC);
+                            } else if (Main.level == 1) {
+                                map.addNpc(new Crudy(cell));
                                 cell.setType(CellType.NPC);
                             }
                             break;
@@ -160,6 +164,8 @@ public class MapLoader {
                         case '{':
                             cell.setType(CellType.BLOOD_3);
                             break;
+                        case 'p':
+                            cell.setType(CellType.PENTAGRAM);
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

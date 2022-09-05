@@ -16,7 +16,7 @@ public class Skeleton extends Monster {
 
     @Override
     public void lootItems() {
-        if (lootChance(50)) {
+        if (lootChance(100)) {
             this.getCreature().getCell().setItem(new SkeletonSkull(this.getCell()));
         }
     }
