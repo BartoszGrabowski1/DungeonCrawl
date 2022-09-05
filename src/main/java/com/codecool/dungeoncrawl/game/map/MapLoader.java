@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.game.map;
 
 import com.codecool.dungeoncrawl.game.Cell;
-import com.codecool.dungeoncrawl.game.Items.Armor;
-import com.codecool.dungeoncrawl.game.Items.Key;
-import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
-import com.codecool.dungeoncrawl.game.Items.Sword;
+import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.controller.NameController;
@@ -18,7 +15,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     private static String generateMap() {
-        char[] items = {'1', '3'};
+        char[] items = {'1', '3', '4', '5', '6', '7'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
                 64,
                 64,
@@ -31,7 +28,6 @@ public class MapLoader {
                 6,
                 5,
                 3,
-                1,
                 items
         );
         mapGenerator.genLevel();
@@ -111,10 +107,22 @@ public class MapLoader {
                             addFloor(cell);
                             new Armor(cell);
                             break;
-//                        case 'B':
-//                            addFloor(random, cell);
-//                            new SkeletonSkull(cell);
-//                            break;
+                        case '4':
+                            addFloor(cell);
+                            new Helmet(cell);
+                            break;
+                        case '5':
+                            addFloor(cell);
+                            new Shoes(cell);
+                            break;
+                        case '6':
+                            addFloor(cell);
+                            new Shield(cell);
+                            break;
+                        case '7':
+                            addFloor(cell);
+                            new Gloves(cell);
+                            break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
                             break;
@@ -148,7 +156,6 @@ public class MapLoader {
                         case '{':
                             cell.setType(CellType.BLOOD_3);
                             break;
-
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
