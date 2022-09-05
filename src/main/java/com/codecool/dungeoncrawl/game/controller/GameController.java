@@ -110,7 +110,7 @@ public class GameController {
      */
     private static void playSounds() {
         if (!map.getMonsters().isEmpty()) {
-            animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds(monsterSounds)));
+            animation = new Timeline(new KeyFrame(Duration.seconds(10.0), e -> playRandomMonsterSounds()));
             animation.setCycleCount(Animation.INDEFINITE);
             animation.playFromStart();
             monstersSounds = animation;

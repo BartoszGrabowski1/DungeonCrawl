@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.game.controller;
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.map.GameMap;
+import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class FightController {
 
@@ -148,10 +149,13 @@ public class FightController {
     private void fightTurn(FightAction userAction, Player player, Monster monster, FightAction monsterAction, FightAction.ActionResult result) {
         if (result == FightAction.ActionResult.DRAW) {
             output.appendText("DRAW\n");
+            playRandomBlockSound();
         } else if (result == FightAction.ActionResult.WIN) {
             dealDamageToMonster(userAction, player, monster);
+            playRandomHitSound();
         } else { // LOSE
             dealDamageToPlayer(player, monster, monsterAction);
+            playRandomPlayerHittedSound();
         }
         regenerateMana(player);
     }
@@ -186,6 +190,10 @@ public class FightController {
     }
 
     private void playerWin(Monster monster) {
+        if (monster instanceof Medusa) playRandomMedusaDeathSound();
+        else if (monster instanceof Vampire) playRandomVampireDeathSound();
+        else if (monster instanceof Skeleton) playRandomSkeletonDeathSound();
+        else if (monster instanceof FinalBoss) playSound(Sounds.BOSS_DEATH.getFile(), (float) 1.0);
         player.setExp(player.getExp() + monster.getExp());
         monster.getCreature().getCell().setCreature(null);
         GameMap.removeMonster(monster);
@@ -193,6 +201,7 @@ public class FightController {
     }
 
     private void monsterWin() {
+        playRandomDeathSound();
         ViewController.setEndView();
     }
 

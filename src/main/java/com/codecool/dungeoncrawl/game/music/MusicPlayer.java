@@ -29,14 +29,87 @@ public class MusicPlayer {
             Sounds.MONSTERS_SOUNDS_9.getFile(),
             Sounds.MONSTERS_SOUNDS_10.getFile()
     };
+    public static String[] hitSounds = {
+            Sounds.HIT_1.getFile(),
+            Sounds.HIT_2.getFile(),
+            Sounds.HIT_3.getFile(),
+            Sounds.HIT_4.getFile(),
+            Sounds.HIT_5.getFile()
+    };
+    public static String[] playerHittedSounds = {
+            Sounds.PLAYER_HITTED_1.getFile(),
+            Sounds.PLAYER_HITTED_2.getFile(),
+            Sounds.PLAYER_HITTED_3.getFile(),
+            Sounds.PLAYER_HITTED_4.getFile()
+    };
+    public static String[] blockSounds = {
+            Sounds.BLOCK_1.getFile(),
+            Sounds.BLOCK_2.getFile()
+    };
+    public static String[] deathSounds = {
+            Sounds.DEAD_1.getFile(),
+            Sounds.DEAD_2.getFile(),
+            Sounds.DEAD_3.getFile(),
+            Sounds.DEAD_4.getFile()
+    };
+    public static String[] medusaDeathSounds = {
+            Sounds.MEDUSA_DEATH_1.getFile(),
+            Sounds.MEDUSA_DEATH_2.getFile()
+    };
+    public static String[] skeletonDeathSounds = {
+            Sounds.SKELETON_DEATH_1.getFile(),
+            Sounds.SKELETON_DEATH_2.getFile(),
+            Sounds.SKELETON_DEATH_3.getFile(),
+            Sounds.SKELETON_DEATH_4.getFile()
+    };
+    public static String[] vampireDeathSounds = {
+            Sounds.VAMP_DEATH_1.getFile(),
+            Sounds.VAMP_DEATH_2.getFile(),
+            Sounds.VAMP_DEATH_3.getFile()
+    };
     public static String opening = Sounds.MAIN.getFile();
     public static String stepSound = Sounds.STEP_SOUNDS.getFile();
 
     public static String bossSound = Sounds.BOSS_SOUNDS.getFile();
 
-    public static void playRandomMonsterSounds(String[] monsterTypeSounds) {
+    public static void playRandomMonsterSounds() {
         int soundNumber = Utils.RANDOM.nextInt(0, 10);
-        playSound(monsterTypeSounds[soundNumber], (float) 1);
+        playSound(monsterSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomHitSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 5);
+        playSound(hitSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomPlayerHittedSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 4);
+        playSound(playerHittedSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomBlockSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 2);
+        playSound(blockSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomDeathSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 4);
+        playSound(deathSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomMedusaDeathSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 2);
+        playSound(medusaDeathSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomSkeletonDeathSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 4);
+        playSound(skeletonDeathSounds[soundNumber], (float) 1);
+    }
+
+    public static void playRandomVampireDeathSound() {
+        int soundNumber = Utils.RANDOM.nextInt(0, 3);
+        playSound(vampireDeathSounds[soundNumber], (float) 1);
     }
 
     public static void playSound(String fileName,float volume) {
