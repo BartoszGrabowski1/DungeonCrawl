@@ -1,11 +1,15 @@
 package com.codecool.dungeoncrawl.game.controller;
 
+import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.map.GameMap;
-import com.codecool.dungeoncrawl.game.creatures.Monster;
-import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.game.utils.Utils;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
 import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
@@ -13,56 +17,45 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stopSounds;
 public class FightController {
 
     @FXML
-    private ComboBox<FightAction> boxSpells;
+    private ImageView buttonAbility;
 
     @FXML
-    private Button buttonAbility;
+    private ImageView buttonAttack;
 
     @FXML
-    private Button buttonAttack;
+    private ImageView buttonBlock;
 
     @FXML
-    private Button buttonBlock;
+    private ImageView buttonHeal;
 
     @FXML
-    private Label monsterDamage;
+    private VBox fightWindow;
 
     @FXML
     private Label monsterHealth;
 
     @FXML
-    private Label monsterLvl;
-
-    @FXML
-    private Label monsterAbility;
-
-    @FXML
-    private Label monsterName;
-
-    @FXML
     private TextArea output;
-
-    @FXML
-    private Label playerAbility;
-
-    @FXML
-    private Label playerDamage;
 
     @FXML
     private Label playerHealth;
 
-    @FXML
-    private Label playerLvl;
-
-    @FXML
-    private Label playerMana;
-
-    @FXML
-    private Label playerName;
-
     public static Player player;
     public static Monster monster;
     public static boolean isFightAvailable = false;
+
+    @FXML
+    void initialize() {
+        stopSounds();
+        stopAllMonstersMoving();
+
+        initEnemyGraphics();
+
+        initButtonGraphics();
+        initBattleButtons();
+
+        updateStats();
+    }
 
     public void updateStats() {
         updatePlayerStats();
@@ -70,58 +63,78 @@ public class FightController {
     }
 
     private void updateMonsterStats() {
-        monsterName.setText(monster.getTileName());
-        monsterHealth.setText("HP: " + monster.getHealth());
-        monsterDamage.setText("DAMAGE: " + monster.getDamage());
-        monsterLvl.setText("EXP:" + monster.getExp());
-        monsterAbility.setText("ABILITY: " + monster.getAbilityPower());
+        monsterHealth.setText(monster.getTileName() + " HP: " + monster.getHealth());
     }
 
     private void updatePlayerStats() {
-        playerName.setText(NameController.userName);
-        playerHealth.setText("HP: " + player.getHealth());
-        playerAbility.setText("ABILITY: " + player.getAbilityPower());
-        playerLvl.setText("LVL: " + player.getExp());
-        playerDamage.setText("DAMAGE: " + player.getDamage());
-        playerMana.setText("MANA: " + player.getMana());
+        playerHealth.setText(NameController.userName + " HP: " + player.getHealth());
     }
 
-    @FXML
-    void initialize() {
-        boxSpells.setButtonCell(new ListCell<>() {
-            public void updateItem(FightAction item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(boxSpells.getPromptText());
-                } else {
-                    setText("             Items");
-                }
-            }
-        });
-        boxSpells.getItems().add(FightAction.SPECIAL);
-        buttonAttack.setOnAction(e -> makeMove(FightAction.ATTACK, player, monster));
-        buttonBlock.setOnAction(e -> makeMove(FightAction.BLOCK, player, monster));
-        boxSpells.setOnAction(e -> makeMove(FightAction.SPECIAL, player, monster));
-        stopSounds();
-        stopAllMonstersMoving();
+    private void initButtonGraphics() {
+        buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn.png")));
+        buttonAttack.setOnMouseEntered(t -> buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn-hover.png"))));
+        buttonAttack.setOnMouseExited(t -> buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn.png"))));
 
-        initBattleButtons();
+        buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn.png")));
+        buttonBlock.setOnMouseEntered(t -> buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn-hover.png"))));
+        buttonBlock.setOnMouseExited(t -> buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn.png"))));
 
-        updateStats();
-    }
+        buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn.png")));
+        buttonAbility.setOnMouseEntered(t -> buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn-hover.png"))));
+        buttonAbility.setOnMouseExited(t -> buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn.png"))));
 
-    private void initBattleButtons() {
-        buttonAttack.setOnAction(e -> makeMove(FightAction.ATTACK, player, monster));
-        buttonBlock.setOnAction(e -> makeMove(FightAction.BLOCK, player, monster));
-        if (player.getMana() >= 40){
-            buttonAbility.setOnAction(e -> makeMove(FightAction.ABILITY, player, monster));
-        } else {
-            buttonAbility.setOnAction(e -> output.appendText("You dont have enough mana \n"));
-        }
+        buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn.png")));
+        buttonHeal.setOnMouseEntered(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn-hover.png"))));
+        buttonHeal.setOnMouseExited(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn.png"))));
+
     }
 
     private static void stopAllMonstersMoving() {
         monstersMoving.stop();
+    }
+
+    private void initBattleButtons() {
+        buttonAttack.setOnMouseClicked(e -> makeMove(FightAction.ATTACK, player, monster));
+        buttonBlock.setOnMouseClicked(e -> makeMove(FightAction.BLOCK, player, monster));
+        if (player.getMana() >= 40){
+            buttonAbility.setOnMouseClicked(e -> makeMove(FightAction.ABILITY, player, monster));
+        } else {
+            buttonAbility.setOnMouseClicked(e -> output.appendText("You dont have enough mana \n"));
+        }
+    }
+
+    private void initEnemyGraphics() {
+        if (monster instanceof Vampire) {
+            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-vampire.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        } else if (monster instanceof Medusa) {
+            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-medusa.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        } else if (monster instanceof Skeleton) {
+            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-skeleton.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        } else if (monster instanceof FinalBoss) {
+            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-boss.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        } else {
+            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        }
     }
 
     private void makeMove(FightAction userAction, Player player, Monster monster) {
@@ -140,32 +153,28 @@ public class FightController {
         } else { // LOSE
             dealDamageToPlayer(player, monster, monsterAction);
         }
+        regenerateMana(player);
+    }
+
+    private static void regenerateMana(Player player) {
+        if (player.getMana() < 100){
+            player.setMana(player.getMana() + 10);
+        }
+    }
+
+    private void dealDamageToPlayer(Player player, Monster monster, FightAction monsterAction) {
+        int dmg = monster.calcDamage(monsterAction);
+        player.setHealth(player.getHealth() - dmg);
+        output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
     }
 
     private void dealDamageToMonster(FightAction userAction, Player player, Monster monster) {
         int dmg = player.calcDamage(userAction);
         if (userAction == FightAction.ABILITY) {
             player.setMana(player.getMana() - 40);
-        } else if (userAction == FightAction.SPECIAL){
-            boxSpells.setPromptText("Items");
-            player.setHealth(player.getHealth() + 100);
         }
         monster.setHealth(monster.getHealth() - dmg);
-        manaRegeneration(player);
         output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
-    }
-
-    private void dealDamageToPlayer(Player player, Monster monster, FightAction monsterAction) {
-        int dmg = monster.calcDamage(monsterAction);
-        player.setHealth(player.getHealth() - dmg);
-        manaRegeneration(player);
-        output.appendText(String.format(("%s deals %s to %s \n"), monster.getTileName(), dmg, NameController.userName));
-    }
-
-    private static void manaRegeneration(Player player) {
-        if (player.getMana() < 100){
-            player.setMana(player.getMana() + 10);
-        }
     }
 
     private void checkBattleResult(Player player, Monster monster) {
@@ -178,7 +187,6 @@ public class FightController {
 
     private void playerWin(Monster monster) {
         player.setExp(player.getExp() + monster.getExp());
-        monster.lootItems();
         monster.getCreature().getCell().setCreature(null);
         GameMap.removeMonster(monster);
         ViewController.setGameView();
@@ -189,8 +197,7 @@ public class FightController {
     }
 
     private FightAction makeMonsterMove() {
-        return FightAction.values()[(int) (Utils.RANDOM.nextInt(0, FightAction.values().length - 1))];
+        return FightAction.values()[(int) (Utils.RANDOM.nextInt(0, FightAction.values().length))];
     }
 
 }
-
