@@ -1,12 +1,9 @@
 package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
+import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.map.CellType;
-import com.codecool.dungeoncrawl.game.Items.Armor;
-import com.codecool.dungeoncrawl.game.Items.Item;
-import com.codecool.dungeoncrawl.game.Items.Key;
-import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.quests.FirstQuest;
@@ -98,12 +95,38 @@ public class Player extends Creature {
     }
 
     public String getTileName() {
+        boolean armor = false;
+        boolean sword = false;
+        boolean helmet = false;
+        boolean shield = false;
+        for (Item item : getInventory()) {
+            if (item instanceof Armor) armor = true;
+            if (item instanceof Sword) sword = true;
+            if (item instanceof Helmet) helmet = true;
+            if (item instanceof Shield) shield = true;
+        }
+
+        if (armor && sword && helmet && shield) return "player_armor_helmet_shield_sword";
+        if (armor && sword && helmet) return "player_armor_helmet_sword";
+        if (armor && sword && shield) return "player_armor_shield_sword";
+        if (armor && helmet && shield) return "player_armor_helmet_shield";
+        if (sword && helmet && shield) return "player_helmet_shield_sword";
+        if (sword && helmet) return "player_helmet_sword";
+        if (sword && shield) return "player_sword_shield";
+        if (sword && armor) return "player_armor_sword";
+        if (shield && armor) return "player_armor_shield";
+        if (helmet && armor) return "player_armor_helmet";
+        if (helmet && shield) return "player_helmet_shield";
+        if (helmet) return "player_helmet";
+        if (armor) return "player_armor";
+        if (shield) return "player_shield";
+        if (sword) return "player_sword";
         return "player";
     }
 
     @Override
     public void move(int dx, int dy) {
         super.move(dx, dy);
-        playSound(stepSound, (float) 0.8); // TODO: maybe extract?
+        playSound(stepSound, (float) 0.8);
     }
 }
