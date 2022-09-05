@@ -28,6 +28,7 @@ public class MapLoader {
                 6,
                 5,
                 3,
+                1,
                 items
         );
         mapGenerator.genLevel();
