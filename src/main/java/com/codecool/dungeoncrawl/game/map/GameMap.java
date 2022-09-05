@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.game.map;
 
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
+import com.codecool.dungeoncrawl.game.creatures.Npc;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 
 import java.util.ArrayList;
@@ -16,9 +17,16 @@ public class GameMap {
 
     private static List<Monster> monsters = new ArrayList<>();
 
+    private static List<Npc> npcs = new ArrayList<>();
+
     public List<Monster> getMonsters() {
         return monsters;
     }
+
+
+    public void addNpc(Npc npc) { npcs.add(npc); }
+
+    public static void removeNpc(Npc npc) { npcs.remove(npc);}
 
     public void addMonsters(Monster monster) {
         monsters.add(monster);

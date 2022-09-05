@@ -9,6 +9,7 @@ import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.map.MapLoader;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
+import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 import com.codecool.dungeoncrawl.game.creatures.Creature;
 import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
@@ -19,10 +20,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +42,7 @@ public class GameController {
 
     @FXML
     public Canvas mainView;
+
     @FXML
     private Label healthLabel;
     @FXML
@@ -58,14 +57,26 @@ public class GameController {
     private Label blockLabel;
     @FXML
     private Button pickUpItemBtn;
+
     @FXML
     private TableColumn<Item, String> itemDescription;
+
     @FXML
     private TableColumn<Item, String> itemName;
+
     @FXML
     private TableColumn<Item, Integer> itemValue;
+
     @FXML
     private TableView tableView;
+
+
+    @FXML
+    private TextArea output;
+
+    @FXML
+    private TextField input;
+
 
     @FXML
     void initialize() {
@@ -189,6 +200,10 @@ public class GameController {
                 map.getPlayer().move(1, 0);
                 updateGameView(pickUpItemBtn, context);
                 break;
+            case R:
+                if(!FirstQuest.isFirstMissionFinished) {
+                    FirstQuest.firstMissionAccess(output, input);
+                }
             default:
                 break;
         }

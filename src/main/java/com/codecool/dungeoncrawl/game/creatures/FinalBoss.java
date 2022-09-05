@@ -15,6 +15,11 @@ public class FinalBoss extends Monster {
     }
 
     @Override
+    public void lootItems() {
+
+    }
+
+    @Override
     public void specialAbility(GameMap map) {
 
     }

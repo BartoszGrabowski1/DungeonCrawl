@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.game.Items.Key;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
+import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Player extends Creature {
 
     private String name;
 
+
     public Player(Cell cell, String name) {
         super(cell);
         super.setHealth(600);
@@ -40,7 +42,6 @@ public class Player extends Creature {
     public int getExp() {
         return (int) (Math.sqrt(100 * (2 * super.getExp()+25)+50)/50);
     }
-
 
     public void pickUpItem() {
         inventory.add(this.getCell().getItem());
@@ -72,6 +73,7 @@ public class Player extends Creature {
         if ((this.getCell().getNeighbor(x, y).getType() == CellType.WALL ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_2 ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.WALL_3 ||
+                this.getCell().getNeighbor(x, y).getType() == CellType.NPC ||
                 this.getCell().getNeighbor(x, y).getType() == CellType.CLOSED_DOORS) && !checkIfDeveloper()) {
 
             return false;
@@ -79,6 +81,11 @@ public class Player extends Creature {
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
             FightController.isFightAvailable = true;
             FightController.monster = (Monster) this.getCell().getNeighbor(x, y).getCreature();
+            return false;
+        }
+        if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
+            FirstQuest.isFirstNpcAvailable = true;
+            FirstQuest.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
             return false;
         }
         return true;

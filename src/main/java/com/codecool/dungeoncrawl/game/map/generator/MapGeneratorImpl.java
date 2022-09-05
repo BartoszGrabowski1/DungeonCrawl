@@ -20,6 +20,8 @@ public class MapGeneratorImpl implements MapGenerator {
     private final int SKELETONS;
     private final int VAMPIRES;
     private final int MEDUSAS;
+
+    private final int NPCS;
     private final char[] ITEMS;
 
     public int getWIDTH() {
@@ -54,12 +56,17 @@ public class MapGeneratorImpl implements MapGenerator {
         return RANDOM_SPURS;
     }
 
+
     public Tile[][] getLEVEL() {
         return LEVEL;
     }
 
     public List<int[]> getROOM_LIST() {
         return ROOM_LIST;
+    }
+
+    public int getNPCS() {
+        return NPCS;
     }
 
     public List<int[][]> getCORRIDOR_LIST() {
@@ -97,6 +104,7 @@ public class MapGeneratorImpl implements MapGenerator {
                             int SKELETONS,
                             int VAMPIRES,
                             int MEDUSAS,
+                            int NPCS,
                             char[] items) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
@@ -113,6 +121,7 @@ public class MapGeneratorImpl implements MapGenerator {
         this.SKELETONS = SKELETONS;
         this.VAMPIRES = VAMPIRES;
         this.MEDUSAS = MEDUSAS;
+        this.NPCS = NPCS;
         this.ITEMS = items;
     }
 
@@ -414,6 +423,7 @@ public class MapGeneratorImpl implements MapGenerator {
         addVampiresToMap();
         addMedusasToMap();
         addItemsToMap();
+        addNpcsToMap();
         addStairsToMap();
 
         StringBuilder sb = new StringBuilder();
@@ -464,6 +474,8 @@ public class MapGeneratorImpl implements MapGenerator {
         addMonsterToMap(getMEDUSAS(), 'm');
     }
 
+    private void addNpcsToMap() { addNpcsToMap(getNPCS(), 'n');}
+
     private void addItemsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
         int itemsAdded = 0;
@@ -501,6 +513,29 @@ public class MapGeneratorImpl implements MapGenerator {
                         else sb.setCharAt(row.indexOf("."), symbol);
                         getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
                         elementsAdded++;
+                        break;
+                    } catch (Exception e) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    private void addNpcsToMap(int elementsToAdd, char symbol){
+        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
+        int npcsAdded = 0;
+        while (npcsAdded < elementsToAdd) {
+            for (String row : tempArray) {
+                Collections.shuffle(tempArray);
+                if (row.contains(".")) {
+                    StringBuilder sb = new StringBuilder(row);
+                    try {
+                        int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
+                        if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, symbol);
+                        else sb.setCharAt(row.indexOf("."), symbol);
+                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
+                        npcsAdded++;
                         break;
                     } catch (Exception e) {
                         continue;

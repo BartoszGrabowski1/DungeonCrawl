@@ -28,6 +28,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         primaryStage.alwaysOnTopProperty();
+        primaryStage.requestFocus();
         stage = primaryStage;
         ViewController.setMenuView();
     }

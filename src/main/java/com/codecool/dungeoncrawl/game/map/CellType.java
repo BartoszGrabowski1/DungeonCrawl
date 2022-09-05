@@ -19,6 +19,7 @@ public enum CellType {
     BLOOD_1("blood1"),
     BLOOD_2("blood2"),
     BLOOD_3("blood3"),
+    NPC("npc"),
     STAIRS("stairs");
 
     private final String tileName;
