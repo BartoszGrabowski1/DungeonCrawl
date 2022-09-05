@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.game.map;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.creatures.*;
@@ -67,20 +68,22 @@ public class MapLoader {
                             break;
                         case 's':
                             addFloor(cell);
-                            map.addMonsters(new Skeleton(cell));
+                            map.addMonsters(new Skeleton(cell, Main.level));
                             break;
                         case 'v':
                             addFloor(cell);
-                            map.addMonsters(new Vampire(cell));
+                            map.addMonsters(new Vampire(cell, Main.level));
                             break;
                         case 'm':
                             addFloor(cell);
-                            map.addMonsters(new Medusa(cell));
+                            map.addMonsters(new Medusa(cell, Main.level));
                             break;
                         case 'n':
                             addFloor(cell);
-                            map.addNpc(new Arthur(cell));
-                            cell.setType(CellType.NPC);
+                            if(Main.level == 1) {
+                                map.addNpc(new Arthur(cell));
+                                cell.setType(CellType.NPC);
+                            }
                             break;
                         case 'b':
                             addFloor(cell);
