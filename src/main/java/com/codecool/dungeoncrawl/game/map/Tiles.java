@@ -10,7 +10,7 @@ import java.util.Map;
 public class Tiles {
     public static int TILE_WIDTH = 32;
 
-    private static Image tileset = new Image("/com/codecool/dungeoncrawl/img/tiles.png", 2048, 3040, true, false);
+    private static Image tileset = new Image("/com/codecool/dungeoncrawl/img/tiles_player.png", 2048, 3040, true, false);
     private static Map<String, Tile> tileMap = new HashMap<>();
 
     public static class Tile {
@@ -32,7 +32,22 @@ public class Tiles {
         tileMap.put("floor", new Tile(4, 3));
         tileMap.put("floor2", new Tile(5, 3));
         tileMap.put("floor3", new Tile(6, 3));
-        tileMap.put("player", new Tile(19, 68));
+        tileMap.put("player", new Tile(0, 78));
+        tileMap.put("player_armor", new Tile(1, 78));
+        tileMap.put("player_shield", new Tile(2, 78));
+        tileMap.put("player_sword", new Tile(3, 78));
+        tileMap.put("player_armor_shield", new Tile(4, 78));
+        tileMap.put("player_armor_shield_sword", new Tile(5, 78));
+        tileMap.put("player_helmet", new Tile(5, 78));
+        tileMap.put("player_helmet_sword", new Tile(6, 78));
+        tileMap.put("player_helmet_shield", new Tile(7, 78));
+        tileMap.put("player_armor_helmet_shield", new Tile(8, 78));
+        tileMap.put("player_helmet_shield_sword", new Tile(9, 78));
+        tileMap.put("player_armor_helmet_shield_sword", new Tile(10, 78));
+        tileMap.put("player_armor_helmet", new Tile(11, 78));
+        tileMap.put("player_armor_helmet_sword", new Tile(12, 78));
+        tileMap.put("player_sword_shield", new Tile(13, 78));
+        tileMap.put("player_armor_sword", new Tile(14, 78));
         tileMap.put("skeleton", new Tile(18, 74));
         tileMap.put("vampire", new Tile(13, 77));
         tileMap.put("medusa", new Tile(6, 77));
