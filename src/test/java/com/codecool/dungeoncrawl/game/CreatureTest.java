@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.game;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.game.creatures.Skeleton;
 import com.codecool.dungeoncrawl.game.controller.NameController;
@@ -45,7 +46,7 @@ class CreatureTest {
     @Test
     void cannotMoveIntoAnotherActor() {
         Player player = new Player(gameMap.getCell(1, 1), NameController.getUserName());
-        Skeleton skeleton = new Skeleton(gameMap.getCell(2, 1));
+        Skeleton skeleton = new Skeleton(gameMap.getCell(2, 1), Main.level);
         player.move(1, 0);
 
         assertEquals(1, player.getX());

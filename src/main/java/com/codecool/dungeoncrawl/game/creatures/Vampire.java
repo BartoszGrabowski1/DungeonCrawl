@@ -10,13 +10,13 @@ public class Vampire extends Monster {
     private final float drainageOfLife = 0.15f;
 
 
-    public Vampire(Cell cell) {
+    public Vampire(Cell cell, int level) {
         super(cell);
-        super.setHealth(200);
-        super.setDamage(10);
-        super.setAbilityPower(20);
-        super.setBlockPower(50);
-        super.setExp(250);
+        super.setHealth((int) (200 * (1 + 0.25*level)));
+        super.setDamage((int) (10 * (1 + 0.25*level)));
+        super.setAbilityPower((int) (20 * (1 + 0.25*level)));
+        super.setBlockPower((int) (50 * (1 + 0.25*level)));
+        super.setExp((int) (250 * (1 + 0.25*level)));
     }
 
     @Override

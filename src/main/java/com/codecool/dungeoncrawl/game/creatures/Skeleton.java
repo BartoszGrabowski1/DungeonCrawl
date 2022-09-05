@@ -5,13 +5,13 @@ import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Skeleton extends Monster {
-    public Skeleton(Cell cell) {
+    public Skeleton(Cell cell, int level) {
         super(cell);
-        super.setHealth(100);
-        super.setDamage(5);
-        super.setAbilityPower(40);
-        super.setBlockPower(50);
-        super.setExp(100);
+        super.setHealth((int) (100 * (1 + 0.25*level)));
+        super.setDamage((int) (5 * (1 + 0.25*level)));
+        super.setAbilityPower((int) (40 * (1 + 0.25*level)));
+        super.setBlockPower((int) (50 * (1 + 0.25*level)));
+        super.setExp((int) (100 * (1 + 0.25*level)));
     }
 
     @Override
