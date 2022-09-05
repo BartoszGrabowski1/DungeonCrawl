@@ -16,7 +16,7 @@ public class MusicPlayer {
     public static Clip mainClip;
     public static Thread playMainClipDelay;
     public static Timeline monstersSounds;
-    private static int mainClipFramePosition = 0;
+    public static int mainClipFramePosition = 0;
     public static String[] monsterSounds = {
             Sounds.MONSTERS_SOUNDS_1.getFile(),
             Sounds.MONSTERS_SOUNDS_2.getFile(),
@@ -119,7 +119,7 @@ public class MusicPlayer {
                     Main.class.getResourceAsStream(fileName));
             clip.open(inputStream);
             setVolume(volume,clip);
-            if (mainClipFramePosition > 0) clip.setFramePosition(mainClipFramePosition);
+            if (mainClipFramePosition > 0 && fileName.equals(Sounds.MAIN.getFile())) clip.setFramePosition(mainClipFramePosition);
             clip.start();
             if (fileName.equals(Sounds.MAIN.getFile())) {
                 mainClip = clip;

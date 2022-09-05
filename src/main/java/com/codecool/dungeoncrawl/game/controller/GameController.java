@@ -393,6 +393,7 @@ public class GameController {
      * @see FightController
      */
     private void startFight() {
+        mainClipFramePosition = mainClip.getFramePosition();
         animation.stop();
         FightController.player = map.getPlayer();
         getFight();
