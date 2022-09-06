@@ -164,9 +164,11 @@ public class GameController {
      */
     private static void initMap() {
         if (level > LEVELS_AMOUNT) {
-            map = MapLoader.loadMap(true);
+            map = MapLoader.loadMap(true, false);
+        } else if (SecondQuest.isBossLevel) {
+            map = MapLoader.loadMap(false, true);
         } else {
-            map = MapLoader.loadMap(false);
+            map = MapLoader.loadMap(false, false);
         }
         isMapCreated = true;
     }
@@ -248,6 +250,9 @@ public class GameController {
                         // if player steps on item, show the pickup item button.
                         if (cell.getItem() != null && cell.getCreature() instanceof Player) {
                             playerOnItem = true;
+                        }
+                        if (cell.getType() == CellType.PENTAGRAM && SecondQuest.isSecondMissionOn && cell.getCreature() instanceof Player){
+                            initMap();
                         }
                     } else if (cell.getItem() != null) {
 

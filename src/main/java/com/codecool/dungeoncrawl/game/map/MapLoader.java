@@ -37,10 +37,13 @@ public class MapLoader {
         return mapGenerator.genTilesLevel();
     }
 
-    public static GameMap loadMap(boolean isBossLevel) {
+    public static GameMap loadMap(boolean isBossLevel, boolean isQuestLevel) {
         Scanner scanner;
         if (isBossLevel) {
             InputStream mapLevel = MapLoader.class.getResourceAsStream("/com/codecool/dungeoncrawl/levels/boss.txt");
+            scanner = new Scanner(mapLevel);
+        } else if (isQuestLevel) {
+            InputStream mapLevel = MapLoader.class.getResourceAsStream("/com/codecool/dungeoncrawl/levels/quest.txt");
             scanner = new Scanner(mapLevel);
         } else {
             String mapLevel = generateMap();

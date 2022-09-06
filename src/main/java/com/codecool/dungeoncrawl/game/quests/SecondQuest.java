@@ -15,6 +15,8 @@ import static com.codecool.dungeoncrawl.Main.map;
 public class SecondQuest {
     public static boolean isSecondMissionFinished = false;
     public static boolean isSecondMissionOn = false;
+
+    public static boolean isBossLevel = false;
     public static void secondMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
         output.clear();
@@ -31,6 +33,7 @@ public class SecondQuest {
                     output.appendText("Please find something different in this creepy place and use it, here you are. Good luck! \n" +
                             "+Mystery gem \n");
                     GameController.player.addToInventory(new Gem());
+                    isBossLevel = true;
                 }
                 input.clear();
                 input.setVisible(false);
