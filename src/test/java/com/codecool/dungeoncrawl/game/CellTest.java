@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic;
+package com.codecool.dungeoncrawl.game;
 
 import org.junit.jupiter.api.Test;
 
