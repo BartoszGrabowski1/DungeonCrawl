@@ -32,5 +32,4 @@ public class Main extends Application {
         stage = primaryStage;
         ViewController.setMenuView();
     }
-
 }
