@@ -4,14 +4,14 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="761.0" prefWidth="1138.0" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
@@ -22,39 +22,6 @@
       <center>
          <Canvas fx:id="mainView" height="603.0" width="686.0" BorderPane.alignment="CENTER" />
       </center>
-      <right>
-         <GridPane prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-           <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
-           <rowConstraints>
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-            <padding>
-               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </padding>
-            <children>
-               <Label text="Health: " translateY="-40.0" />
-               <Label fx:id="healthLabel" text="Label" translateY="-40.0" GridPane.columnIndex="1" />
-               <Label text="Mana: " translateY="-20.0" />
-               <Label fx:id="manaLabel" text="Label" translateY="-20.0" GridPane.columnIndex="1" />
-               <Label text="EXP: " />
-               <Label fx:id="expLabel" text="Label" GridPane.columnIndex="1" />
-               <Label text="Damage: " translateY="20.0" />
-               <Label fx:id="dmgLabel" text="Label" translateY="20.0" GridPane.columnIndex="1" />
-               <Label text="Ability Power: " translateY="40.0" />
-               <Label fx:id="apLabel" text="Label" translateY="40.0" GridPane.columnIndex="1" />
-               <Label text="Block Power: " translateY="60.0" />
-               <Label fx:id="blockLabel" text="Label" translateY="60.0" GridPane.columnIndex="1" />
-               <Button fx:id="pickUpItemBtn" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" translateX="-28.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            </children>
-         </GridPane>
-      </right>
       <left>
          <TableView fx:id="tableView" prefHeight="635.0" prefWidth="234.0" BorderPane.alignment="CENTER">
            <columns>
@@ -64,6 +31,29 @@
            </columns>
          </TableView>
       </left>
+      <right>
+         <Pane id="statsColumn" prefHeight="300.0" prefWidth="200.0" stylesheets="@game.css" BorderPane.alignment="CENTER">
+            <children>
+               <Pane prefHeight="238.0" prefWidth="200.0" styleClass="statsColumn" stylesheets="@game.css">
+                  <children>
+                     <ProgressBar id="healthBar" fx:id="healthBar" layoutX="7.0" layoutY="47.0" prefHeight="18.0" prefWidth="186.0" progress="1.0" styleClass="healthBar" stylesheets="@game.css" />
+                     <Label layoutX="12.0" layoutY="24.0" styleClass="label" stylesheets="@game.css" text="Health:" />
+                     <Label layoutX="13.0" layoutY="72.0" styleClass="label" stylesheets="@game.css" text="Mana:" />
+                     <ProgressBar id="manaBar" fx:id="manaBar" layoutX="7.0" layoutY="89.0" prefHeight="18.0" prefWidth="186.0" progress="1.0" styleClass="manaBar" stylesheets="@game.css" />
+                     <Label layoutX="7.0" layoutY="117.0" styleClass="label" stylesheets="@game.css" text="Experience:" />
+                     <ProgressBar id="experienceBar" fx:id="experienceBar" layoutX="7.0" layoutY="138.0" prefHeight="18.0" prefWidth="186.0" progress="0.0" styleClass="experienceBar" stylesheets="@game.css" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="13.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="damageIcon" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="82.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="apIcon" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="145.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="bpIcon" />
+                     <Label id="damageLabel" fx:id="damageLabel" layoutX="23.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Label id="apLabel" fx:id="apLabel" layoutX="87.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Label id="bpLabel" fx:id="bpLabel" layoutX="158.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Button fx:id="pickUpItemBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" />
+                  </children>
+               </Pane>
+            </children>
+         </Pane>
+      </right>
     </BorderPane>
    <VBox prefHeight="110.0" prefWidth="1098.0">
       <children>
