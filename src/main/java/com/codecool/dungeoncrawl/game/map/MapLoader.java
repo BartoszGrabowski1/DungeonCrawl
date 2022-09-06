@@ -114,7 +114,7 @@ public class MapLoader {
                             break;
                         case '4':
                             addFloor(cell);
-                            new Helmet(cell);
+                            new Helmet(cell, "Helmet", "Test", 100);
                             break;
                         case '5':
                             addFloor(cell);

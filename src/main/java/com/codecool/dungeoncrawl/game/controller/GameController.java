@@ -1,6 +1,9 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.Items.Armor;
+import com.codecool.dungeoncrawl.game.Items.Helmet;
+import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
@@ -27,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import javax.swing.text.html.ImageView;
 import java.util.List;
 
 import static com.codecool.dungeoncrawl.Main.*;
@@ -39,6 +43,7 @@ public class GameController {
     private static boolean isMapCreated = false;
     public static boolean isMusicPlaying = false;
     public static Timeline monstersMoving;
+     public boolean isInventoryVisible = false;
 
     @FXML
     public Canvas mainView;
@@ -46,6 +51,16 @@ public class GameController {
     @FXML
     private Button pickUpItemBtn;
 
+    @FXML
+    private Button showInventoryBtn;
+    @FXML
+    private Button itemSword;
+    @FXML
+    private Button itemArmor;
+    @FXML
+    private Button itemHelmet;
+    @FXML
+    private Button itemShield;
     @FXML
     private TableColumn<Item, String> itemDescription;
 
@@ -99,6 +114,8 @@ public class GameController {
 
         handleItems();
 
+        handleInventory();
+
         moveMonsters();
 
         if (!isMusicPlaying) playSounds();
@@ -150,6 +167,13 @@ public class GameController {
     private void handleItems() {
         pickUpItemBtn.setFocusTraversable(false);
         pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            if (player.getCell().getItem() instanceof Sword sword){
+                itemSword.setVisible(true);
+            } else if (player.getCell().getItem() instanceof Armor armor){
+                itemArmor.setVisible(true);
+            } else if (player.getCell().getItem() instanceof Helmet helmet){
+                itemHelmet.setVisible(true);
+            }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
             tableView.getItems().add(playerInventory.get(eqNumber));
@@ -158,6 +182,31 @@ public class GameController {
         });
 
         hidePickUpButton(pickUpItemBtn);
+    }
+
+
+    private void handleInventory(){
+        tableView.setVisible(false);
+        itemSword.setVisible(false);
+        itemArmor.setVisible(false);
+//        itemHelmet.setVisible(false);
+//        itemShield.setVisible(false);
+        showInventoryBtn.setFocusTraversable(false);
+        showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            if (isInventoryVisible == false){
+                tableView.setVisible(true);
+                isInventoryVisible = true;
+            } else if (isInventoryVisible == true){
+                tableView.setVisible(false);
+                isInventoryVisible = false;
+            }
+        });
+        itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            itemSword.setVisible(false);
+        });
+        itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            itemArmor.setVisible(false);
+        });
     }
 
     /**

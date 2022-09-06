@@ -10,26 +10,100 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="761.0" prefWidth="1138.0" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <BorderPane prefHeight="602.0" prefWidth="1100.0">
+    <BorderPane prefHeight="650.0" prefWidth="1100.0">
       <center>
-         <Canvas fx:id="mainView" height="603.0" width="686.0" BorderPane.alignment="CENTER" />
+         <Canvas fx:id="mainView" height="640.0" width="640.0" BorderPane.alignment="CENTER" />
       </center>
       <left>
-         <TableView fx:id="tableView" prefHeight="635.0" prefWidth="234.0" BorderPane.alignment="CENTER">
-           <columns>
-             <TableColumn fx:id="itemName" prefWidth="75.0" text="Item" />
-             <TableColumn fx:id="itemDescription" prefWidth="75.0" text="Description" />
-               <TableColumn fx:id="itemValue" minWidth="0.0" prefWidth="89.0" text="Value" />
-           </columns>
-         </TableView>
+         <Pane prefHeight="200.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+            <children>
+               <TableView fx:id="tableView" layoutX="20.0" layoutY="335.0" prefHeight="315.0" prefWidth="200.0">
+                 <columns>
+                   <TableColumn fx:id="itemName" prefWidth="57.0" text="Item" />
+                   <TableColumn fx:id="itemDescription" prefWidth="91.0" text="Description" />
+                     <TableColumn fx:id="itemValue" prefWidth="51.0" text="Value" />
+                 </columns>
+               </TableView>
+               <ImageView fitHeight="260.0" fitWidth="260.0" layoutX="-20.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/playerEQ.jpg" />
+                  </image>
+               </ImageView>
+               <Button fx:id="showInventoryBtn" layoutX="132.0" layoutY="55.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="66.0">
+                  <graphic>
+                     <ImageView fitHeight="73.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/bag.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></Button>
+               <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="20.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/necklace.png" />
+                  </image>
+               </ImageView>
+               <Button fx:id="itemSword" layoutY="125.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0">
+                  <graphic>
+                     <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/sword.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <ImageView fitHeight="57.0" fitWidth="63.0" layoutX="79.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/braveShoes.png" />
+                  </image>
+               </ImageView>
+               <Button fx:id="itemArmor" layoutX="74.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="58.0">
+                  <graphic>
+                     <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/Armor.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <ImageView fitHeight="55.0" fitWidth="57.0" layoutX="82.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/pants.png" />
+                  </image>
+               </ImageView>
+               <Button fx:id="itemHelmet" layoutX="75.0" layoutY="55.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="58.0">
+                  <graphic>
+                     <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/helmet.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="itemShield" layoutX="145.0" layoutY="130.0" mnemonicParsing="false">
+                  <graphic>
+                     <ImageView fitHeight="74.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/7bc454d446809e51d974f2193771.jpg" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+         </Pane>
       </left>
       <right>
          <Pane id="statsColumn" prefHeight="300.0" prefWidth="200.0" stylesheets="@game.css" BorderPane.alignment="CENTER">
