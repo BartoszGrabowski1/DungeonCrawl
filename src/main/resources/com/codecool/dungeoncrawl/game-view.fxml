@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="761.0" prefWidth="1138.0" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <BorderPane prefHeight="602.0" prefWidth="1100.0">
+      <center>
+         <Canvas fx:id="mainView" height="603.0" width="686.0" BorderPane.alignment="CENTER" />
+      </center>
+      <left>
+         <TableView fx:id="tableView" prefHeight="635.0" prefWidth="234.0" BorderPane.alignment="CENTER">
+           <columns>
+             <TableColumn fx:id="itemName" prefWidth="75.0" text="Item" />
+             <TableColumn fx:id="itemDescription" prefWidth="75.0" text="Description" />
+               <TableColumn fx:id="itemValue" minWidth="0.0" prefWidth="89.0" text="Value" />
+           </columns>
+         </TableView>
+      </left>
+      <right>
+         <Pane id="statsColumn" prefHeight="300.0" prefWidth="200.0" stylesheets="@game.css" BorderPane.alignment="CENTER">
+            <children>
+               <Pane prefHeight="238.0" prefWidth="200.0" styleClass="statsColumn" stylesheets="@game.css">
+                  <children>
+                     <ProgressBar id="healthBar" fx:id="healthBar" layoutX="7.0" layoutY="47.0" prefHeight="18.0" prefWidth="186.0" progress="1.0" styleClass="healthBar" stylesheets="@game.css" />
+                     <Label layoutX="12.0" layoutY="24.0" styleClass="label" stylesheets="@game.css" text="Health:" />
+                     <Label layoutX="13.0" layoutY="72.0" styleClass="label" stylesheets="@game.css" text="Mana:" />
+                     <ProgressBar id="manaBar" fx:id="manaBar" layoutX="7.0" layoutY="89.0" prefHeight="18.0" prefWidth="186.0" progress="1.0" styleClass="manaBar" stylesheets="@game.css" />
+                     <Label layoutX="7.0" layoutY="117.0" styleClass="label" stylesheets="@game.css" text="Experience:" />
+                     <ProgressBar id="experienceBar" fx:id="experienceBar" layoutX="7.0" layoutY="138.0" prefHeight="18.0" prefWidth="186.0" progress="0.0" styleClass="experienceBar" stylesheets="@game.css" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="13.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="damageIcon" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="82.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="apIcon" />
+                     <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="145.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" styleClass="bpIcon" />
+                     <Label id="damageLabel" fx:id="damageLabel" layoutX="23.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Label id="apLabel" fx:id="apLabel" layoutX="87.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Label id="bpLabel" fx:id="bpLabel" layoutX="158.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
+                     <Button fx:id="pickUpItemBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" />
+                  </children>
+               </Pane>
+            </children>
+         </Pane>
+      </right>
+    </BorderPane>
+   <VBox prefHeight="110.0" prefWidth="1098.0">
+      <children>
+         <TextArea fx:id="output" prefHeight="105.0" prefWidth="1098.0" />
+         <TextField fx:id="input" prefHeight="62.0" prefWidth="1100.0" visible="false" />
+      </children>
+   </VBox>
+</VBox>

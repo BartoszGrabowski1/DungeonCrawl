@@ -1,14 +1,20 @@
 package com.codecool.dungeoncrawl.game;
 
-import com.codecool.dungeoncrawl.game.creatures.Actor;
+import com.codecool.dungeoncrawl.game.Items.Item;
+import com.codecool.dungeoncrawl.game.creatures.Creature;
+import com.codecool.dungeoncrawl.game.creatures.Npc;
+import com.codecool.dungeoncrawl.game.map.CellType;
+import com.codecool.dungeoncrawl.game.map.GameMap;
 
 public class Cell implements Drawable {
     private CellType type;
-    private Actor actor;
+    private Creature creature;
+    private Item item;
+    private Npc npc;
     private GameMap gameMap;
     private int x, y;
 
-    Cell(GameMap gameMap, int x, int y, CellType type) {
+    public Cell(GameMap gameMap, int x, int y, CellType type) {
         this.gameMap = gameMap;
         this.x = x;
         this.y = y;
@@ -23,12 +29,16 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
+    public void setCreature(Creature creature) {
+        this.creature = creature;
     }
 
-    public Actor getActor() {
-        return actor;
+    public Creature getCreature() {
+        return creature;
+    }
+
+    public Npc getNpc() {
+        return npc;
     }
 
     public Cell getNeighbor(int dx, int dy) {
@@ -46,5 +56,13 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

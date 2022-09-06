@@ -1,5 +1,10 @@
 package com.codecool.dungeoncrawl.game;
 
+<<<<<<< HEAD
+=======
+import com.codecool.dungeoncrawl.game.map.CellType;
+import com.codecool.dungeoncrawl.game.map.GameMap;
+>>>>>>> sprint_1
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,0 +1,28 @@
+.main-window {
+    -fx-background-image: url('/com/codecool/dungeoncrawl/img/game-view.jpg');
+}
+
+.pickup-button {
+}
+.healthBar .bar{
+    -fx-background-color: red;
+}
+.manaBar .bar{
+    -fx-background-color: blue;
+}
+.experienceBar .bar{
+    -fx-background-color: #ff00f2;
+}
+.damageIcon{
+    -fx-image:  url('/com/codecool/dungeoncrawl/img/damage-icon.png');
+}
+.apIcon{
+    -fx-image:  url('/com/codecool/dungeoncrawl/img/wang-icon.png');
+}
+.bpIcon{
+    -fx-image:  url('/com/codecool/dungeoncrawl/img/shield-icon.png');
+}
+.label{
+    -fx-text-fill: white;
+    -fx-color-label-visible: white;
+}

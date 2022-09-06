@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.game;
 
-import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.game.creatures.Skeleton;
 import org.junit.jupiter.api.Test;
 

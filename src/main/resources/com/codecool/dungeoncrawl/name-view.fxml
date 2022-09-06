@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="279.0" prefWidth="272.0" styleClass="anchor-pane" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.NameController">
+   <children>
+      <TextField fx:id="tfName" layoutX="59.0" layoutY="112.0" onKeyPressed="#startGame" />
+      <Label fx:id="adviceLabel" layoutX="55.0" layoutY="144.0" text="Press enter to start new game" textFill="WHITE" />
+   </children>
+</AnchorPane>

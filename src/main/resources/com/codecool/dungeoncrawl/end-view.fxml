@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.EndGameController">
+   <children>
+      <ImageView fitHeight="429.0" fitWidth="432.0" pickOnBounds="true" preserveRatio="true" >
+         <image>
+            <Image url="@img/gameover2.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
