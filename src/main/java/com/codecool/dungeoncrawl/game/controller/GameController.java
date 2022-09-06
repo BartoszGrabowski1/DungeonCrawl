@@ -44,18 +44,6 @@ public class GameController {
     public Canvas mainView;
 
     @FXML
-    private Label healthLabel;
-    @FXML
-    private Label manaLabel;
-    @FXML
-    private Label expLabel;
-    @FXML
-    private Label dmgLabel;
-    @FXML
-    private Label apLabel;
-    @FXML
-    private Label blockLabel;
-    @FXML
     private Button pickUpItemBtn;
 
     @FXML
@@ -76,6 +64,23 @@ public class GameController {
 
     @FXML
     private TextField input;
+
+    @FXML
+    private ProgressBar manaBar;
+    @FXML
+    private Label apLabel;
+
+    @FXML
+    private Label bpLabel;
+
+    @FXML
+    private Label damageLabel;
+
+    @FXML
+    private ProgressBar experienceBar;
+
+    @FXML
+    private ProgressBar healthBar;
 
 
     @FXML
@@ -105,6 +110,7 @@ public class GameController {
      * Play Sounds
      * <p></p>
      * Plays all sounds in the game.
+     *
      * @see MusicPlayer
      * @see Sounds
      */
@@ -122,6 +128,7 @@ public class GameController {
      * Play Main Sound
      * <p></p>
      * Plays main game sound
+     *
      * @see MusicPlayer
      * @see Sounds
      */
@@ -180,6 +187,7 @@ public class GameController {
      * On Key Pressed
      * <p></p>
      * Move player when specific key <i>(W,A,S,D)</i> is pressed.
+     *
      * @param keyEvent Keyboard key event.
      */
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -201,7 +209,7 @@ public class GameController {
                 updateGameView(pickUpItemBtn, context);
                 break;
             case R:
-                if(!FirstQuest.isFirstMissionFinished) {
+                if (!FirstQuest.isFirstMissionFinished) {
                     FirstQuest.firstMissionAccess(output, input);
                 }
             default:
@@ -213,8 +221,9 @@ public class GameController {
      * Update Game View
      * <p></p>
      * Updates <i>(refreshes)</i> main game display.
+     *
      * @param pickUpItemBtn Button used to pickup items.
-     * @param context Graphics Context from main view.
+     * @param context       Graphics Context from main view.
      */
     private void updateGameView(Button pickUpItemBtn, GraphicsContext context) {
         boolean playerOnItem = false;
@@ -267,23 +276,25 @@ public class GameController {
      * Show Player Stats
      * <p></p>
      * Displays actual player character statistics <i>(health, mana, experience, damage, ability power and block power).</i>
+     *
      * @see Player
      * @see Creature
      * @see Item
      */
     private void showPlayerStats() {
-        healthLabel.setText("" + map.getPlayer().getHealth());
-        manaLabel.setText("" + map.getPlayer().getMana());
-        expLabel.setText("" + map.getPlayer().getExp());
-        dmgLabel.setText("" + map.getPlayer().getDamage());
+        healthBar.setProgress((double) (map.getPlayer().getHealth()) / 600);
+        manaBar.setProgress((double) (map.getPlayer().getMana()) / 100);
+        experienceBar.setProgress((double) (map.getPlayer().getExp()) / 100);
+        damageLabel.setText("" + map.getPlayer().getDamage());
+        bpLabel.setText("" + map.getPlayer().getBlockPower());
         apLabel.setText("" + map.getPlayer().getAbilityPower());
-        blockLabel.setText("" + map.getPlayer().getBlockPower());
     }
 
     /**
      * Hide PickUp Button
      * <p></p>
      * Hides the item pickup button.
+     *
      * @param pickUpItemBtn Button for picking items up.
      */
     private static void hidePickUpButton(Button pickUpItemBtn) {
@@ -294,6 +305,7 @@ public class GameController {
      * Show PickUp Button
      * <p></p>
      * Shows the item pickup button.
+     *
      * @param pickUpItemBtn Button for picking items up.
      */
     private static void showPickUpButton(Button pickUpItemBtn) {
@@ -304,8 +316,9 @@ public class GameController {
      * Check For Item
      * <p></p>
      * Checks if the player stepped on item and shows/hides pickup item button.
+     *
      * @param pickUpItemBtn Button for picking items up.
-     * @param playerOnItem True if player stepped on item.
+     * @param playerOnItem  True if player stepped on item.
      */
     private static void checkForItem(Button pickUpItemBtn, boolean playerOnItem) {
         if (playerOnItem) {
@@ -334,6 +347,7 @@ public class GameController {
      * Move Monsters
      * <p></p>
      * Randomly moves monsters on the map.
+     *
      * @see Creature
      * @see Monster
      */
@@ -348,6 +362,7 @@ public class GameController {
      * Update Monsters Position
      * <p></p>
      * Updates monsters position on the map.
+     *
      * @see Creature
      * @see Monster
      * @see GameMap
@@ -366,6 +381,7 @@ public class GameController {
      * Check For Fight
      * <p></p>
      * Checks if player can fight the monster. If yes, then start the fight.
+     *
      * @see FightController
      * @see Player
      * @see Monster
@@ -380,6 +396,7 @@ public class GameController {
      * Get Fight
      * <p></p>
      * Get into fight mode.
+     *
      * @see FightController
      */
     private void getFight() {
@@ -390,6 +407,7 @@ public class GameController {
      * Start Fight
      * <p></p>
      * Freezes all monsters on the map and starts the fight.
+     *
      * @see FightController
      */
     private void startFight() {
