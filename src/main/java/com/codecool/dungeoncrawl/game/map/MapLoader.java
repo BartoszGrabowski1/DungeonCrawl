@@ -13,8 +13,9 @@ import com.codecool.dungeoncrawl.game.utils.Utils;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class MapLoader {
 
+public class MapLoader {
+    private static boolean isPentagramOnMap = false;
     private static String generateMap() {
         char[] items = {'1', '3', '4', '5', '6', '7'};
         MapGenerator mapGenerator = new MapGeneratorImpl(
@@ -29,7 +30,6 @@ public class MapLoader {
                 6,
                 5,
                 3,
-                1,
                 1,
                 items
         );
@@ -176,9 +176,15 @@ public class MapLoader {
     }
 
     private static void addFloor(Cell cell) {
+        int pentagram = Utils.RANDOM.nextInt(50);
         switch (Utils.RANDOM.nextInt(3)) {
             case 0:
-                cell.setType(CellType.FLOOR);
+                if (pentagram == 38 && !isPentagramOnMap){
+                    cell.setType(CellType.PENTAGRAM);
+                    isPentagramOnMap = true;
+                } else {
+                    cell.setType(CellType.FLOOR);
+                }
                 break;
             case 1:
                 cell.setType(CellType.FLOOR_2);

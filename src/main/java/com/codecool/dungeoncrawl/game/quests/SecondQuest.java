@@ -1,10 +1,16 @@
 package com.codecool.dungeoncrawl.game.quests;
 
+import com.codecool.dungeoncrawl.game.Items.Gem;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.List;
 import java.util.Objects;
+
+import static com.codecool.dungeoncrawl.Main.eqNumber;
+import static com.codecool.dungeoncrawl.Main.map;
 
 public class SecondQuest {
     public static boolean isSecondMissionFinished = false;
@@ -24,6 +30,7 @@ public class SecondQuest {
                     isSecondMissionOn = true;
                     output.appendText("Please find something different in this creepy place and use it, here you are. Good luck! \n" +
                             "+Mystery gem \n");
+                    GameController.player.addToInventory(new Gem());
                 }
                 input.clear();
                 input.setVisible(false);

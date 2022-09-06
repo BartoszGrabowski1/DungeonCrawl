@@ -59,7 +59,8 @@ public class Tiles {
         tileMap.put("closed_doors", new Tile(52, 10));
         tileMap.put("open_doors", new Tile(48, 10));
         tileMap.put("skull", new Tile(32,28));
-        tileMap.put("pentagram", new Tile(13,3));
+        tileMap.put("pentagram", new Tile(3,13));
+        tileMap.put("gem", new Tile(44, 24));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

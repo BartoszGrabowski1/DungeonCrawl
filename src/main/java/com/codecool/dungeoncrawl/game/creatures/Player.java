@@ -28,6 +28,7 @@ public class Player extends Creature {
 
     private String name;
 
+    public void addToInventory(Item item) { inventory.add(item);}
 
     public Player(Cell cell, String name) {
         super(cell);

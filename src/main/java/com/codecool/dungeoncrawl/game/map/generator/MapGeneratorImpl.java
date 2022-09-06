@@ -23,7 +23,6 @@ public class MapGeneratorImpl implements MapGenerator {
 
     private final int NPCS;
     private final char[] ITEMS;
-    private final int PENTAGRAM;
 
     public int getWIDTH() {
         return WIDTH;
@@ -106,7 +105,6 @@ public class MapGeneratorImpl implements MapGenerator {
                             int VAMPIRES,
                             int MEDUSAS,
                             int NPCS,
-                            int PENTAGRAM,
                             char[] items) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
@@ -124,7 +122,6 @@ public class MapGeneratorImpl implements MapGenerator {
         this.VAMPIRES = VAMPIRES;
         this.MEDUSAS = MEDUSAS;
         this.NPCS = NPCS;
-        this.PENTAGRAM = PENTAGRAM;
         this.ITEMS = items;
     }
 
@@ -428,7 +425,6 @@ public class MapGeneratorImpl implements MapGenerator {
         addItemsToMap();
         addNpcsToMap();
         addStairsToMap();
-
         StringBuilder sb = new StringBuilder();
 
         sb.append(getWIDTH()).append(" ").append(getHEIGHT()).append("\n");
@@ -448,6 +444,8 @@ public class MapGeneratorImpl implements MapGenerator {
             }
         }
     }
+
+
 
     private void addStairsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
@@ -478,6 +476,8 @@ public class MapGeneratorImpl implements MapGenerator {
     }
 
     private void addNpcsToMap() { addNpcsToMap(getNPCS(), 'n');}
+
+
 
     private void addItemsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
