@@ -256,6 +256,7 @@
                      <Label id="apLabel" fx:id="apLabel" layoutX="87.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Label id="bpLabel" fx:id="bpLabel" layoutX="158.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Button fx:id="pickUpItemBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" />
+                     <Button fx:id="actionBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Action" />
                   </children>
                </Pane>
             </children>
