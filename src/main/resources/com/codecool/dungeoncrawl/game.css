@@ -67,4 +67,7 @@
 #eqStuff, #eqShoes1, #eqStuff1, #eqStuff2, #eqStuff3{
     -fx-background-color: transparent;
 }
+.saves{
+    -fx-text-alignment: center;
+}
 

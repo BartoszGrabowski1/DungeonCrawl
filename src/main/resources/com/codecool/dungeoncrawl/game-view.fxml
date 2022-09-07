@@ -12,6 +12,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -259,6 +260,7 @@
                      <Button fx:id="actionBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Action" />
                   </children>
                </Pane>
+               <Button fx:id="saveButton" layoutX="63.0" layoutY="446.0" onMouseClicked="#saveGame" mnemonicParsing="false" text="Save Game" />
             </children>
          </Pane>
       </right>

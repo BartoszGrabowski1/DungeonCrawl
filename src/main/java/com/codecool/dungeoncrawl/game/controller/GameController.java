@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Helmet;
@@ -19,6 +20,8 @@ import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.quests.SecondQuest;
 import com.codecool.dungeoncrawl.game.utils.Utils;
+import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,14 +30,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import javax.swing.text.html.ImageView;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import static com.codecool.dungeoncrawl.Main.*;
 import static com.codecool.dungeoncrawl.game.controller.ViewController.context;
@@ -48,7 +53,10 @@ public class GameController {
     public static boolean isMusicPlaying = false;
     public static boolean isNpcAvailable = false;
     public static Timeline monstersMoving;
-     public boolean isInventoryVisible = false;
+    public boolean isInventoryVisible = false;
+    public static boolean isMapLoaded = false;
+    GameDatabaseManager databaseManager = new GameDatabaseManager();
+    public boolean isInventoryVisible = false;
     public static int bloodCount = 0;
 
     @FXML
@@ -90,6 +98,9 @@ public class GameController {
     private TableView tableView;
 
     @FXML
+    private Button saveButton;
+    
+    @FXML
     private GridPane equipment;
 
     @FXML
@@ -118,6 +129,49 @@ public class GameController {
     @FXML
     private ProgressBar healthBar;
 
+    @FXML
+    void saveGame(MouseEvent event) throws SQLException {
+        databaseManager.setup();
+        System.out.println(databaseManager.getLoadNames());
+        input.setVisible(true);
+        if (databaseManager.getLoadNames().contains(map.getPlayer().getName())) {
+            output.appendText("Such save already exists, would you like to overwrite it? (y/n)");
+            input.setOnAction(e -> {
+                String inputText = input.getText();
+                if (Objects.equals(inputText, "y")) {
+                    PlayerModel playerModel = new PlayerModel(player, player.getName());
+                    playerModel.setId(databaseManager.getSelectedPlayer(player.getName()).getId());
+                    databaseManager.updatePlayer(playerModel);
+                    GameState gameState = databaseManager.getGameState(playerModel.getId());
+                    gameState.setPlayer(playerModel);
+                    databaseManager.updateGameState(gameState);
+                }
+                input.clear();
+                input.setVisible(false);
+                output.clear();
+                askForGameActionAfterSave();
+            });
+        } else {
+            databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName());
+            askForGameActionAfterSave();
+        }
+    }
+
+    public void askForGameActionAfterSave() {
+        output.appendText("You've successfully saved the game!  ");
+        output.appendText("Would you like to continue or head back to Main menu? (play/quit)");
+        input.setVisible(true);
+        input.setOnAction(e -> {
+            String inputText = input.getText();
+            if (Objects.equals(inputText, "quit")) {
+                MusicPlayer.stopSounds();
+                ViewController.closeView();
+            }
+            input.clear();
+            output.clear();
+            input.setVisible(false);
+        });
+    }
 
     @FXML
     void initialize() {
@@ -130,7 +184,6 @@ public class GameController {
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         itemDescription.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
         itemValue.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
-
         tableView.setPlaceholder(new Label("No items found yet"));
 
         handleItems();
@@ -189,11 +242,11 @@ public class GameController {
     private void handleItems() {
         pickUpItemBtn.setFocusTraversable(false);
         pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            if (player.getCell().getItem() instanceof Sword sword){
+            if (player.getCell().getItem() instanceof Sword sword) {
                 itemSword.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Armor armor){
+            } else if (player.getCell().getItem() instanceof Armor armor) {
                 itemArmor.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Helmet helmet){
+            } else if (player.getCell().getItem() instanceof Helmet helmet) {
                 itemHelmet.setVisible(true);
             } else if (player.getCell().getItem() instanceof Shoes shoes){
                 itemShoes.setVisible(true);
@@ -225,7 +278,7 @@ public class GameController {
     }
 
 
-    private void handleInventory(){
+    private void handleInventory() {
         tableView.setVisible(false);
         itemSword.setVisible(false);
         itemArmor.setVisible(false);
@@ -243,18 +296,18 @@ public class GameController {
 //                tableView.setVisible(true);
                 equipment.setVisible(true);
                 isInventoryVisible = true;
-            } else if (isInventoryVisible == true){
+            } else if (isInventoryVisible == true) {
                 tableView.setVisible(false);
                 equipment.setVisible(false);
                 isInventoryVisible = false;
             }
         });
-        itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+        itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemSword.setVisible(false);
             eqSword1.setVisible(true);
             player.removeItem("Sword");
         });
-        itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+        itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemArmor.setVisible(false);
             eqArmor1.setVisible(true);
             player.removeItem("Armor");
@@ -315,8 +368,10 @@ public class GameController {
      * Allows user to move player using keyboard keys <i>(W,A,S,D)</i>.
      */
     public void setupKeys() {
+
         Main.scene.setOnKeyPressed(this::onKeyPressed);
     }
+
 
     /**
      * On Key Pressed
