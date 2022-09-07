@@ -52,6 +52,7 @@
                <Label text="Block Power: " translateY="60.0" />
                <Label fx:id="blockLabel" text="Label" translateY="60.0" GridPane.columnIndex="1" />
                <Button fx:id="pickUpItemBtn" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" translateX="-28.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="actionBtn" mnemonicParsing="false" styleClass="pickup-button" text="Action" translateX="-28.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
          </GridPane>
       </right>

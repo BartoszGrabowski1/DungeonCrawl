@@ -13,7 +13,6 @@ public class Main extends Application {
     public static final int SCREEN_SIZE = 20;
     public static final int LEVELS_AMOUNT = 3;
     public static final GameMap[] levels = new GameMap[3];
-    public static GameMap bossLevel;
     public static int level = 1;
     public static int eqNumber = 0;
     public static GameMap map;

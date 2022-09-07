@@ -43,6 +43,7 @@ public class GameController {
     public static boolean isMusicPlaying = false;
     public static boolean isNpcAvailable = false;
     public static Timeline monstersMoving;
+    public static int bloodCount = 0;
 
     @FXML
     public Canvas mainView;
@@ -81,6 +82,9 @@ public class GameController {
     @FXML
     private TextField input;
 
+    @FXML
+    private Button actionBtn;
+
 
     @FXML
     void initialize() {
@@ -97,7 +101,7 @@ public class GameController {
         tableView.setPlaceholder(new Label("No items found yet"));
 
         handleItems();
-
+        handleSecondQuestAction();
         moveMonsters();
 
         if (!isMusicPlaying) playSounds();
@@ -157,6 +161,22 @@ public class GameController {
         hidePickUpButton(pickUpItemBtn);
     }
 
+    private void handleSecondQuestAction() {
+        actionBtn.setFocusTraversable(false);
+        actionBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            map.getPlayer().pickUpItem();
+            bloodCount++;
+            System.out.println(bloodCount);
+            updateGameView(actionBtn, context);
+            if (bloodCount == 4){
+                map = MapLoader.loadMap(false, false);
+                SecondQuest.isBloodLvlFinished = true;
+            }
+        });
+
+        hideActionButton(actionBtn);
+    }
+
     /**
      * Initialize Map
      * <p></p>
@@ -165,7 +185,7 @@ public class GameController {
     private static void initMap() {
         if (level > LEVELS_AMOUNT) {
             map = MapLoader.loadMap(true, false);
-        } else if (SecondQuest.isBossLevel) {
+        } else if (SecondQuest.isQuestLevel) {
             map = MapLoader.loadMap(false, true);
         } else {
             map = MapLoader.loadMap(false, false);
@@ -251,9 +271,12 @@ public class GameController {
                         if (cell.getItem() != null && cell.getCreature() instanceof Player) {
                             playerOnItem = true;
                         }
+                        // if player go on pentagram with quest access
                         if (cell.getType() == CellType.PENTAGRAM && SecondQuest.isSecondMissionOn && cell.getCreature() instanceof Player){
                             initMap();
                         }
+                        //if player step on blood, show action button and change flag
+                        SecondQuest.isPlayerOnBlood = cell.getType() == CellType.BLOOD_1;
                     } else if (cell.getItem() != null) {
 
                         // draw item on map
@@ -273,6 +296,7 @@ public class GameController {
 
         // check if player steps on specific tiles
         checkForItem(pickUpItemBtn, playerOnItem);
+        checkForBlood(actionBtn, SecondQuest.isPlayerOnBlood);
         checkForStairs();
         checkForFight();
 
@@ -303,6 +327,10 @@ public class GameController {
      * Hides the item pickup button.
      * @param pickUpItemBtn Button for picking items up.
      */
+
+    private static void showPickUpButton(Button pickUpItemBtn) {
+        pickUpItemBtn.setVisible(true);
+    }
     private static void hidePickUpButton(Button pickUpItemBtn) {
         pickUpItemBtn.setVisible(false);
     }
@@ -311,10 +339,14 @@ public class GameController {
      * Show PickUp Button
      * <p></p>
      * Shows the item pickup button.
-     * @param pickUpItemBtn Button for picking items up.
+     * @param actionBtn Button for picking items up.
      */
-    private static void showPickUpButton(Button pickUpItemBtn) {
-        pickUpItemBtn.setVisible(true);
+    private static void showActionButton(Button actionBtn) {
+        actionBtn.setVisible(true);
+    }
+
+    private static void hideActionButton(Button actionBtn) {
+        actionBtn.setVisible(false);
     }
 
     /**
@@ -329,6 +361,14 @@ public class GameController {
             showPickUpButton(pickUpItemBtn);
         } else {
             hidePickUpButton(pickUpItemBtn);
+        }
+    }
+
+    private static void checkForBlood(Button actionBtn, boolean playerOnBlood) {
+        if (playerOnBlood) {
+            showActionButton(actionBtn);
+        } else {
+            hideActionButton(actionBtn);
         }
     }
 
