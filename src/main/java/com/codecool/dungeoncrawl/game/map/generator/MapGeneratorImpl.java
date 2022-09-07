@@ -425,7 +425,6 @@ public class MapGeneratorImpl implements MapGenerator {
         addItemsToMap();
         addNpcsToMap();
         addStairsToMap();
-
         StringBuilder sb = new StringBuilder();
 
         sb.append(getWIDTH()).append(" ").append(getHEIGHT()).append("\n");
@@ -445,6 +444,8 @@ public class MapGeneratorImpl implements MapGenerator {
             }
         }
     }
+
+
 
     private void addStairsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
@@ -475,6 +476,8 @@ public class MapGeneratorImpl implements MapGenerator {
     }
 
     private void addNpcsToMap() { addNpcsToMap(getNPCS(), 'n');}
+
+
 
     private void addItemsToMap() {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());

@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.game.creatures;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.controller.FightController;
+import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.music.Sounds;
@@ -20,6 +21,8 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
 public class Player extends Creature {
     private List<Item> inventory = new ArrayList<>();
 
+    private List<Item> equipment = new ArrayList<>();
+
     private String[] developersNames = new String[]{"BARTEK", "DAREK", "MATEUSZ", "SYLWESTER", "KAROL"};
 
     private String name;
@@ -27,11 +30,12 @@ public class Player extends Creature {
     public String getName() {
         return name;
     }
+    public void addToInventory(Item item) { inventory.add(item);}
 
     public Player(Cell cell, String name) {
         super(cell);
-        super.setHealth(600);
-        super.setDamage(30);
+        super.setHealth(6000);
+        super.setDamage(130);
         super.setAbilityPower(70);
         super.setBlockPower(30);
         super.setExp(0);
@@ -61,6 +65,24 @@ public class Player extends Creature {
         this.getCell().setItem(null);
     }
 
+    public void removeItem(String item){
+        for (Item ite : inventory){
+            if (ite.getItemName() == item){
+                equipment.add(ite);
+                inventory.remove(ite);
+                break;
+            }
+        }
+    }
+
+    public void addItemToInventoryFromEQ(String item){
+        for (Item ite : equipment){
+            if (ite.getItemName() == item){
+                inventory.add(ite);
+            }
+        }
+    }
+
     public boolean checkIfDeveloper() {
         for (String developersName : developersNames) {
             if (this.name.equals(developersName)) {
@@ -86,8 +108,8 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
-            FirstQuest.isFirstNpcAvailable = true;
-            FirstQuest.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
+            GameController.isNpcAvailable = true;
+            GameController.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
             return false;
         }
         return true;

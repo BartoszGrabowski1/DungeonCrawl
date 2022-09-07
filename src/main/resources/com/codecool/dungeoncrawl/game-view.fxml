@@ -13,6 +13,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="761.0" prefWidth="1138.0" spacing="20.0" styleClass="main-window" stylesheets="@game.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.game.controller.GameController">
@@ -26,11 +30,11 @@
       <left>
          <Pane prefHeight="200.0" prefWidth="240.0" BorderPane.alignment="CENTER">
             <children>
-               <TableView fx:id="tableView" layoutX="20.0" layoutY="335.0" prefHeight="315.0" prefWidth="200.0">
+               <TableView fx:id="tableView" layoutX="16.0" layoutY="525.0" prefHeight="108.0" prefWidth="208.0">
                  <columns>
                    <TableColumn fx:id="itemName" prefWidth="57.0" text="Item" />
                    <TableColumn fx:id="itemDescription" prefWidth="91.0" text="Description" />
-                     <TableColumn fx:id="itemValue" prefWidth="51.0" text="Value" />
+                     <TableColumn fx:id="itemValue" prefWidth="59.0" text="Value" />
                  </columns>
                </TableView>
                <ImageView fitHeight="260.0" fitWidth="260.0" layoutX="-20.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -60,11 +64,6 @@
                      </ImageView>
                   </graphic>
                </Button>
-               <ImageView fitHeight="57.0" fitWidth="63.0" layoutX="79.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@img/braveShoes.png" />
-                  </image>
-               </ImageView>
                <Button fx:id="itemArmor" layoutX="74.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="58.0">
                   <graphic>
                      <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
@@ -97,6 +96,146 @@
                      </ImageView>
                   </graphic>
                </Button>
+               <Button fx:id="itemShoes" layoutX="68.0" layoutY="215.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0">
+                  <graphic>
+                     <ImageView fitHeight="56.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/braveShoes.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <GridPane fx:id="equipment" layoutX="-2.0" layoutY="321.0" prefHeight="204.0" prefWidth="239.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                  <children>
+                     <Button fx:id="eqSword" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/slotSword.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqShield" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/slotShield.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqShoes" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/slotShoes.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqStuff" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/stuffEq.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqArmor" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/slotArmor.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqSword1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/sword.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqArmor1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/Armor.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqHelmet" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/slotHelmet.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqHelmet1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/helmet.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqShoes1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/braveShoes.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqStuff1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.rowIndex="2">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/stuffEq.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqStuff2" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/stuffEq.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqStuff3" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/stuffEq.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                  </children>
+               </GridPane>
             </children>
          </Pane>
       </left>
@@ -118,6 +257,7 @@
                      <Label id="apLabel" fx:id="apLabel" layoutX="87.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Label id="bpLabel" fx:id="bpLabel" layoutX="158.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Button fx:id="pickUpItemBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" />
+                     <Button fx:id="actionBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Action" />
                   </children>
                </Pane>
                <Button fx:id="saveButton" layoutX="63.0" layoutY="446.0" onMouseClicked="#saveGame" mnemonicParsing="false" text="Save Game" />

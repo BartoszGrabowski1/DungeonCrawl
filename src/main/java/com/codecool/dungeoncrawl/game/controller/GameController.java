@@ -2,14 +2,15 @@ package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Helmet;
 import com.codecool.dungeoncrawl.game.Items.Sword;
+import com.codecool.dungeoncrawl.game.creatures.Npc;
 import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
-import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.map.MapLoader;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
@@ -17,6 +18,7 @@ import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 import com.codecool.dungeoncrawl.game.creatures.Creature;
 import com.codecool.dungeoncrawl.game.music.Sounds;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
+import com.codecool.dungeoncrawl.game.quests.SecondQuest;
 import com.codecool.dungeoncrawl.game.utils.Utils;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
@@ -29,6 +31,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -43,16 +48,16 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 public class GameController {
 
     public static Player player;
+    public static Npc npc;
     private static boolean isMapCreated = false;
     public static boolean isMusicPlaying = false;
+    public static boolean isNpcAvailable = false;
     public static Timeline monstersMoving;
     public boolean isInventoryVisible = false;
-
     public static boolean isMapLoaded = false;
-
-
     GameDatabaseManager databaseManager = new GameDatabaseManager();
-
+    public boolean isInventoryVisible = false;
+    public static int bloodCount = 0;
 
     @FXML
     public Canvas mainView;
@@ -71,6 +76,16 @@ public class GameController {
     @FXML
     private Button itemShield;
     @FXML
+    private Button itemShoes;
+    @FXML
+    private Button eqHelmet1;
+    @FXML
+    private Button eqSword1;
+    @FXML
+    private Button eqArmor1;
+    @FXML
+    private Button eqShoes1;
+    @FXML
     private TableColumn<Item, String> itemDescription;
 
     @FXML
@@ -84,11 +99,18 @@ public class GameController {
 
     @FXML
     private Button saveButton;
+    
+    @FXML
+    private GridPane equipment;
+
     @FXML
     private TextArea output;
 
     @FXML
     private TextField input;
+
+    @FXML
+    private Button actionBtn;
 
     @FXML
     private ProgressBar manaBar;
@@ -165,6 +187,7 @@ public class GameController {
         tableView.setPlaceholder(new Label("No items found yet"));
 
         handleItems();
+        handleSecondQuestAction();
 
         handleInventory();
 
@@ -225,6 +248,8 @@ public class GameController {
                 itemArmor.setVisible(true);
             } else if (player.getCell().getItem() instanceof Helmet helmet) {
                 itemHelmet.setVisible(true);
+            } else if (player.getCell().getItem() instanceof Shoes shoes){
+                itemShoes.setVisible(true);
             }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
@@ -236,28 +261,88 @@ public class GameController {
         hidePickUpButton(pickUpItemBtn);
     }
 
+    private void handleSecondQuestAction() {
+        actionBtn.setFocusTraversable(false);
+        actionBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            map.getPlayer().pickUpItem();
+            bloodCount++;
+            System.out.println(bloodCount);
+            updateGameView(actionBtn, context);
+            if (bloodCount == 4){
+                map = MapLoader.loadMap(false, false);
+                SecondQuest.isBloodLvlFinished = true;
+            }
+        });
+
+        hideActionButton(actionBtn);
+    }
+
 
     private void handleInventory() {
         tableView.setVisible(false);
         itemSword.setVisible(false);
         itemArmor.setVisible(false);
-//        itemHelmet.setVisible(false);
+        itemHelmet.setVisible(false);
+        itemShoes.setVisible(false);
+        equipment.setVisible(false);
+        eqHelmet1.setVisible(false);
+        eqSword1.setVisible(false);
+        eqArmor1.setVisible(false);
+        eqShoes1.setVisible(false);
 //        itemShield.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
-        showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            if (isInventoryVisible == false) {
-                tableView.setVisible(true);
+        showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            if (isInventoryVisible == false){
+//                tableView.setVisible(true);
+                equipment.setVisible(true);
                 isInventoryVisible = true;
             } else if (isInventoryVisible == true) {
                 tableView.setVisible(false);
+                equipment.setVisible(false);
                 isInventoryVisible = false;
             }
         });
         itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemSword.setVisible(false);
+            eqSword1.setVisible(true);
+            player.removeItem("Sword");
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemArmor.setVisible(false);
+            eqArmor1.setVisible(true);
+            player.removeItem("Armor");
+        });
+        itemHelmet.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemHelmet.setVisible(false);
+            eqHelmet1.setVisible(true);
+            player.removeItem("Helmet");
+        });
+        itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemShield.setVisible(false);
+        });
+        itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemShoes.setVisible(false);
+            eqShoes1.setVisible(true);
+            player.removeItem("Shoes");
+        });
+        eqHelmet1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            eqHelmet1.setVisible(false);
+            itemHelmet.setVisible(true);
+            player.addItemToInventoryFromEQ("Helmet");
+        });
+        eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqSword1.setVisible(false);
+            itemSword.setVisible(true);
+            player.addItemToInventoryFromEQ("Sword");
+        });
+        eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqArmor1.setVisible(false);
+            itemArmor.setVisible(true);
+            player.addItemToInventoryFromEQ("Armor");
+        });
+        eqShoes1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqShoes1.setVisible(false);
+            itemShoes.setVisible(true);
         });
     }
 
@@ -268,9 +353,11 @@ public class GameController {
      */
     private static void initMap() {
         if (level > LEVELS_AMOUNT) {
-            map = MapLoader.loadMap(true);
+            map = MapLoader.loadMap(true, false);
+        } else if (SecondQuest.isQuestLevel) {
+            map = MapLoader.loadMap(false, true);
         } else {
-            map = MapLoader.loadMap(false);
+            map = MapLoader.loadMap(false, false);
         }
         isMapCreated = true;
     }
@@ -312,11 +399,19 @@ public class GameController {
                 updateGameView(pickUpItemBtn, context);
                 break;
             case R:
-                if (!FirstQuest.isFirstMissionFinished) {
-                    FirstQuest.firstMissionAccess(output, input);
-                }
+                npcInteraction();
             default:
                 break;
+        }
+    }
+
+    private void npcInteraction() {
+        if(isNpcAvailable && !FirstQuest.isFirstMissionFinished) {
+            FirstQuest.firstMissionAccess(output, input);
+        } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
+            SecondQuest.secondMissionAccess(output, input);
+        } else {
+            input.setVisible(false);
         }
     }
 
@@ -349,6 +444,12 @@ public class GameController {
                         if (cell.getItem() != null && cell.getCreature() instanceof Player) {
                             playerOnItem = true;
                         }
+                        // if player go on pentagram with quest access
+                        if (cell.getType() == CellType.PENTAGRAM && SecondQuest.isSecondMissionOn && cell.getCreature() instanceof Player){
+                            initMap();
+                        }
+                        //if player step on blood, show action button and change flag
+                        SecondQuest.isPlayerOnBlood = cell.getType() == CellType.BLOOD_1;
                     } else if (cell.getItem() != null) {
 
                         // draw item on map
@@ -368,6 +469,7 @@ public class GameController {
 
         // check if player steps on specific tiles
         checkForItem(pickUpItemBtn, playerOnItem);
+        checkForBlood(actionBtn, SecondQuest.isPlayerOnBlood);
         checkForStairs();
         checkForFight();
 
@@ -400,6 +502,10 @@ public class GameController {
      *
      * @param pickUpItemBtn Button for picking items up.
      */
+
+    private static void showPickUpButton(Button pickUpItemBtn) {
+        pickUpItemBtn.setVisible(true);
+    }
     private static void hidePickUpButton(Button pickUpItemBtn) {
         pickUpItemBtn.setVisible(false);
     }
@@ -408,11 +514,14 @@ public class GameController {
      * Show PickUp Button
      * <p></p>
      * Shows the item pickup button.
-     *
-     * @param pickUpItemBtn Button for picking items up.
+     * @param actionBtn Button for picking items up.
      */
-    private static void showPickUpButton(Button pickUpItemBtn) {
-        pickUpItemBtn.setVisible(true);
+    private static void showActionButton(Button actionBtn) {
+        actionBtn.setVisible(true);
+    }
+
+    private static void hideActionButton(Button actionBtn) {
+        actionBtn.setVisible(false);
     }
 
     /**
@@ -428,6 +537,14 @@ public class GameController {
             showPickUpButton(pickUpItemBtn);
         } else {
             hidePickUpButton(pickUpItemBtn);
+        }
+    }
+
+    private static void checkForBlood(Button actionBtn, boolean playerOnBlood) {
+        if (playerOnBlood) {
+            showActionButton(actionBtn);
+        } else {
+            hideActionButton(actionBtn);
         }
     }
 
@@ -510,7 +627,6 @@ public class GameController {
      * Start Fight
      * <p></p>
      * Freezes all monsters on the map and starts the fight.
-     *
      * @see FightController
      */
     private void startFight() {

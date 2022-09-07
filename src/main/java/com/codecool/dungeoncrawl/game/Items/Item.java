@@ -18,6 +18,12 @@ public abstract class Item implements Drawable {
         this.itemValue = itemValue;
     }
 
+
+    public Item(String itemName, String itemDescription){
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+    }
+
     public Cell getCell() {
         return cell;
     }

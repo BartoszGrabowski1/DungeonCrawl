@@ -11,11 +11,6 @@ public class Arthur extends Npc {
     }
 
     @Override
-    public void npcTalk() {
-        System.out.println("Arthur");
-    }
-
-    @Override
     public String getTileName() {
         return "arthur";
     }
