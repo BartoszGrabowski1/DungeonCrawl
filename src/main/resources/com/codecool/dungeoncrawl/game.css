@@ -65,4 +65,7 @@
 #showInventoryBtn, #itemSword, #itemArmor, #itemHelmet, #itemShield {
     -fx-background-color: transparent;
 }
+.saves{
+    -fx-text-alignment: center;
+}
 

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ViewController {
 
@@ -13,6 +14,8 @@ public class ViewController {
     private static FXMLLoader nameSelectViewLoader;
     private static FXMLLoader gameViewLoader;
     private static FXMLLoader fightViewLoader;
+
+    private static FXMLLoader loadGameViewLoader;
     private static FXMLLoader endViewLoader;
     public static GraphicsContext context;
 
@@ -30,7 +33,10 @@ public class ViewController {
             throw new RuntimeException(e);
         }
     }
-
+    public static void setLoadGameView(){
+        loadGameViewLoader = new FXMLLoader(Main.class.getResource("loadGame-view.fxml"));
+        setView(loadGameViewLoader, "Load Game");
+    }
     public static void setMenuView() {
         menuViewLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
         setView(menuViewLoader, "Main Menu");
@@ -41,7 +47,7 @@ public class ViewController {
         setView(nameSelectViewLoader, "Select Name");
     }
 
-    public static void setGameView() {
+    public static void setGameView(){
         gameViewLoader = new FXMLLoader(Main.class.getResource("game-view.fxml"));
         setView(gameViewLoader, "Dungeon Crawl");
         ((GameController) gameViewLoader.getController()).setupKeys();

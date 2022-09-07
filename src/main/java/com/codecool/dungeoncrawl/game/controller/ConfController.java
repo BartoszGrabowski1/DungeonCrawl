@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.sql.SQLException;
+
 public class ConfController {
 
     @FXML
@@ -50,7 +52,7 @@ public class ConfController {
     private TextField width;
 
     @FXML
-    void startGame(ActionEvent event) {
+    void startGame(ActionEvent event) throws SQLException {
         MapConfig.LEVELS.setNumber(Integer.parseInt(levels.getText()));
         Main.LEVELS_AMOUNT = MapConfig.LEVELS.getNumber();
         Main.levels = new GameMap[MapConfig.LEVELS.getNumber()];

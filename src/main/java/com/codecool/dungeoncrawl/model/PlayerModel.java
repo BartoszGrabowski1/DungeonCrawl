@@ -8,27 +8,43 @@ public class PlayerModel extends BaseModel {
     private int x;
     private int y;
 
+    private int damage;
+
+    private int abilityPower;
+
+    private int blockPower;
+
+    private int experience;
+
+    private int mana;
+
+    private String savedGameName;
+
     public PlayerModel(String playerName, int x, int y) {
         this.playerName = playerName;
         this.x = x;
         this.y = y;
     }
 
-    public PlayerModel(Player player) {
+    public PlayerModel(Player player,String savedGameName) {
+        this.savedGameName = savedGameName;
         this.playerName = player.getName();
         this.x = player.getX();
         this.y = player.getY();
-
         this.hp = player.getHealth();
+        this.damage = player.getDamage();
+        this.abilityPower = player.getAbilityPower();
+        this.blockPower = player.getBlockPower();
+        this.experience = player.getExp();
+        this.mana = player.getMana();
 
+    }
+    public PlayerModel(String savedGameName){
+        this.playerName = savedGameName;
     }
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
     }
 
     public int getHp() {
@@ -53,5 +69,45 @@ public class PlayerModel extends BaseModel {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getAbilityPower() {
+        return abilityPower;
+    }
+
+    public void setAbilityPower(int abilityPower) {
+        this.abilityPower = abilityPower;
+    }
+
+    public int getBlockPower() {
+        return blockPower;
+    }
+
+    public void setBlockPower(int blockPower) {
+        this.blockPower = blockPower;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }
