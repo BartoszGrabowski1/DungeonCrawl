@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.Items.Armor;
 import com.codecool.dungeoncrawl.game.Items.Helmet;
 import com.codecool.dungeoncrawl.game.Items.Sword;
@@ -9,7 +10,6 @@ import com.codecool.dungeoncrawl.game.map.Tiles;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
-import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.map.MapLoader;
 import com.codecool.dungeoncrawl.game.creatures.Monster;
 import com.codecool.dungeoncrawl.game.creatures.Player;
@@ -29,6 +29,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -67,6 +68,16 @@ public class GameController {
     @FXML
     private Button itemShield;
     @FXML
+    private Button itemShoes;
+    @FXML
+    private Button eqHelmet1;
+    @FXML
+    private Button eqSword1;
+    @FXML
+    private Button eqArmor1;
+    @FXML
+    private Button eqShoes1;
+    @FXML
     private TableColumn<Item, String> itemDescription;
 
     @FXML
@@ -78,6 +89,8 @@ public class GameController {
     @FXML
     private TableView tableView;
 
+    @FXML
+    private GridPane equipment;
 
     @FXML
     private TextArea output;
@@ -182,6 +195,8 @@ public class GameController {
                 itemArmor.setVisible(true);
             } else if (player.getCell().getItem() instanceof Helmet helmet){
                 itemHelmet.setVisible(true);
+            } else if (player.getCell().getItem() instanceof Shoes shoes){
+                itemShoes.setVisible(true);
             }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
@@ -214,23 +229,67 @@ public class GameController {
         tableView.setVisible(false);
         itemSword.setVisible(false);
         itemArmor.setVisible(false);
-//        itemHelmet.setVisible(false);
+        itemHelmet.setVisible(false);
+        itemShoes.setVisible(false);
+        equipment.setVisible(false);
+        eqHelmet1.setVisible(false);
+        eqSword1.setVisible(false);
+        eqArmor1.setVisible(false);
+        eqShoes1.setVisible(false);
 //        itemShield.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
-                tableView.setVisible(true);
+//                tableView.setVisible(true);
+                equipment.setVisible(true);
                 isInventoryVisible = true;
             } else if (isInventoryVisible == true){
                 tableView.setVisible(false);
+                equipment.setVisible(false);
                 isInventoryVisible = false;
             }
         });
         itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             itemSword.setVisible(false);
+            eqSword1.setVisible(true);
+            player.removeItem("Sword");
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             itemArmor.setVisible(false);
+            eqArmor1.setVisible(true);
+            player.removeItem("Armor");
+        });
+        itemHelmet.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemHelmet.setVisible(false);
+            eqHelmet1.setVisible(true);
+            player.removeItem("Helmet");
+        });
+        itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemShield.setVisible(false);
+        });
+        itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            itemShoes.setVisible(false);
+            eqShoes1.setVisible(true);
+            player.removeItem("Shoes");
+        });
+        eqHelmet1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
+            eqHelmet1.setVisible(false);
+            itemHelmet.setVisible(true);
+            player.addItemToInventoryFromEQ("Helmet");
+        });
+        eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqSword1.setVisible(false);
+            itemSword.setVisible(true);
+            player.addItemToInventoryFromEQ("Sword");
+        });
+        eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqArmor1.setVisible(false);
+            itemArmor.setVisible(true);
+            player.addItemToInventoryFromEQ("Armor");
+        });
+        eqShoes1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
+            eqShoes1.setVisible(false);
+            itemShoes.setVisible(true);
         });
     }
 
