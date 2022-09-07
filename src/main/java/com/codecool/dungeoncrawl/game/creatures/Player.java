@@ -20,6 +20,8 @@ import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
 public class Player extends Creature {
     private List<Item> inventory = new ArrayList<>();
 
+    private List<Item> equipment = new ArrayList<>();
+
     private String[] developersNames = new String[]{"BARTEK", "DAREK", "MATEUSZ", "SYLWESTER", "KAROL"};
 
     private String name;
@@ -59,6 +61,24 @@ public class Player extends Creature {
             MusicPlayer.playSound(Sounds.OPEN_DOORS.getFile(), (float) 1);
         }
         this.getCell().setItem(null);
+    }
+
+    public void removeItem(String item){
+        for (Item ite : inventory){
+            if (ite.getItemName() == item){
+                equipment.add(ite);
+                inventory.remove(ite);
+                break;
+            }
+        }
+    }
+
+    public void addItemToInventoryFromEQ(String item){
+        for (Item ite : equipment){
+            if (ite.getItemName() == item){
+                inventory.add(ite);
+            }
+        }
     }
 
     public boolean checkIfDeveloper() {
