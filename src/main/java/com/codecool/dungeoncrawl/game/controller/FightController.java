@@ -195,6 +195,7 @@ public class FightController {
         else if (monster instanceof Skeleton) playRandomSkeletonDeathSound();
         else if (monster instanceof FinalBoss) playSound(Sounds.BOSS_DEATH.getFile(), (float) 1.0);
         player.setExp(player.getExp() + monster.getExp());
+        monster.lootItems();
         monster.getCreature().getCell().setCreature(null);
         GameMap.removeMonster(monster);
         ViewController.setGameView();

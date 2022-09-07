@@ -52,6 +52,7 @@ public class Tiles {
         tileMap.put("vampire", new Tile(13, 77));
         tileMap.put("medusa", new Tile(6, 77));
         tileMap.put("arthur", new Tile(10,68));
+        tileMap.put("crudy", new Tile(44, 77));
         tileMap.put("boss", new Tile(0, 66));
         tileMap.put("sword", new Tile(1, 46));
         tileMap.put("key", new Tile(55, 40));
@@ -73,6 +74,8 @@ public class Tiles {
         tileMap.put("closed_doors", new Tile(52, 10));
         tileMap.put("open_doors", new Tile(48, 10));
         tileMap.put("skull", new Tile(32,28));
+        tileMap.put("pentagram", new Tile(3,13));
+        tileMap.put("gem", new Tile(44, 24));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
