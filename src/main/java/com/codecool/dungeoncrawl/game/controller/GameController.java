@@ -56,7 +56,6 @@ public class GameController {
     public boolean isInventoryVisible = false;
     public static boolean isMapLoaded = false;
     GameDatabaseManager databaseManager = new GameDatabaseManager();
-    public boolean isInventoryVisible = false;
     public static int bloodCount = 0;
 
     @FXML
