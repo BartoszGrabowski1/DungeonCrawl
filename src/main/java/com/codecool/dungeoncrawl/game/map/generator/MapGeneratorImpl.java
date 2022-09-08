@@ -503,29 +503,14 @@ public class MapGeneratorImpl implements MapGenerator {
     }
 
     private void addMonsterToMap(int elementsToAdd, char symbol) {
-        List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
-        int elementsAdded = 0;
-        while (elementsAdded < elementsToAdd) {
-            for (String row : tempArray) {
-                Collections.shuffle(tempArray);
-                if (row.contains(".")) {
-                    StringBuilder sb = new StringBuilder(row);
-                    try {
-                        int randomIndex = Utils.RANDOM.nextInt(getWIDTH());
-                        if (row.charAt(randomIndex) == '.') sb.setCharAt(randomIndex, symbol);
-                        else sb.setCharAt(row.indexOf("."), symbol);
-                        getTILES_LEVEL().set(getTILES_LEVEL().indexOf(row), sb.toString());
-                        elementsAdded++;
-                        break;
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-            }
-        }
+        addCreatureToMap(elementsToAdd, symbol);
     }
 
     private void addNpcsToMap(int elementsToAdd, char symbol){
+        addCreatureToMap(elementsToAdd, symbol);
+    }
+
+    private void addCreatureToMap(int elementsToAdd, char symbol) {
         List<String> tempArray = new ArrayList<>(getTILES_LEVEL());
         int npcsAdded = 0;
         while (npcsAdded < elementsToAdd) {
