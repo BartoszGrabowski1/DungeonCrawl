@@ -428,6 +428,7 @@ public class GameController {
                 break;
             case R:
                 npcInteraction();
+                break;
             default:
                 break;
         }
