@@ -85,10 +85,10 @@ public class MapLoader {
                             break;
                         case 'n':
                             addFloor(cell);
-                            if(Main.level == 2) {
+                            if(Main.level == 1) {
                                 map.addNpc(new Arthur(cell));
                                 cell.setType(CellType.NPC);
-                            } else if (Main.level == 1) {
+                            } else if (Main.level == 2) {
                                 map.addNpc(new Crudy(cell));
                                 cell.setType(CellType.NPC);
                             }
@@ -178,12 +178,11 @@ public class MapLoader {
         }
         return map;
     }
-
     private static void addFloor(Cell cell) {
         int pentagram = Utils.RANDOM.nextInt(50);
-        switch (Utils.RANDOM.nextInt(3)) {
+        switch (Utils.RANDOM.nextInt( 3)) {
             case 0:
-                if (pentagram == 38 && !isPentagramOnMap){
+                if (pentagram == 38 && !isPentagramOnMap && Main.level == 2){
                     cell.setType(CellType.PENTAGRAM);
                     isPentagramOnMap = true;
                 } else {

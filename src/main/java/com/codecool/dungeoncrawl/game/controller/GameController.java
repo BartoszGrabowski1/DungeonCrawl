@@ -203,6 +203,7 @@ public class GameController {
             if (bloodCount == 4){
                 map = MapLoader.loadMap(false, false);
                 SecondQuest.isBloodLvlFinished = true;
+                SecondQuest.isQuestLevel = false;
             }
         });
 
@@ -296,6 +297,7 @@ public class GameController {
             FirstQuest.firstMissionAccess(output, input);
         } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
             SecondQuest.secondMissionAccess(output, input);
+            SecondQuest.secondQuestCrud(output, input);
         } else {
             input.setVisible(false);
         }
