@@ -103,16 +103,7 @@ public class MapLoader {
                         case '@':
                             addFloor(cell);
                             if (GameController.isMapLoaded) {
-                                Player player = new Player(cell, LoadGameController.playerModel.getPlayerName());
-                                player.setAbilityPower(LoadGameController.playerModel.getAbilityPower());
-                                player.setBlockPower(LoadGameController.playerModel.getBlockPower());
-                                player.setDamage(LoadGameController.playerModel.getDamage());
-                                player.setMana(LoadGameController.playerModel.getMana());
-                                player.setExp(LoadGameController.playerModel.getExperience());
-                                player.setHealth(LoadGameController.playerModel.getHp());
-                                createItemsInstances(LoadGameController.inventory,map,player);
-                                System.out.println(player.getInventory());
-                                GameController.player = player;
+                                putPlayerOnMap(map, cell);
 
                             } else if (GameController.player == null) {
                                 GameController.player = new Player(cell, NameController.getUserName());
@@ -193,6 +184,20 @@ public class MapLoader {
         }
         return map;
     }
+
+    private static void putPlayerOnMap(GameMap map, Cell cell) {
+        Player player = new Player(cell, LoadGameController.playerModel.getPlayerName());
+        player.setAbilityPower(LoadGameController.playerModel.getAbilityPower());
+        player.setBlockPower(LoadGameController.playerModel.getBlockPower());
+        player.setDamage(LoadGameController.playerModel.getDamage());
+        player.setMana(LoadGameController.playerModel.getMana());
+        player.setExp(LoadGameController.playerModel.getExperience());
+        player.setHealth(LoadGameController.playerModel.getHp());
+        createItemsInstances(LoadGameController.inventory, map,player);
+        System.out.println(player.getInventory());
+        GameController.player = player;
+    }
+
     public static void addItemsToInventoryEquipment(List<ItemModel> inventory, int index,Player player, Item objectToCheck){
         if(inventory.get(index).isItemWore()){
             player.addToInventory(objectToCheck);

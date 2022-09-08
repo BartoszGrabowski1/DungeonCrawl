@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.quests;
 
 import com.codecool.dungeoncrawl.game.Items.Gem;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import javafx.scene.control.TextArea;
@@ -20,6 +21,7 @@ public class SecondQuest {
         output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
         if (GameController.isNpcAvailable && !isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished) {
             input.setOnAction(e -> {
+                output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
                 String inputText = input.getText();
                 if (!Objects.equals(inputText, "mission")) {
                     output.appendText("Its wrong word honey! \n");
@@ -40,19 +42,27 @@ public class SecondQuest {
 
 
         public static void secondQuestCrud(TextArea output, TextField input) {
-            output.clear();
             if (GameController.isNpcAvailable && isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished && isBloodLvlFinished){
                 output.appendText("""
                     Oh, you are alive! Now we can talk like elf and surfer :)\s
                     I enchant sword for you! \s
                     """);
-                    GameController.player.getInventory().stream()
-                            .filter( item -> item instanceof Sword)
-                            .forEach(item -> item.setItemValue(item.getItemValue() + 50));
-                    GameController.player.getInventory().stream()
-                        .filter( item -> item instanceof Sword)
-                        .forEach(item -> item.setItemName("enchantedSword"));
+                    for (Item item : GameController.player.getEquipment()){
+                        if (item instanceof Sword) {
+                            item.setItemValue(item.getItemValue()+100);
+                            item.setItemName("enhancedSword");
+                            System.out.println(item);
+                        }
+                    }
+                for (Item item : GameController.player.getInventory()){
+                    if (item instanceof Sword) {
+                        item.setItemValue(item.getItemValue()+100);
+                        item.setItemName("enhancedSword");
+                        System.out.println(item);
+                    }
+                }
                     output.appendText("Its your upgraded sword");
+                isSecondMissionFinished = true;
                 }
             }
         }

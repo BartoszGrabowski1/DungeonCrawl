@@ -55,7 +55,7 @@ public class Tiles {
         tileMap.put("crudy", new Tile(44, 77));
         tileMap.put("boss", new Tile(0, 66));
         tileMap.put("sword", new Tile(1, 46));
-        tileMap.put("enhancedSword", new Tile(3,6));
+        tileMap.put("enhancedSword", new Tile(2,46));
         tileMap.put("key", new Tile(55, 40));
         tileMap.put("gold1", new Tile(54, 40));
         tileMap.put("gold2", new Tile(42, 40));

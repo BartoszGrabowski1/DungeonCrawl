@@ -474,6 +474,7 @@ public class GameController {
             FirstQuest.firstMissionAccess(output, input);
         } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
             SecondQuest.secondMissionAccess(output, input);
+            SecondQuest.secondQuestCrud(output, input);
         } else {
             input.setVisible(false);
         }
