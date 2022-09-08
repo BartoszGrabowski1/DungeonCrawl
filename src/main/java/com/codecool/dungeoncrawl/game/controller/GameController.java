@@ -311,9 +311,7 @@ public class GameController {
                 eqHelmet1.setVisible(true);
             } else if (item instanceof Shoes shoes){
                 eqShoes1.setVisible(true);
-            } else if (item instanceof Shield shield){
-//                eq.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
+            }  else if (item instanceof SkeletonSkull skull){
                 eqSkull.setVisible(true);
             }
         }
