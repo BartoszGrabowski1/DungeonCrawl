@@ -154,11 +154,9 @@ public class GameController {
                     databaseManager.deleteAllUsersItems(playerModel.getId());
                     databaseManager.addAllItemsFromInventory(playerModel, player.getInventory());
                     databaseManager.addAllItemsFromEquipment(playerModel, player.getEquipment());
+                    output.clear();
                     askForGameActionAfterSave();
                 }
-                input.clear();
-                input.setVisible(false);
-                output.clear();
             });
         } else {
             databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName(), map.getPlayer().getInventory(),map.getPlayer().getEquipment());
@@ -167,8 +165,9 @@ public class GameController {
     }
 
     public void askForGameActionAfterSave() {
+        input.clear();
         output.appendText("You've successfully saved the game!  ");
-        output.appendText("Would you like to continue or head back to Main menu? (play/quit)");
+        output.appendText("Would you like to continue or quit game? (play/quit)");
         input.setVisible(true);
         input.setOnAction(e -> {
             String inputText = input.getText();
