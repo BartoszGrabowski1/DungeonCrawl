@@ -102,6 +102,7 @@ public class FightController {
     private void initBattleButtons() {
         buttonAttack.setOnMouseClicked(e -> makeMove(FightAction.ATTACK, player, monster));
         buttonBlock.setOnMouseClicked(e -> makeMove(FightAction.BLOCK, player, monster));
+        buttonHeal.setOnMouseClicked(e -> makeMove(FightAction.SPECIAL, player, monster));
     }
 
     private void initEnemyGraphics() {
@@ -176,9 +177,13 @@ public class FightController {
         int dmg = player.calcDamage(userAction);
         if (userAction == FightAction.ABILITY) {
             player.setMana(player.getMana() - 40);
+            monster.setHealth(monster.getHealth() - dmg);
+        } else if (userAction == FightAction.SPECIAL) {
+            player.setHealth(player.getHealth() + 100);
+        } else if (userAction == FightAction.ATTACK || userAction == FightAction.BLOCK) {
+            monster.setHealth(monster.getHealth() - dmg);
+            output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
         }
-        monster.setHealth(monster.getHealth() - dmg);
-        output.appendText(String.format(("%s deals %s to %s \n"), NameController.userName, dmg, monster.getTileName()));
     }
 
     private void checkBattleResult(Player player, Monster monster) {

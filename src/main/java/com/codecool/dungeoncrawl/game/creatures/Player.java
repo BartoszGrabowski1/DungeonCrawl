@@ -63,10 +63,13 @@ public class Player extends Creature {
             MusicPlayer.playSound(Sounds.OPEN_DOORS.getFile(), (float) 1);
         } else if (this.getCell().getItem() instanceof Helmet helmet){
             this.setHealth(this.getHealth() + helmet.getItemValue());
+            MusicPlayer.playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         } else if (this.getCell().getItem() instanceof Shield shield){
             this.setBlockPower(this.getBlockPower() + shield.getItemValue());
+            MusicPlayer.playRandomBlockSound();
         } else if (this.getCell().getItem() instanceof Shoes shoes){
             this.setHealth(this.getHealth() + shoes.getItemValue());
+            MusicPlayer.playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         }
         this.getCell().setItem(null);
     }

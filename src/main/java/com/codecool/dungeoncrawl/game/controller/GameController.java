@@ -270,8 +270,6 @@ public class GameController {
                 itemShoes.setVisible(true);
             } else if (player.getCell().getItem() instanceof SkeletonSkull skull){
                 eqSkull.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Shield shield){
-                itemShield.setVisible(true);
             }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
@@ -330,6 +328,7 @@ public class GameController {
             if (bloodCount == 4){
                 map = MapLoader.loadMap(false, false);
                 SecondQuest.isBloodLvlFinished = true;
+                SecondQuest.isQuestLevel = false;
             }
         });
 
@@ -348,12 +347,10 @@ public class GameController {
         eqSword1.setVisible(false);
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
-        eqShield1.setVisible(false);
         eqSkull.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
-//                tableView.setVisible(true);
                 equipment.setVisible(true);
                 isInventoryVisible = true;
             } else if (isInventoryVisible == true) {
@@ -382,8 +379,6 @@ public class GameController {
         });
         itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemShield.setVisible(false);
-            eqShield1.setVisible(true);
-            player.removeItem("Shield");
             playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -413,7 +408,6 @@ public class GameController {
         eqShoes1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqShoes1.setVisible(false);
             itemShoes.setVisible(true);
-            player.addItemToInventoryFromEQ("Shoes");
             playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
     }
