@@ -61,6 +61,12 @@ public class Player extends Creature {
             map.getCell(13, 14).setType(CellType.OPEN_DOORS);
             MusicPlayer.playSound(Sounds.PICKUP_KEY.getFile(), (float) 1);
             MusicPlayer.playSound(Sounds.OPEN_DOORS.getFile(), (float) 1);
+        } else if (this.getCell().getItem() instanceof Helmet helmet){
+            this.setHealth(this.getHealth() + helmet.getItemValue());
+        } else if (this.getCell().getItem() instanceof Shield shield){
+            this.setBlockPower(this.getBlockPower() + shield.getItemValue());
+        } else if (this.getCell().getItem() instanceof Shoes shoes){
+            this.setHealth(this.getHealth() + shoes.getItemValue());
         }
         this.getCell().setItem(null);
     }
@@ -70,15 +76,38 @@ public class Player extends Creature {
             if (ite.getItemName() == item){
                 equipment.add(ite);
                 inventory.remove(ite);
+                if (ite instanceof Sword sword){
+                    this.setDamage(this.getDamage() - sword.getItemValue());
+                } else if (ite instanceof Helmet helmet) {
+                    this.setHealth(this.getHealth() - helmet.getItemValue());
+                } else if (ite instanceof Armor armor){
+                    this.setHealth(this.getHealth() - armor.getItemValue());
+                } else if (ite instanceof Shield shield){
+                    this.setBlockPower(this.getBlockPower() - shield.getItemValue());
+                } else if (ite instanceof Shoes shoes){
+                    this.setHealth(this.getHealth() - shoes.getItemValue());
+                }
                 break;
             }
         }
     }
 
-    public void addItemToInventoryFromEQ(String item){
-        for (Item ite : equipment){
-            if (ite.getItemName() == item){
+    public void addItemToInventoryFromEQ(String item) {
+        for (Item ite : equipment) {
+            if (ite.getItemName() == item) {
                 inventory.add(ite);
+                if (ite instanceof Sword sword) {
+                    this.setDamage(this.getDamage() + sword.getItemValue());
+                } else if (ite instanceof Helmet helmet) {
+                    this.setHealth(this.getHealth() + helmet.getItemValue());
+                } else if (ite instanceof Armor armor) {
+                    this.setHealth(this.getHealth() + armor.getItemValue());
+                } else if (ite instanceof Shield shield){
+                    this.setBlockPower(this.getBlockPower() + shield.getItemValue());
+                } else if (ite instanceof Shoes shoes){
+                    this.setHealth(this.getHealth() + shoes.getItemValue());
+                }
+                break;
             }
         }
     }
