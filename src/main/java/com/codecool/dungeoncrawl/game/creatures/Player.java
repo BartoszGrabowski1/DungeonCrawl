@@ -188,9 +188,6 @@ public class Player extends Creature {
         return "player_shield";
     }
 
-    public List<Item> getEquipment() {
-        return equipment;
-    }
 
     @Override
     public void move(int dx, int dy) {

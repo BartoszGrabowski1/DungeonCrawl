@@ -704,39 +704,6 @@ public class GameController {
         getFight();
         FightController.isFightAvailable = false;
     }
-    private void checkInventoryAndEquipmentAfterSave(){
-        List<Item> inventory = player.getInventory();
-        List<Item> equipment = player.getEquipment();
-        for (Item item : inventory){
-            if (item instanceof Sword sword){
-                itemSword.setVisible(true);
-            } else if (item instanceof Armor armor){
-                itemArmor.setVisible(true);
-            } else if (item instanceof Helmet helmet){
-                itemHelmet.setVisible(true);
-            } else if (item instanceof Shoes shoes){
-                itemShoes.setVisible(true);
-            } else if (item instanceof Shield shield){
-                itemShield.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
-//                eqSkull.setVisible(true);
-            }
-        }
-        for (Item item : equipment){
-            if (item instanceof Sword sword){
-                eqSword1.setVisible(true);
-            } else if (item instanceof Armor armor){
-                eqArmor1.setVisible(true);
-            } else if (item instanceof Helmet helmet){
-                eqHelmet1.setVisible(true);
-            } else if (item instanceof Shoes shoes){
-                eqShoes1.setVisible(true);
-            } else if (item instanceof Shield shield){
-//                eq.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
-//                eqSkull.setVisible(true);
-            }
-        }
-    }
+
 
 }
