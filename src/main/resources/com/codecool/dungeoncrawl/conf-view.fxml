@@ -13,24 +13,24 @@
       <TextField fx:id="width" layoutX="178.0" layoutY="46.0" prefHeight="25.0" prefWidth="39.0" promptText="64" text="64" />
       <Label layoutX="55.0" layoutY="80.0" text="Height(64):" />
       <TextField fx:id="height" layoutX="178.0" layoutY="76.0" prefHeight="25.0" prefWidth="39.0" promptText="64" text="64" />
-      <Label layoutX="55.0" layoutY="110.0" text="Max Rooms(30):" />
-      <TextField fx:id="maxRooms" layoutX="178.0" layoutY="106.0" prefHeight="25.0" prefWidth="39.0" promptText="30" text="30" />
+      <Label layoutX="55.0" layoutY="110.0" text="Max Rooms(10):" />
+      <TextField fx:id="maxRooms" layoutX="178.0" layoutY="106.0" prefHeight="25.0" prefWidth="39.0" promptText="10" text="10" />
       <Label layoutX="55.0" layoutY="140.0" text="Min Room XY(3):" />
       <TextField fx:id="minRoomXY" layoutX="178.0" layoutY="136.0" prefHeight="25.0" prefWidth="39.0" promptText="3" text="3" />
-      <Label layoutX="55.0" layoutY="170.0" text="Max Room XY(20):" />
-      <TextField fx:id="maxRoomYX" layoutX="178.0" layoutY="166.0" prefHeight="25.0" prefWidth="39.0" promptText="20" text="20" />
-      <Label layoutX="55.0" layoutY="200.0" text="Room Overlap(true):" />
-      <TextField fx:id="roomOverlap" layoutX="178.0" layoutY="196.0" prefHeight="25.0" prefWidth="39.0" promptText="true" text="true" />
-      <Label layoutX="55.0" layoutY="230.0" text="Random Conn.(5):" />
-      <TextField fx:id="randomConnections" layoutX="178.0" layoutY="226.0" prefHeight="25.0" prefWidth="39.0" promptText="5" text="5" />
-      <Label layoutX="55.0" layoutY="260.0" text="Random Spurs(10):" />
-      <TextField fx:id="randomSpurs" layoutX="178.0" layoutY="256.0" prefHeight="25.0" prefWidth="39.0" promptText="10" text="10" />
-      <Label layoutX="55.0" layoutY="290.0" text="Skeletons(6):" />
-      <TextField fx:id="skeletons" layoutX="178.0" layoutY="286.0" prefHeight="25.0" prefWidth="39.0" promptText="6" text="6" />
-      <Label layoutX="55.0" layoutY="320.0" text="Vampires(5):" />
-      <TextField fx:id="vampires" layoutX="178.0" layoutY="316.0" prefHeight="25.0" prefWidth="39.0" promptText="5" text="5" />
-      <Label layoutX="55.0" layoutY="350.0" text="Medusas(3):" />
-      <TextField fx:id="medusas" layoutX="178.0" layoutY="346.0" prefHeight="25.0" prefWidth="39.0" promptText="3" text="3" />
+      <Label layoutX="55.0" layoutY="170.0" text="Max Room XY(10):" />
+      <TextField fx:id="maxRoomYX" layoutX="178.0" layoutY="166.0" prefHeight="25.0" prefWidth="39.0" promptText="10" text="10" />
+      <Label layoutX="55.0" layoutY="200.0" text="Room Overlap(false):" />
+      <TextField fx:id="roomOverlap" layoutX="178.0" layoutY="196.0" prefHeight="25.0" prefWidth="39.0" promptText="false" text="false" />
+      <Label layoutX="55.0" layoutY="230.0" text="Random Conn.(1):" />
+      <TextField fx:id="randomConnections" layoutX="178.0" layoutY="226.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
+      <Label layoutX="55.0" layoutY="260.0" text="Random Spurs(3):" />
+      <TextField fx:id="randomSpurs" layoutX="178.0" layoutY="256.0" prefHeight="25.0" prefWidth="39.0" promptText="3" text="3" />
+      <Label layoutX="55.0" layoutY="290.0" text="Skeletons(1):" />
+      <TextField fx:id="skeletons" layoutX="178.0" layoutY="286.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
+      <Label layoutX="55.0" layoutY="320.0" text="Vampires(1):" />
+      <TextField fx:id="vampires" layoutX="178.0" layoutY="316.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
+      <Label layoutX="55.0" layoutY="350.0" text="Medusas(1):" />
+      <TextField fx:id="medusas" layoutX="178.0" layoutY="346.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
       <Label layoutX="55.0" layoutY="380.0" text="Npc's(1):" />
       <TextField fx:id="npcs" layoutX="178.0" layoutY="376.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
       <Button layoutX="116.0" layoutY="492.0" mnemonicParsing="false" onAction="#startGame" prefHeight="17.0" prefWidth="41.0" text="Start" textAlignment="CENTER" />
