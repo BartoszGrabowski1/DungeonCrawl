@@ -17,8 +17,8 @@ public class SecondQuest {
     public static boolean isQuestLevel = false;
     public static void secondMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
+        output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
         if (GameController.isNpcAvailable && !isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished) {
-            output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
                 if (!Objects.equals(inputText, "mission")) {
