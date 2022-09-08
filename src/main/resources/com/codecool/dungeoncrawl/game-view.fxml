@@ -12,7 +12,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -234,6 +233,15 @@
                            </ImageView>
                         </graphic>
                      </Button>
+                     <Button fx:id="eqSkull" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/skeletonSkull.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                   </children>
                </GridPane>
             </children>
@@ -260,7 +268,7 @@
                      <Button fx:id="actionBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Action" />
                   </children>
                </Pane>
-               <Button fx:id="saveButton" layoutX="63.0" layoutY="446.0" onMouseClicked="#saveGame" mnemonicParsing="false" text="Save Game" />
+               <Button fx:id="saveButton" layoutX="63.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#saveGame" text="Save Game" />
             </children>
          </Pane>
       </right>
