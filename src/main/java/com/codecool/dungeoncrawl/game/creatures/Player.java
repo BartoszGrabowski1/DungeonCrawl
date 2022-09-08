@@ -32,6 +32,10 @@ public class Player extends Creature {
     }
     public void addToInventory(Item item) { inventory.add(item);}
 
+    public List<Item> getEquipment() {
+        return equipment;
+    }
+
     public Player(Cell cell, String name) {
         super(cell);
         super.setHealth(6000);
@@ -73,6 +77,9 @@ public class Player extends Creature {
                 break;
             }
         }
+    }
+    public void addToEquipment(Item item){
+        equipment.add(item);
     }
 
     public void addItemToInventoryFromEQ(String item){

@@ -11,8 +11,10 @@ import com.codecool.dungeoncrawl.game.map.generator.MapConfig;
 import com.codecool.dungeoncrawl.game.map.generator.MapGenerator;
 import com.codecool.dungeoncrawl.game.map.generator.MapGeneratorImpl;
 import com.codecool.dungeoncrawl.game.utils.Utils;
+import com.codecool.dungeoncrawl.model.ItemModel;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -108,7 +110,10 @@ public class MapLoader {
                                 player.setMana(LoadGameController.playerModel.getMana());
                                 player.setExp(LoadGameController.playerModel.getExperience());
                                 player.setHealth(LoadGameController.playerModel.getHp());
+                                createItemsInstances(LoadGameController.inventory,map,player);
+                                System.out.println(player.getInventory());
                                 GameController.player = player;
+
                             } else if (GameController.player == null) {
                                 GameController.player = new Player(cell, NameController.getUserName());
                             } else {
@@ -187,6 +192,47 @@ public class MapLoader {
             }
         }
         return map;
+    }
+    public static void addItemsToInventoryEquipment(List<ItemModel> inventory, int index,Player player, Item objectToCheck){
+        if(inventory.get(index).isItemWore()){
+            player.addToInventory(objectToCheck);
+        }else{
+            player.addToEquipment(objectToCheck);
+        }
+    }
+    public static void createItemsInstances(List<ItemModel> inventory, GameMap map,Player player){
+        for(int i=0; i<inventory.size(); i++){
+            String name = inventory.get(i).getItemName();
+            switch(name){
+                case "Armor":
+                    Armor armor = new Armor(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,armor);break;
+                case "Gem":
+                    Gem gem = new Gem(inventory.get(i).getItemName(), inventory.get(i).getItemDescription());
+                    addItemsToInventoryEquipment(inventory,i,player,gem);break;
+                case "Gloves":
+                    Gloves gloves = new Gloves(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,gloves);break;
+                case "Helmet":
+                    Helmet helmet = new Helmet(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,helmet);break;
+                case "Key":
+                    Key key = new Key(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,key);break;
+                case "Shield":
+                    Shield  shield = new Shield(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,shield);break;
+                case "Shoes":
+                    Shoes shoes = new Shoes(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,shoes);break;
+                case "SkeletonSkull":
+                    SkeletonSkull skeletonSkull = new SkeletonSkull(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,skeletonSkull);break;
+                case "Sword":
+                    Sword sword = new Sword(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    addItemsToInventoryEquipment(inventory,i,player,sword);break;
+            }
+        }
     }
 
     private static void addFloor(Cell cell) {
