@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class ViewController {
             Main.stage.setScene(Main.scene);
             Main.stage.setTitle(title);
             Main.stage.show();
+            Main.stage.getIcons().add(new Image("com/codecool/dungeoncrawl/img/gameIcon.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
