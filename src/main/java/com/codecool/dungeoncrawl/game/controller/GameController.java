@@ -305,43 +305,52 @@ public class GameController {
             itemSword.setVisible(false);
             eqSword1.setVisible(true);
             player.removeItem("Sword");
+            playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemArmor.setVisible(false);
             eqArmor1.setVisible(true);
             player.removeItem("Armor");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemHelmet.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemHelmet.setVisible(false);
             eqHelmet1.setVisible(true);
             player.removeItem("Helmet");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemShield.setVisible(false);
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemShoes.setVisible(false);
             eqShoes1.setVisible(true);
             player.removeItem("Shoes");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqHelmet1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             eqHelmet1.setVisible(false);
             itemHelmet.setVisible(true);
             player.addItemToInventoryFromEQ("Helmet");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqSword1.setVisible(false);
             itemSword.setVisible(true);
             player.addItemToInventoryFromEQ("Sword");
+            playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1)
         });
         eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqArmor1.setVisible(false);
             itemArmor.setVisible(true);
             player.addItemToInventoryFromEQ("Armor");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqShoes1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqShoes1.setVisible(false);
             itemShoes.setVisible(true);
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
     }
 
