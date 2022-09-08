@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.quests;
 
 import com.codecool.dungeoncrawl.game.Items.Gem;
+import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,9 +17,8 @@ public class SecondQuest {
     public static boolean isQuestLevel = false;
     public static void secondMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
-        output.clear();
+        output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
         if (GameController.isNpcAvailable && !isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished) {
-            output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
                 if (!Objects.equals(inputText, "mission")) {
@@ -37,4 +37,22 @@ public class SecondQuest {
             });
         }
         }
-}
+
+
+        public static void secondQuestCrud(TextArea output, TextField input) {
+            output.clear();
+            if (GameController.isNpcAvailable && isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished && isBloodLvlFinished){
+                output.appendText("""
+                    Oh, you are alive! Now we can talk like elf and surfer :)\s
+                    I enchant sword for you! \s
+                    """);
+                    GameController.player.getInventory().stream()
+                            .filter( item -> item instanceof Sword)
+                            .forEach(item -> item.setItemValue(item.getItemValue() + 50));
+                    GameController.player.getInventory().stream()
+                        .filter( item -> item instanceof Sword)
+                        .forEach(item -> item.setItemName("enchantedSword"));
+                    output.appendText("Its your upgraded sword");
+                }
+            }
+        }

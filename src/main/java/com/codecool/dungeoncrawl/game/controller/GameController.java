@@ -30,12 +30,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -62,7 +66,7 @@ public class GameController {
     public Canvas mainView;
 
     @FXML
-    private Button pickUpItemBtn;
+    private ImageView pickUpItemBtn;
 
     @FXML
     private Button showInventoryBtn;
@@ -85,6 +89,10 @@ public class GameController {
     @FXML
     private Button eqShoes1;
     @FXML
+    private Button eqShield1;
+    @FXML
+    private Button eqSkull;
+    @FXML
     private TableColumn<Item, String> itemDescription;
 
     @FXML
@@ -97,7 +105,7 @@ public class GameController {
     private TableView tableView;
 
     @FXML
-    private Button saveButton;
+    private ImageView saveButton;
     
     @FXML
     private GridPane equipment;
@@ -109,7 +117,7 @@ public class GameController {
     private TextField input;
 
     @FXML
-    private Button actionBtn;
+    private ImageView actionBtn;
 
     @FXML
     private ProgressBar manaBar;
@@ -176,6 +184,18 @@ public class GameController {
 
     @FXML
     void initialize() {
+        saveButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_save.png")));
+        saveButton.setOnMouseEntered(t -> saveButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_save_hover.png"))));
+        saveButton.setOnMouseExited(t -> saveButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_save.png"))));
+
+        actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action.png")));
+        actionBtn.setOnMouseEntered(t -> actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action_hover.png"))));
+        actionBtn.setOnMouseExited(t -> actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action.png"))));
+
+        pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup.png")));
+        pickUpItemBtn.setOnMouseEntered(t -> pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup_hover.png"))));
+        pickUpItemBtn.setOnMouseExited(t -> pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup.png"))));
+
         // if map isn't created, generate new one.
         if (!isMapCreated) initMap();
 
@@ -250,6 +270,8 @@ public class GameController {
                 itemHelmet.setVisible(true);
             } else if (player.getCell().getItem() instanceof Shoes shoes){
                 itemShoes.setVisible(true);
+            } else if (player.getCell().getItem() instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
             }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
@@ -261,6 +283,43 @@ public class GameController {
         hidePickUpButton(pickUpItemBtn);
     }
 
+    private void checkInventoryAndEquipmentAfterSave(){
+        List<Item> inventory = player.getInventory();
+        List<Item> equipment = player.getEquipment();
+        for (Item item : inventory){
+            if (item instanceof Sword sword){
+                itemSword.setVisible(true);
+            } else if (item instanceof Armor armor){
+                itemArmor.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                itemHelmet.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                itemShoes.setVisible(true);
+            } else if (item instanceof Shield shield){
+                itemShield.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
+            }
+        }
+
+        for (Item item : equipment){
+            if (item instanceof Sword sword){
+                eqSword1.setVisible(true);
+            } else if (item instanceof Armor armor){
+                eqArmor1.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                eqHelmet1.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                eqShoes1.setVisible(true);
+            } else if (item instanceof Shield shield){
+//                eq.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
+            }
+        }
+    }
+
+
     private void handleSecondQuestAction() {
         actionBtn.setFocusTraversable(false);
         actionBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -271,6 +330,7 @@ public class GameController {
             if (bloodCount == 4){
                 map = MapLoader.loadMap(false, false);
                 SecondQuest.isBloodLvlFinished = true;
+                SecondQuest.isQuestLevel = false;
             }
         });
 
@@ -289,11 +349,10 @@ public class GameController {
         eqSword1.setVisible(false);
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
-//        itemShield.setVisible(false);
+        eqSkull.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
-//                tableView.setVisible(true);
                 equipment.setVisible(true);
                 isInventoryVisible = true;
             } else if (isInventoryVisible == true) {
@@ -306,43 +365,52 @@ public class GameController {
             itemSword.setVisible(false);
             eqSword1.setVisible(true);
             player.removeItem("Sword");
+            playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemArmor.setVisible(false);
             eqArmor1.setVisible(true);
             player.removeItem("Armor");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemHelmet.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemHelmet.setVisible(false);
             eqHelmet1.setVisible(true);
             player.removeItem("Helmet");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemShield.setVisible(false);
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemShoes.setVisible(false);
             eqShoes1.setVisible(true);
             player.removeItem("Shoes");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqHelmet1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             eqHelmet1.setVisible(false);
             itemHelmet.setVisible(true);
             player.addItemToInventoryFromEQ("Helmet");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqSword1.setVisible(false);
             itemSword.setVisible(true);
             player.addItemToInventoryFromEQ("Sword");
+            playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqArmor1.setVisible(false);
             itemArmor.setVisible(true);
             player.addItemToInventoryFromEQ("Armor");
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         eqShoes1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqShoes1.setVisible(false);
             itemShoes.setVisible(true);
+            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
     }
 
@@ -400,6 +468,7 @@ public class GameController {
                 break;
             case R:
                 npcInteraction();
+                break;
             default:
                 break;
         }
@@ -423,7 +492,7 @@ public class GameController {
      * @param pickUpItemBtn Button used to pickup items.
      * @param context       Graphics Context from main view.
      */
-    private void updateGameView(Button pickUpItemBtn, GraphicsContext context) {
+    private void updateGameView(ImageView pickUpItemBtn, GraphicsContext context) {
         boolean playerOnItem = false;
 
         // fill main game display
@@ -502,10 +571,10 @@ public class GameController {
      * @param pickUpItemBtn Button for picking items up.
      */
 
-    private static void showPickUpButton(Button pickUpItemBtn) {
+    private static void showPickUpButton(ImageView pickUpItemBtn) {
         pickUpItemBtn.setVisible(true);
     }
-    private static void hidePickUpButton(Button pickUpItemBtn) {
+    private static void hidePickUpButton(ImageView pickUpItemBtn) {
         pickUpItemBtn.setVisible(false);
     }
 
@@ -515,11 +584,11 @@ public class GameController {
      * Shows the item pickup button.
      * @param actionBtn Button for picking items up.
      */
-    private static void showActionButton(Button actionBtn) {
+    private static void showActionButton(ImageView actionBtn) {
         actionBtn.setVisible(true);
     }
 
-    private static void hideActionButton(Button actionBtn) {
+    private static void hideActionButton(ImageView actionBtn) {
         actionBtn.setVisible(false);
     }
 
@@ -531,7 +600,7 @@ public class GameController {
      * @param pickUpItemBtn Button for picking items up.
      * @param playerOnItem  True if player stepped on item.
      */
-    private static void checkForItem(Button pickUpItemBtn, boolean playerOnItem) {
+    private static void checkForItem(ImageView pickUpItemBtn, boolean playerOnItem) {
         if (playerOnItem) {
             showPickUpButton(pickUpItemBtn);
         } else {
@@ -539,7 +608,7 @@ public class GameController {
         }
     }
 
-    private static void checkForBlood(Button actionBtn, boolean playerOnBlood) {
+    private static void checkForBlood(ImageView actionBtn, boolean playerOnBlood) {
         if (playerOnBlood) {
             showActionButton(actionBtn);
         } else {

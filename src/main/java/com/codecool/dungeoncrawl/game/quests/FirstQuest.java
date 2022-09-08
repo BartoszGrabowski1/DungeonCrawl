@@ -17,7 +17,7 @@ public class FirstQuest {
 
     public static boolean isSkullInInventory = false;
 
-    public static boolean isFirstMissionFinished = true;
+    public static boolean isFirstMissionFinished = false;
 
     public static boolean isFirstMissionOn = false;
 

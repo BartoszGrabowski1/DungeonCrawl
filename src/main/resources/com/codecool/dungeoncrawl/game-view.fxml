@@ -12,7 +12,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -234,6 +233,24 @@
                            </ImageView>
                         </graphic>
                      </Button>
+                     <Button fx:id="eqSkull" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/skeletonSkull.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button fx:id="eqShield1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/7bc454d446809e51d974f2193771.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                   </children>
                </GridPane>
             </children>
@@ -256,11 +273,11 @@
                      <Label id="damageLabel" fx:id="damageLabel" layoutX="23.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Label id="apLabel" fx:id="apLabel" layoutX="87.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
                      <Label id="bpLabel" fx:id="bpLabel" layoutX="158.0" layoutY="202.0" styleClass="label" stylesheets="@game.css" text="Label" />
-                     <Button fx:id="pickUpItemBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Pick Up" />
-                     <Button fx:id="actionBtn" layoutX="66.0" layoutY="243.0" mnemonicParsing="false" styleClass="pickup-button" text="Action" />
+                     <ImageView fx:id="pickUpItemBtn" fitHeight="29.0" fitWidth="100.0" layoutX="44.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true" />
+                     <ImageView fx:id="actionBtn" fitHeight="29.0" fitWidth="100.0" layoutX="41.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true" />
                   </children>
                </Pane>
-               <Button fx:id="saveButton" layoutX="63.0" layoutY="446.0" onMouseClicked="#saveGame" mnemonicParsing="false" text="Save Game" />
+               <ImageView fx:id="saveButton" fitHeight="29.0" fitWidth="100.0" layoutX="60.0" layoutY="454.0" onMouseClicked="#saveGame" pickOnBounds="true" preserveRatio="true" />
             </children>
          </Pane>
       </right>
