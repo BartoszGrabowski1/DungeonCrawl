@@ -89,6 +89,8 @@ public class GameController {
     @FXML
     private Button eqShoes1;
     @FXML
+    private Button eqShield1;
+    @FXML
     private Button eqSkull;
     @FXML
     private TableColumn<Item, String> itemDescription;
@@ -279,6 +281,43 @@ public class GameController {
         hidePickUpButton(pickUpItemBtn);
     }
 
+    private void checkInventoryAndEquipmentAfterSave(){
+        List<Item> inventory = player.getInventory();
+        List<Item> equipment = player.getEquipment();
+        for (Item item : inventory){
+            if (item instanceof Sword sword){
+                itemSword.setVisible(true);
+            } else if (item instanceof Armor armor){
+                itemArmor.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                itemHelmet.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                itemShoes.setVisible(true);
+            } else if (item instanceof Shield shield){
+                itemShield.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
+            }
+        }
+
+        for (Item item : equipment){
+            if (item instanceof Sword sword){
+                eqSword1.setVisible(true);
+            } else if (item instanceof Armor armor){
+                eqArmor1.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                eqHelmet1.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                eqShoes1.setVisible(true);
+            } else if (item instanceof Shield shield){
+//                eq.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
+            }
+        }
+    }
+
+
     private void handleSecondQuestAction() {
         actionBtn.setFocusTraversable(false);
         actionBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -309,7 +348,6 @@ public class GameController {
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
         eqSkull.setVisible(false);
-        itemShield.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
@@ -439,7 +477,6 @@ public class GameController {
             FirstQuest.firstMissionAccess(output, input);
         } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
             SecondQuest.secondMissionAccess(output, input);
-            SecondQuest.secondQuestCrud(output, input);
         } else {
             input.setVisible(false);
         }
@@ -455,6 +492,7 @@ public class GameController {
      */
     private void updateGameView(ImageView pickUpItemBtn, GraphicsContext context) {
         boolean playerOnItem = false;
+
         // fill main game display
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, mainView.getWidth(), mainView.getHeight());

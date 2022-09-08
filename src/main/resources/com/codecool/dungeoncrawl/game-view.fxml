@@ -242,6 +242,15 @@
                            </ImageView>
                         </graphic>
                      </Button>
+                     <Button fx:id="eqShield1" mnemonicParsing="false" prefHeight="73.0" prefWidth="78.0" GridPane.rowIndex="1">
+                        <graphic>
+                           <ImageView fitHeight="75.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@img/7bc454d446809e51d974f2193771.jpg" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                   </children>
                </GridPane>
             </children>

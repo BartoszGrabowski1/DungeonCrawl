@@ -178,7 +178,11 @@ public class Player extends Creature {
         if (armor) return "player_armor";
         if (shield) return "player_shield";
         if (sword) return "player_sword";
-        return "player";
+        return "player_shield";
+    }
+
+    public List<Item> getEquipment() {
+        return equipment;
     }
 
     @Override

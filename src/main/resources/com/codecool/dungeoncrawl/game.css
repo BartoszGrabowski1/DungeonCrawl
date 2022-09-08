@@ -64,7 +64,7 @@
 
 #showInventoryBtn, #itemSword, #itemArmor, #itemHelmet, #itemShield, #itemShoes, #equipment,
 #eqArmor,#eqHelmet,#eqShield, #eqSword, #eqShoes, #eqDupa, #eqHelmet1, #eqSword1, #eqArmor1,
-#eqStuff, #eqShoes1, #eqStuff1, #eqStuff2, #eqStuff3, #eqSkull{
+#eqStuff, #eqShoes1, #eqStuff1, #eqStuff2, #eqStuff3, #eqSkull, #eqShield1{
     -fx-background-color: transparent;
 }
 .saves{
