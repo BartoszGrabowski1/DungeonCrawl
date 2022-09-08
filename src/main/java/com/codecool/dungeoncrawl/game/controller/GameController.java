@@ -151,6 +151,9 @@ public class GameController {
                     GameState gameState = databaseManager.getGameState(playerModel.getId());
                     gameState.setPlayer(playerModel);
                     databaseManager.updateGameState(gameState);
+                    databaseManager.deleteAllUsersItems(playerModel.getId());
+                    databaseManager.addAllItemsFromInventory(playerModel, player.getInventory());
+                    databaseManager.addAllItemsFromEquipment(playerModel, player.getEquipment());
                     askForGameActionAfterSave();
                 }
                 input.clear();
@@ -158,7 +161,7 @@ public class GameController {
                 output.clear();
             });
         } else {
-            databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName());
+            databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName(), map.getPlayer().getInventory(),map.getPlayer().getEquipment());
             askForGameActionAfterSave();
         }
     }
@@ -206,13 +209,12 @@ public class GameController {
 
         handleItems();
         handleSecondQuestAction();
-
         handleInventory();
 
         moveMonsters();
 
         if (!isMusicPlaying) playSounds();
-
+        checkInventoryAndEquipmentAfterSave();
         updateGameView(pickUpItemBtn, context);
     }
 
@@ -496,7 +498,6 @@ public class GameController {
         // fill main game display
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, mainView.getWidth(), mainView.getHeight());
-
         // Cuts the full map into smaller size based on the player location, also centers the "camera" above player.
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
@@ -702,6 +703,40 @@ public class GameController {
         FightController.player = map.getPlayer();
         getFight();
         FightController.isFightAvailable = false;
+    }
+    private void checkInventoryAndEquipmentAfterSave(){
+        List<Item> inventory = player.getInventory();
+        List<Item> equipment = player.getEquipment();
+        for (Item item : inventory){
+            if (item instanceof Sword sword){
+                itemSword.setVisible(true);
+            } else if (item instanceof Armor armor){
+                itemArmor.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                itemHelmet.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                itemShoes.setVisible(true);
+            } else if (item instanceof Shield shield){
+                itemShield.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+//                eqSkull.setVisible(true);
+            }
+        }
+        for (Item item : equipment){
+            if (item instanceof Sword sword){
+                eqSword1.setVisible(true);
+            } else if (item instanceof Armor armor){
+                eqArmor1.setVisible(true);
+            } else if (item instanceof Helmet helmet){
+                eqHelmet1.setVisible(true);
+            } else if (item instanceof Shoes shoes){
+                eqShoes1.setVisible(true);
+            } else if (item instanceof Shield shield){
+//                eq.setVisible(true);
+            } else if (item instanceof SkeletonSkull skull){
+//                eqSkull.setVisible(true);
+            }
+        }
     }
 
 }

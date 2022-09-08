@@ -4,7 +4,7 @@ package com.codecool.dungeoncrawl.game.Items;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Drawable;
 
-public abstract class Item implements Drawable {
+public class Item implements Drawable {
     private Cell cell;
     private String itemName;
     private String itemDescription;
@@ -62,5 +62,10 @@ public abstract class Item implements Drawable {
 
     public void setItemValue(int itemValue) {
         this.itemValue = itemValue;
+    }
+
+    @Override
+    public String getTileName() {
+        return null;
     }
 }

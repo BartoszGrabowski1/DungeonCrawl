@@ -7,6 +7,9 @@ public class SkeletonSkull extends Item {
         super(cell, "Skull", "Skeleton Bone", 50);
     }
 
+    public SkeletonSkull(Cell cell,String itemName, String itemDescription, int itemValue)
+    {super(cell, itemName, itemDescription, itemValue);}
+
     @Override
     public String getTileName() {
         return "skull";

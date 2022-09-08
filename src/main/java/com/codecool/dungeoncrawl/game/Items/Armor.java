@@ -6,6 +6,10 @@ public class Armor extends Item {
     public Armor(Cell cell) {
         super(cell, "Armor", "Iron Chest", 100);
     }
+    public Armor(Cell cell, String itemName, String itemDescription, int itemValue) {
+        super(cell, itemName, itemDescription, itemValue);
+    }
+
 
 
     @Override

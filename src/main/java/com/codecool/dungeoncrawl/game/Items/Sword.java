@@ -8,7 +8,8 @@ public class Sword extends Item {
         super(cell, "Sword", "Sharp Sword", 100);
     }
 
-
+    public Sword(Cell cell,String itemName, String itemDescription, int itemValue)
+    {super(cell, itemName, itemDescription, itemValue);}
     @Override
     public String getTileName() {
         return "sword";
