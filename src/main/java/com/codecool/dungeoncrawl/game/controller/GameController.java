@@ -151,6 +151,9 @@ public class GameController {
                     GameState gameState = databaseManager.getGameState(playerModel.getId());
                     gameState.setPlayer(playerModel);
                     databaseManager.updateGameState(gameState);
+                    databaseManager.deleteAllUsersItems(playerModel.getId());
+                    databaseManager.addAllItemsFromInventory(playerModel, player.getInventory());
+                    databaseManager.addAllItemsFromEquipment(playerModel, player.getEquipment());
                     askForGameActionAfterSave();
                 }
                 input.clear();
@@ -158,7 +161,7 @@ public class GameController {
                 output.clear();
             });
         } else {
-            databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName());
+            databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName(), map.getPlayer().getInventory(),map.getPlayer().getEquipment());
             askForGameActionAfterSave();
         }
     }
@@ -206,13 +209,12 @@ public class GameController {
 
         handleItems();
         handleSecondQuestAction();
-
         handleInventory();
 
         moveMonsters();
 
         if (!isMusicPlaying) playSounds();
-
+        checkInventoryAndEquipmentAfterSave();
         updateGameView(pickUpItemBtn, context);
     }
 
@@ -463,6 +465,7 @@ public class GameController {
                 break;
             case R:
                 npcInteraction();
+                break;
             default:
                 break;
         }
@@ -492,7 +495,6 @@ public class GameController {
         // fill main game display
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, mainView.getWidth(), mainView.getHeight());
-
         // Cuts the full map into smaller size based on the player location, also centers the "camera" above player.
         for (int x = -SCREEN_SIZE; x < SCREEN_SIZE; x++) {
             for (int y = -SCREEN_SIZE; y < SCREEN_SIZE; y++) {
@@ -699,5 +701,6 @@ public class GameController {
         getFight();
         FightController.isFightAvailable = false;
     }
+
 
 }

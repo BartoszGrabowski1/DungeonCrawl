@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl.dao;
 
 
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.ItemModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -16,10 +18,13 @@ public class GameDatabaseManager {
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
 
+    private ItemDao itemDao;
+
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
+        itemDao = new ItemDaoJdbc(dataSource);
     }
 
     public void savePlayer(PlayerModel player) {
@@ -29,12 +34,15 @@ public class GameDatabaseManager {
         gameStateDao.add(gameState);
     }
     public void saveAll(Player player, String
-            savedGameName) {
+            savedGameName, List<Item> inventory,List<Item> equipment) {
         Timestamp currentDate = new Timestamp(System.currentTimeMillis());
         PlayerModel model = new PlayerModel(player, savedGameName);
         GameState gameState = new GameState(currentDate, model);
         savePlayer(model);
         saveGameState(gameState);
+        addAllItemsFromInventory(model, inventory);
+        addAllItemsFromEquipment(model,equipment);
+
     }
 
     private DataSource connect() throws SQLException {
@@ -68,7 +76,27 @@ public class GameDatabaseManager {
         gameState.setSavedAt(currentDate);
         gameStateDao.update(gameState);
     }
-
+    public void addAllItemsFromInventory(PlayerModel model, List<Item> inventory){
+        for (Item item : inventory) {
+            ItemModel itemModel = new ItemModel(item,true);
+            addItem(model, itemModel);
+        }
+    }
+    public void addAllItemsFromEquipment(PlayerModel model, List<Item> inventory){
+        for (Item item : inventory) {
+            ItemModel itemModel = new ItemModel(item,false);
+            addItem(model, itemModel);
+        }
+    }
+    public void addItem(PlayerModel playerModel, ItemModel item){
+        itemDao.add(playerModel,item);
+    }
+    public void deleteAllUsersItems(int playerId){
+        itemDao.drop(playerId);
+    }
+    public List<ItemModel> getUserItems(int player_id){
+        return  itemDao.getAll(player_id);
+    }
     public PlayerModel getSelectedPlayer(String selectedPlayer){
         return playerDao.get(selectedPlayer);
     }

@@ -19,5 +19,20 @@ CREATE TABLE public.player (
     mana integer NOT NULL
 );
 
+DROP TABLE IF EXISTS public.items;
+CREATE TABLE public.items(
+    id serial NOT NULL PRIMARY KEY,
+    x integer,
+    y integer,
+    item_name text NOT NULL,
+    item_description text NOT NULL,
+    item_value integer,
+    is_item_wore boolean,
+    player_id integer NOT NULL
+);
+
 ALTER TABLE ONLY public.game_state
+    ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);
+
+ALTER TABLE ONLY public.items
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.player(id);

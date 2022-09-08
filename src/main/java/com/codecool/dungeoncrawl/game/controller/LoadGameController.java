@@ -2,7 +2,9 @@ package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.ItemModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class LoadGameController {
@@ -23,6 +26,9 @@ public class LoadGameController {
 
     public static PlayerModel playerModel;
     public static GameState gameState;
+
+    public static List<ItemModel> inventory;
+
 
 
     public String playerName;
@@ -55,6 +61,7 @@ public class LoadGameController {
                 playerName = (savesList.getSelectionModel().getSelectedItem()).toString();
                 playerModel = gameDatabaseManager.getSelectedPlayer(playerName);
                 gameState = gameDatabaseManager.getGameState(playerModel.getId());
+                inventory = gameDatabaseManager.getUserItems(playerModel.getId());
                 GameController.isMapLoaded = true;
 
 
