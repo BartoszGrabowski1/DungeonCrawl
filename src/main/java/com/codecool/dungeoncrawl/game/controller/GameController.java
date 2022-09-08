@@ -309,11 +309,10 @@ public class GameController {
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
         eqSkull.setVisible(false);
-//        itemShield.setVisible(false);
+        itemShield.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
-//                tableView.setVisible(true);
                 equipment.setVisible(true);
                 isInventoryVisible = true;
             } else if (isInventoryVisible == true) {
@@ -455,7 +454,6 @@ public class GameController {
      */
     private void updateGameView(ImageView pickUpItemBtn, GraphicsContext context) {
         boolean playerOnItem = false;
-
         // fill main game display
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, mainView.getWidth(), mainView.getHeight());
