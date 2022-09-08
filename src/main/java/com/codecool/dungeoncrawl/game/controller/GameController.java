@@ -362,7 +362,7 @@ public class GameController {
         itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemSword.setVisible(false);
             eqSword1.setVisible(true);
-            player.removeItem("Sword");
+            player.removeItem("sword");
             playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -392,7 +392,7 @@ public class GameController {
         eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqSword1.setVisible(false);
             itemSword.setVisible(true);
-            player.addItemToInventoryFromEQ("Sword");
+            player.addItemToInventoryFromEQ("sword");
             playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
