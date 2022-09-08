@@ -206,30 +206,38 @@ public class MapLoader {
             switch(name){
                 case "Armor":
                     Armor armor = new Armor(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    armor.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,armor);break;
                 case "Gem":
                     Gem gem = new Gem(inventory.get(i).getItemName(), inventory.get(i).getItemDescription());
                     addItemsToInventoryEquipment(inventory,i,player,gem);break;
                 case "Gloves":
                     Gloves gloves = new Gloves(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    gloves.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,gloves);break;
                 case "Helmet":
                     Helmet helmet = new Helmet(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    helmet.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,helmet);break;
                 case "Key":
                     Key key = new Key(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    key.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,key);break;
                 case "Shield":
                     Shield  shield = new Shield(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    shield.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,shield);break;
                 case "Shoes":
                     Shoes shoes = new Shoes(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    shoes.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,shoes);break;
                 case "SkeletonSkull":
                     SkeletonSkull skeletonSkull = new SkeletonSkull(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    skeletonSkull.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,skeletonSkull);break;
                 case "Sword":
                     Sword sword = new Sword(map.getCell(inventory.get(i).getX(), inventory.get(i).getY()), inventory.get(i).getItemName(), inventory.get(i).getItemDescription(),inventory.get(i).getItemValue());
+                    sword.getCell().setItem(null);
                     addItemsToInventoryEquipment(inventory,i,player,sword);break;
             }
         }
