@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.game.map;
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.*;
-import com.codecool.dungeoncrawl.game.controller.loadGameController;
+import com.codecool.dungeoncrawl.game.controller.LoadGameController;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.controller.NameController;
@@ -101,13 +101,13 @@ public class MapLoader {
                         case '@':
                             addFloor(cell);
                             if (GameController.isMapLoaded) {
-                                Player player = new Player(cell, loadGameController.playerModel.getPlayerName());
-                                player.setAbilityPower(loadGameController.playerModel.getAbilityPower());
-                                player.setBlockPower(loadGameController.playerModel.getBlockPower());
-                                player.setDamage(loadGameController.playerModel.getDamage());
-                                player.setMana(loadGameController.playerModel.getMana());
-                                player.setExp(loadGameController.playerModel.getExperience());
-                                player.setHealth(loadGameController.playerModel.getHp());
+                                Player player = new Player(cell, LoadGameController.playerModel.getPlayerName());
+                                player.setAbilityPower(LoadGameController.playerModel.getAbilityPower());
+                                player.setBlockPower(LoadGameController.playerModel.getBlockPower());
+                                player.setDamage(LoadGameController.playerModel.getDamage());
+                                player.setMana(LoadGameController.playerModel.getMana());
+                                player.setExp(LoadGameController.playerModel.getExperience());
+                                player.setHealth(LoadGameController.playerModel.getHp());
                                 GameController.player = player;
                             } else if (GameController.player == null) {
                                 GameController.player = new Player(cell, NameController.getUserName());
