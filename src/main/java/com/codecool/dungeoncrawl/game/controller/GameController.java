@@ -311,9 +311,7 @@ public class GameController {
                 eqHelmet1.setVisible(true);
             } else if (item instanceof Shoes shoes){
                 eqShoes1.setVisible(true);
-            } else if (item instanceof Shield shield){
-//                eq.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
+            }  else if (item instanceof SkeletonSkull skull){
                 eqSkull.setVisible(true);
             }
         }
@@ -350,6 +348,7 @@ public class GameController {
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
         eqSkull.setVisible(false);
+        eqShield1.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             if (isInventoryVisible == false){
@@ -377,10 +376,6 @@ public class GameController {
             itemHelmet.setVisible(false);
             eqHelmet1.setVisible(true);
             player.removeItem("Helmet");
-            playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
-        });
-        itemShield.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            itemShield.setVisible(false);
             playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         });
         itemShoes.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
