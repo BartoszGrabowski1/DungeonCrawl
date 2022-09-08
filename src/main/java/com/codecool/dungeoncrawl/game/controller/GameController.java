@@ -31,7 +31,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -39,7 +38,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -263,13 +261,13 @@ public class GameController {
         pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (player.getCell().getItem() instanceof Sword sword) {
                 itemSword.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Armor armor) {
+            } else if (player.getCell().getItem() instanceof Armor) {
                 itemArmor.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Helmet helmet) {
+            } else if (player.getCell().getItem() instanceof Helmet) {
                 itemHelmet.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Shoes shoes){
+            } else if (player.getCell().getItem() instanceof Shoes){
                 itemShoes.setVisible(true);
-            } else if (player.getCell().getItem() instanceof SkeletonSkull skull){
+            } else if (player.getCell().getItem() instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
             map.getPlayer().pickUpItem();
@@ -286,31 +284,31 @@ public class GameController {
         List<Item> inventory = player.getInventory();
         List<Item> equipment = player.getEquipment();
         for (Item item : inventory){
-            if (item instanceof Sword sword){
+            if (item instanceof Sword){
                 itemSword.setVisible(true);
-            } else if (item instanceof Armor armor){
+            } else if (item instanceof Armor){
                 itemArmor.setVisible(true);
-            } else if (item instanceof Helmet helmet){
+            } else if (item instanceof Helmet){
                 itemHelmet.setVisible(true);
-            } else if (item instanceof Shoes shoes){
+            } else if (item instanceof Shoes){
                 itemShoes.setVisible(true);
-            } else if (item instanceof Shield shield){
+            } else if (item instanceof Shield){
                 itemShield.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
+            } else if (item instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
         }
 
         for (Item item : equipment){
-            if (item instanceof Sword sword){
+            if (item instanceof Sword){
                 eqSword1.setVisible(true);
-            } else if (item instanceof Armor armor){
+            } else if (item instanceof Armor){
                 eqArmor1.setVisible(true);
-            } else if (item instanceof Helmet helmet){
+            } else if (item instanceof Helmet){
                 eqHelmet1.setVisible(true);
-            } else if (item instanceof Shoes shoes){
+            } else if (item instanceof Shoes){
                 eqShoes1.setVisible(true);
-            }  else if (item instanceof SkeletonSkull skull){
+            }  else if (item instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
         }
@@ -473,7 +471,7 @@ public class GameController {
             FirstQuest.firstMissionAccess(output, input);
         } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
             SecondQuest.secondMissionAccess(output, input);
-            SecondQuest.secondQuestCrud(output, input);
+            SecondQuest.secondQuestCrud(output);
         } else {
             input.setVisible(false);
         }
@@ -556,6 +554,11 @@ public class GameController {
         damageLabel.setText("" + map.getPlayer().getDamage());
         bpLabel.setText("" + map.getPlayer().getBlockPower());
         apLabel.setText("" + map.getPlayer().getAbilityPower());
+        if (SecondQuest.isSecondMissionFinished){
+            Image img = new Image("com/codecool/dungeoncrawl/img/sword_upgrade.jpg");
+            ImageView view = new ImageView(img);
+            itemSword.setGraphic(view);
+        }
     }
 
     /**

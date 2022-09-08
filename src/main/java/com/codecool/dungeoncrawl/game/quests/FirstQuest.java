@@ -24,14 +24,14 @@ public class FirstQuest {
     public static void firstMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
         if (GameController.isNpcAvailable && !FirstQuest.isFirstMissionOn && !isFirstMissionFinished) {
-            output.appendText("What you want? (mission) \n");
+            output.appendText("What are you looking for? (mission) \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
                 if (!Objects.equals(inputText, "mission")){
-                    output.appendText("Wrong answer motherfucker! \n");
+                    output.appendText("Wrong answer! \n");
                     firstMissionAccess(output, input);
                 } else {
-                    output.appendText("Give me skull suko and I will give you some doświadczenie albo nie wiem, baj baj \n");
+                    output.appendText("Bring me skull, my little friend. Good luck!  \n");
                     FirstQuest.isFirstMissionOn = true;
                 }
                 input.clear();
@@ -61,14 +61,6 @@ public class FirstQuest {
                     for (Item item : player.getInventory()) {
                         if (item instanceof SkeletonSkull) {
                             isSkullInInventory = true;
-                            // TODO usuwanie itemu po wykonaniu questa
-//                            List<Item> toRemove = new ArrayList();
-//                            for (Item item : player.getInventory()) {
-//                                if (item instanceof SkeletonSkull) {
-//                                    toRemove.add(item);
-//                                }
-//                            }
-//                            player.getInventory().removeAll(toRemove);
                         }
                         if (isSkullInInventory) {
                             output.appendText("You did it! Here is your reward \n");

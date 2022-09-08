@@ -21,7 +21,6 @@ public class SecondQuest {
         output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
         if (GameController.isNpcAvailable && !isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished) {
             input.setOnAction(e -> {
-                output.appendText("Hello my handsome! Maybe you want do something for me? (mission) \n");
                 String inputText = input.getText();
                 if (!Objects.equals(inputText, "mission")) {
                     output.appendText("Its wrong word honey! \n");
@@ -29,8 +28,7 @@ public class SecondQuest {
                     input.setVisible(false);
                 } else {
                     isSecondMissionOn = true;
-                    output.appendText("Please find something different in this creepy place and use it, here you are. Good luck! \n" +
-                            "+Mystery gem \n");
+                    output.appendText("Please find something different in this creepy place... I'm waiting for you. \n");
                     GameController.player.addToInventory(new Gem());
                     isQuestLevel = true;
                 }
@@ -41,7 +39,7 @@ public class SecondQuest {
         }
 
 
-        public static void secondQuestCrud(TextArea output, TextField input) {
+        public static void secondQuestCrud(TextArea output) {
             if (GameController.isNpcAvailable && isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished && isBloodLvlFinished){
                 output.appendText("""
                     Oh, you are alive! Now we can talk like elf and surfer :)\s
