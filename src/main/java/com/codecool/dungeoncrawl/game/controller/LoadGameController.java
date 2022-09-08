@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.game.creatures.Player;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.beans.value.ChangeListener;
@@ -11,11 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
-import javax.swing.text.View;
 import java.sql.SQLException;
 
 
-public class loadGameController {
+public class LoadGameController {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
 
     public static PlayerModel playerModel;

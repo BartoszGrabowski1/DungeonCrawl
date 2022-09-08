@@ -131,7 +131,6 @@ public class GameController {
     @FXML
     void saveGame(MouseEvent event) throws SQLException {
         databaseManager.setup();
-        System.out.println(databaseManager.getLoadNames());
         input.setVisible(true);
         if (databaseManager.getLoadNames().contains(map.getPlayer().getName())) {
             output.appendText("Such save already exists, would you like to overwrite it? (y/n)");
@@ -144,11 +143,11 @@ public class GameController {
                     GameState gameState = databaseManager.getGameState(playerModel.getId());
                     gameState.setPlayer(playerModel);
                     databaseManager.updateGameState(gameState);
+                    askForGameActionAfterSave();
                 }
                 input.clear();
                 input.setVisible(false);
                 output.clear();
-                askForGameActionAfterSave();
             });
         } else {
             databaseManager.saveAll(map.getPlayer(), map.getPlayer().getName());

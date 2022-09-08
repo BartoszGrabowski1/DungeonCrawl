@@ -10,6 +10,8 @@ CREATE TABLE public.player (
     id serial NOT NULL PRIMARY KEY,
     player_name text NOT NULL,
     hp integer NOT NULL,
+    x integer NOT NULL,
+    y integer NOT NULL,
     dmg integer NOT NULL,
     ap integer NOT NULL,
     bp integer NOT NULL,
