@@ -142,14 +142,14 @@ public class MapLoader {
                             addFloor(cell);
                             new Shoes(cell);
                             break;
-                        case '6':
-                            addFloor(cell);
-                            new Shield(cell);
-                            break;
-                        case '7':
-                            addFloor(cell);
-                            new Gloves(cell);
-                            break;
+//                        case '6':
+//                            addFloor(cell);
+//                            new Shield(cell);
+//                            break;
+//                        case '7':
+//                            addFloor(cell);
+//                            new Gloves(cell);
+//                            break;
                         case 'H':
                             cell.setType(CellType.STAIRS);
                             break;
