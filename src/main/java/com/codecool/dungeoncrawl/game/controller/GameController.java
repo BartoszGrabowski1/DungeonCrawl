@@ -89,6 +89,8 @@ public class GameController {
     @FXML
     private Button eqShoes1;
     @FXML
+    private Button eqSkull;
+    @FXML
     private TableColumn<Item, String> itemDescription;
 
     @FXML
@@ -264,6 +266,8 @@ public class GameController {
                 itemHelmet.setVisible(true);
             } else if (player.getCell().getItem() instanceof Shoes shoes){
                 itemShoes.setVisible(true);
+            } else if (player.getCell().getItem() instanceof SkeletonSkull skull){
+                eqSkull.setVisible(true);
             }
             map.getPlayer().pickUpItem();
             List<Item> playerInventory = map.getPlayer().getInventory();
@@ -303,6 +307,7 @@ public class GameController {
         eqSword1.setVisible(false);
         eqArmor1.setVisible(false);
         eqShoes1.setVisible(false);
+        eqSkull.setVisible(false);
 //        itemShield.setVisible(false);
         showInventoryBtn.setFocusTraversable(false);
         showInventoryBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
