@@ -14,7 +14,7 @@ public enum MapConfig {
     VAMPIRES(5),
     MEDUSAS(3),
     NPCS(1),
-    ITEMS(new char[]{'1', '3', '4', '5', '6', '7'});
+    ITEMS(new char[]{'1', '3', '4', '5'});
 
     private int number;
     private boolean roomOverlap = false;
