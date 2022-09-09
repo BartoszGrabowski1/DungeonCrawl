@@ -554,7 +554,7 @@ public class GameController {
     private void showPlayerStats() {
         playersNameLabel.setText(map.getPlayer().getName());
         levelLabel.setText(String.valueOf(map.getPlayer().calculateLevel()));
-        healthBar.setProgress((double) (map.getPlayer().getHealth()) / 600);
+        healthBar.setProgress((double) (map.getPlayer().getHealth()) / 6000);
         manaBar.setProgress((double) (map.getPlayer().getMana()) / 100);
         experienceBar.setProgress((double) (map.getPlayer().getExp()) / 10000);
         damageLabel.setText("" + map.getPlayer().getDamage());
