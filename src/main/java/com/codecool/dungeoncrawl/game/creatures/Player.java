@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.music.Sounds;
-import com.codecool.dungeoncrawl.game.quests.FirstQuest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,10 @@ public class Player extends Creature {
     public String getName() {
         return name;
     }
-    public void addToInventory(Item item) { inventory.add(item);}
+
+    public void addToInventory(Item item) {
+        inventory.add(item);
+    }
 
     public List<Item> getEquipment() {
         return equipment;
@@ -47,11 +49,10 @@ public class Player extends Creature {
         this.name = name.toUpperCase(Locale.ROOT);
     }
 
-    @Override
-    public int getExp() {
-        return (int) (Math.sqrt(100 * (2 * super.getExp()+25)+50)/50);
-    }
 
+    public int calculateLevel() {
+        return (int) (Math.sqrt(100 * (2 * super.getExp() + 25) + 50) / 50);
+    }
 
     public void pickUpItem() {
         inventory.add(this.getCell().getItem());
@@ -65,40 +66,41 @@ public class Player extends Creature {
             map.getCell(13, 14).setType(CellType.OPEN_DOORS);
             MusicPlayer.playSound(Sounds.PICKUP_KEY.getFile(), (float) 1);
             MusicPlayer.playSound(Sounds.OPEN_DOORS.getFile(), (float) 1);
-        } else if (this.getCell().getItem() instanceof Helmet helmet){
+        } else if (this.getCell().getItem() instanceof Helmet helmet) {
             this.setHealth(this.getHealth() + helmet.getItemValue());
             MusicPlayer.playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
-        } else if (this.getCell().getItem() instanceof Shield shield){
+        } else if (this.getCell().getItem() instanceof Shield shield) {
             this.setBlockPower(this.getBlockPower() + shield.getItemValue());
             MusicPlayer.playRandomBlockSound();
-        } else if (this.getCell().getItem() instanceof Shoes shoes){
+        } else if (this.getCell().getItem() instanceof Shoes shoes) {
             this.setHealth(this.getHealth() + shoes.getItemValue());
             MusicPlayer.playSound(Sounds.EQUIP_ARMOR.getFile(), (float) 1);
         }
         this.getCell().setItem(null);
     }
 
-    public void removeItem(String item){
-        for (Item ite : inventory){
-            if (ite.getItemName() == item){
+    public void removeItem(String item) {
+        for (Item ite : inventory) {
+            if (ite.getItemName() == item) {
                 equipment.add(ite);
                 inventory.remove(ite);
-                if (ite instanceof Sword sword){
+                if (ite instanceof Sword sword) {
                     this.setDamage(this.getDamage() - sword.getItemValue());
                 } else if (ite instanceof Helmet helmet) {
                     this.setHealth(this.getHealth() - helmet.getItemValue());
-                } else if (ite instanceof Armor armor){
+                } else if (ite instanceof Armor armor) {
                     this.setHealth(this.getHealth() - armor.getItemValue());
-                } else if (ite instanceof Shield shield){
+                } else if (ite instanceof Shield shield) {
                     this.setBlockPower(this.getBlockPower() - shield.getItemValue());
-                } else if (ite instanceof Shoes shoes){
+                } else if (ite instanceof Shoes shoes) {
                     this.setHealth(this.getHealth() - shoes.getItemValue());
                 }
                 break;
             }
         }
     }
-    public void addToEquipment(Item item){
+
+    public void addToEquipment(Item item) {
         equipment.add(item);
     }
 
@@ -112,9 +114,9 @@ public class Player extends Creature {
                     this.setHealth(this.getHealth() + helmet.getItemValue());
                 } else if (ite instanceof Armor armor) {
                     this.setHealth(this.getHealth() + armor.getItemValue());
-                } else if (ite instanceof Shield shield){
+                } else if (ite instanceof Shield shield) {
                     this.setBlockPower(this.getBlockPower() + shield.getItemValue());
-                } else if (ite instanceof Shoes shoes){
+                } else if (ite instanceof Shoes shoes) {
                     this.setHealth(this.getHealth() + shoes.getItemValue());
                 }
                 break;
@@ -148,7 +150,7 @@ public class Player extends Creature {
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {
             GameController.isNpcAvailable = true;
-            GameController.npc = (Npc) this.getCell().getNeighbor(x,y).getCreature();
+            GameController.npc = (Npc) this.getCell().getNeighbor(x, y).getCreature();
             return false;
         }
         return true;

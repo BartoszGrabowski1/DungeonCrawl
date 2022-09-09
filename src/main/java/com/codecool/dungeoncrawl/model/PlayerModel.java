@@ -35,7 +35,7 @@ public class PlayerModel extends BaseModel {
         this.damage = player.getDamage();
         this.abilityPower = player.getAbilityPower();
         this.blockPower = player.getBlockPower();
-        this.experience = player.getExp();
+        this.experience = player.calculateLevel();
         this.mana = player.getMana();
 
     }

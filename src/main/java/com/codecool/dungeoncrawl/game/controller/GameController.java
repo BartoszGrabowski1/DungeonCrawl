@@ -31,7 +31,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -39,7 +38,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -69,6 +67,9 @@ public class GameController {
     private ImageView pickUpItemBtn;
 
     @FXML
+    private Label playersNameLabel;
+
+    @FXML
     private Button showInventoryBtn;
     @FXML
     private Button itemSword;
@@ -76,6 +77,8 @@ public class GameController {
     private Button itemArmor;
     @FXML
     private Button itemHelmet;
+    @FXML
+    private Label levelLabel;
     @FXML
     private Button itemShield;
     @FXML
@@ -534,7 +537,6 @@ public class GameController {
         checkForBlood(actionBtn, SecondQuest.isPlayerOnBlood);
         checkForStairs();
         checkForFight();
-
         // display player main statistics
         showPlayerStats();
     }
@@ -549,9 +551,11 @@ public class GameController {
      * @see Item
      */
     private void showPlayerStats() {
+        playersNameLabel.setText(map.getPlayer().getName());
+        levelLabel.setText(String.valueOf(map.getPlayer().calculateLevel()));
         healthBar.setProgress((double) (map.getPlayer().getHealth()) / 600);
         manaBar.setProgress((double) (map.getPlayer().getMana()) / 100);
-        experienceBar.setProgress((double) (map.getPlayer().getExp()) / 100);
+        experienceBar.setProgress((double) (map.getPlayer().getExp()) / 10000);
         damageLabel.setText("" + map.getPlayer().getDamage());
         bpLabel.setText("" + map.getPlayer().getBlockPower());
         apLabel.setText("" + map.getPlayer().getAbilityPower());

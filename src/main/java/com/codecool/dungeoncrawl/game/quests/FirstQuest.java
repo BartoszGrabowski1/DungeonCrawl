@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.game.quests;
 import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.SkeletonSkull;
 import com.codecool.dungeoncrawl.game.controller.GameController;
-import com.codecool.dungeoncrawl.game.creatures.Npc;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import javafx.scene.control.TextArea;
@@ -72,7 +71,7 @@ public class FirstQuest {
                         }
                         if (isSkullInInventory) {
                             output.appendText("You did it! Here is your reward \n");
-                            player.setExp(player.getExp() + 2000);
+                            player.setExp(player.calculateLevel() + 2000);
                             output.appendText("+2000 exp \n");
                             isFirstMissionFinished = true;
                             GameMap.removeNpc(GameController.npc);
