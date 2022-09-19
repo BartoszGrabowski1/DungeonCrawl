@@ -174,6 +174,18 @@ public class MapLoader {
                         case '{':
                             cell.setType(CellType.BLOOD_3);
                             break;
+                        case '6':
+                            cell.setType(CellType.BLOOD_6);
+                            break;
+                        case '7':
+                            cell.setType(CellType.BLOOD_7);
+                            break;
+                        case '8':
+                            cell.setType(CellType.BLOOD_8);
+                            break;
+                        case '9':
+                            cell.setType(CellType.BLOOD_9);
+                            break;
                         case 'p':
                             cell.setType(CellType.PENTAGRAM);
                         default:

@@ -19,6 +19,10 @@ public enum CellType {
     BLOOD_1("blood1"),
     BLOOD_2("blood2"),
     BLOOD_3("blood3"),
+    BLOOD_6("blood6"),
+    BLOOD_7("blood7"),
+    BLOOD_8("blood8"),
+    BLOOD_9("blood9"),
     NPC("npc"),
     PENTAGRAM("pentagram"),
     STAIRS("stairs");

@@ -9,12 +9,13 @@ import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
+import static com.codecool.dungeoncrawl.game.controller.GameController.player;
+
 public class SecondQuest {
     public static boolean isSecondMissionFinished = false;
     public static boolean isSecondMissionOn = false;
     public static boolean isBloodLvlFinished = false;
-
-    public static boolean isPlayerOnBlood = false;
+    public static String result = "";
     public static boolean isQuestLevel = false;
     public static void secondMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
@@ -54,7 +55,7 @@ public class SecondQuest {
                     }
                 for (Item item : GameController.player.getInventory()){
                     if (item instanceof Sword) {
-                        item.setItemValue(item.getItemValue()+100);
+                        player.setDamage(player.getDamage() + 100);
                         item.setItemName("enhancedSword");
                         System.out.println(item);
                     }

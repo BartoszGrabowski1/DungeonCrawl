@@ -8,6 +8,9 @@ import com.codecool.dungeoncrawl.game.map.GameMap;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static com.codecool.dungeoncrawl.game.controller.GameController.player;
@@ -19,14 +22,15 @@ public class FirstQuest {
     public static boolean isFirstMissionFinished = false;
 
     public static boolean isFirstMissionOn = false;
+    public static String questStr = shuffleString();
 
-    public static void firstMissionAccess(TextArea output, TextField input){
+    public static void firstMissionAccess(TextArea output, TextField input) {
         input.setVisible(true);
         if (GameController.isNpcAvailable && !FirstQuest.isFirstMissionOn && !isFirstMissionFinished) {
             output.appendText("What are you looking for? (mission) \n");
             input.setOnAction(e -> {
                 String inputText = input.getText();
-                if (!Objects.equals(inputText, "mission")){
+                if (!Objects.equals(inputText, "mission")) {
                     output.appendText("Wrong answer! \n");
                     firstMissionAccess(output, input);
                 } else {
@@ -42,6 +46,18 @@ public class FirstQuest {
         }
 
     }
+
+    public static String shuffleString() {
+        String questStr = "WSEN";
+        List<String> characters = Arrays.asList(questStr.split(""));
+        Collections.shuffle(characters);
+        StringBuilder afterShuffle = new StringBuilder();
+        for (String character : characters) {
+            afterShuffle.append(character);
+        }
+        return afterShuffle.toString();
+    }
+
 
     public static void firstMissionFinish(TextArea output, TextField input) {
         input.setVisible(true);
@@ -65,6 +81,7 @@ public class FirstQuest {
                             output.appendText("You did it! Here is your reward \n");
                             player.setExp(player.calculateLevel() + 2000);
                             output.appendText("+2000 exp \n");
+                            output.appendText("Its your mistery key: " + questStr );
                             isFirstMissionFinished = true;
                             GameMap.removeNpc(GameController.npc);
                             GameController.npc.getCreature().getCell().setType(CellType.FLOOR);
