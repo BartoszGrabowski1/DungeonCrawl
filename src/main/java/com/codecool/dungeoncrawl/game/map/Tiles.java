@@ -55,7 +55,7 @@ public class Tiles {
         tileMap.put("crudy", new Tile(44, 77));
         tileMap.put("boss", new Tile(0, 66));
         tileMap.put("sword", new Tile(1, 46));
-        tileMap.put("enhancedSword", new Tile(3,6));
+        tileMap.put("enhancedSword", new Tile(2,46));
         tileMap.put("key", new Tile(55, 40));
         tileMap.put("gold1", new Tile(54, 40));
         tileMap.put("gold2", new Tile(42, 40));
@@ -66,6 +66,10 @@ public class Tiles {
         tileMap.put("blood1", new Tile(0, 52));
         tileMap.put("blood2", new Tile(1, 52));
         tileMap.put("blood3", new Tile(2, 52));
+        tileMap.put("blood6", new Tile(10,52));
+        tileMap.put("blood7", new Tile(11,52));
+        tileMap.put("blood8", new Tile(12,52));
+        tileMap.put("blood9", new Tile(13,52));
         tileMap.put("armor", new Tile(9, 38));
         tileMap.put("helmet", new Tile(55, 36));
         tileMap.put("shoes", new Tile(27, 36));

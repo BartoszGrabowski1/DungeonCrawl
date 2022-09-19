@@ -10,9 +10,9 @@ public enum MapConfig {
     ROOM_OVERLAP(false),
     RANDOM_CONNECTIONS(1),
     RANDOM_SPURS(3),
-    SKELETONS(6),
-    VAMPIRES(5),
-    MEDUSAS(3),
+    SKELETONS(1),
+    VAMPIRES(1),
+    MEDUSAS(1),
     NPCS(1),
     ITEMS(new char[]{'1', '3', '4', '5'});
 

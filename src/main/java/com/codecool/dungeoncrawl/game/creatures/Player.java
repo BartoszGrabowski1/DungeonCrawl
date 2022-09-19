@@ -173,7 +173,8 @@ public class Player extends Creature {
         }
 
         if (armor && sword && helmet && shield) return "player_armor_helmet_shield_sword";
-        if (armor && sword && helmet) return "player_armor_helmet_sword";
+//        if (armor && sword && helmet) return "player_armor_helmet_sword";
+        if (armor && sword && helmet) return "player_armor_helmet_shield_sword"; // armor + sword + helmet de-equips shield
         if (armor && sword && shield) return "player_armor_shield_sword";
         if (armor && helmet && shield) return "player_armor_helmet_shield";
         if (sword && helmet && shield) return "player_helmet_shield_sword";

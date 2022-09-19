@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.game.quests;
 
 import com.codecool.dungeoncrawl.game.Items.Gem;
+import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.game.Items.Sword;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import javafx.scene.control.TextArea;
@@ -8,12 +9,13 @@ import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
+import static com.codecool.dungeoncrawl.game.controller.GameController.player;
+
 public class SecondQuest {
     public static boolean isSecondMissionFinished = false;
     public static boolean isSecondMissionOn = false;
     public static boolean isBloodLvlFinished = false;
-
-    public static boolean isPlayerOnBlood = false;
+    public static String result = "";
     public static boolean isQuestLevel = false;
     public static void secondMissionAccess(TextArea output, TextField input){
         input.setVisible(true);
@@ -27,8 +29,7 @@ public class SecondQuest {
                     input.setVisible(false);
                 } else {
                     isSecondMissionOn = true;
-                    output.appendText("Please find something different in this creepy place and use it, here you are. Good luck! \n" +
-                            "+Mystery gem \n");
+                    output.appendText("Please find something different in this creepy place... I'm waiting for you. \n");
                     GameController.player.addToInventory(new Gem());
                     isQuestLevel = true;
                 }
@@ -39,20 +40,28 @@ public class SecondQuest {
         }
 
 
-        public static void secondQuestCrud(TextArea output, TextField input) {
-            output.clear();
+        public static void secondQuestCrud(TextArea output) {
             if (GameController.isNpcAvailable && isSecondMissionOn && !isSecondMissionFinished && FirstQuest.isFirstMissionFinished && isBloodLvlFinished){
                 output.appendText("""
                     Oh, you are alive! Now we can talk like elf and surfer :)\s
                     I enchant sword for you! \s
                     """);
-                    GameController.player.getInventory().stream()
-                            .filter( item -> item instanceof Sword)
-                            .forEach(item -> item.setItemValue(item.getItemValue() + 50));
-                    GameController.player.getInventory().stream()
-                        .filter( item -> item instanceof Sword)
-                        .forEach(item -> item.setItemName("enchantedSword"));
+                    for (Item item : GameController.player.getEquipment()){
+                        if (item instanceof Sword) {
+                            item.setItemValue(item.getItemValue()+100);
+                            item.setItemName("enhancedSword");
+                            System.out.println(item);
+                        }
+                    }
+                for (Item item : GameController.player.getInventory()){
+                    if (item instanceof Sword) {
+                        player.setDamage(player.getDamage() + 100);
+                        item.setItemName("enhancedSword");
+                        System.out.println(item);
+                    }
+                }
                     output.appendText("Its your upgraded sword");
+                isSecondMissionFinished = true;
                 }
             }
         }

@@ -46,6 +46,8 @@ import java.util.Objects;
 import static com.codecool.dungeoncrawl.Main.*;
 import static com.codecool.dungeoncrawl.game.controller.ViewController.context;
 import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
+import static com.codecool.dungeoncrawl.game.quests.FirstQuest.questStr;
+import static com.codecool.dungeoncrawl.game.quests.SecondQuest.result;
 
 public class GameController {
 
@@ -190,10 +192,6 @@ public class GameController {
         saveButton.setOnMouseEntered(t -> saveButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_save_hover.png"))));
         saveButton.setOnMouseExited(t -> saveButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_save.png"))));
 
-        actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action.png")));
-        actionBtn.setOnMouseEntered(t -> actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action_hover.png"))));
-        actionBtn.setOnMouseExited(t -> actionBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_action.png"))));
-
         pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup.png")));
         pickUpItemBtn.setOnMouseEntered(t -> pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup_hover.png"))));
         pickUpItemBtn.setOnMouseExited(t -> pickUpItemBtn.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_pickup.png"))));
@@ -210,7 +208,6 @@ public class GameController {
         tableView.setPlaceholder(new Label("No items found yet"));
 
         handleItems();
-        handleSecondQuestAction();
         handleInventory();
 
         moveMonsters();
@@ -264,15 +261,15 @@ public class GameController {
     private void handleItems() {
         pickUpItemBtn.setFocusTraversable(false);
         pickUpItemBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            if (player.getCell().getItem() instanceof Sword sword) {
+            if (player.getCell().getItem() instanceof Sword) {
                 itemSword.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Armor armor) {
+            } else if (player.getCell().getItem() instanceof Armor) {
                 itemArmor.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Helmet helmet) {
+            } else if (player.getCell().getItem() instanceof Helmet) {
                 itemHelmet.setVisible(true);
-            } else if (player.getCell().getItem() instanceof Shoes shoes){
+            } else if (player.getCell().getItem() instanceof Shoes){
                 itemShoes.setVisible(true);
-            } else if (player.getCell().getItem() instanceof SkeletonSkull skull){
+            } else if (player.getCell().getItem() instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
             map.getPlayer().pickUpItem();
@@ -289,53 +286,37 @@ public class GameController {
         List<Item> inventory = player.getInventory();
         List<Item> equipment = player.getEquipment();
         for (Item item : inventory){
-            if (item instanceof Sword sword){
+            if (item instanceof Sword){
                 itemSword.setVisible(true);
-            } else if (item instanceof Armor armor){
+            } else if (item instanceof Armor){
                 itemArmor.setVisible(true);
-            } else if (item instanceof Helmet helmet){
+            } else if (item instanceof Helmet){
                 itemHelmet.setVisible(true);
-            } else if (item instanceof Shoes shoes){
+            } else if (item instanceof Shoes){
                 itemShoes.setVisible(true);
-            } else if (item instanceof Shield shield){
+            } else if (item instanceof Shield){
                 itemShield.setVisible(true);
-            } else if (item instanceof SkeletonSkull skull){
+            } else if (item instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
         }
 
         for (Item item : equipment){
-            if (item instanceof Sword sword){
+            if (item instanceof Sword){
                 eqSword1.setVisible(true);
-            } else if (item instanceof Armor armor){
+            } else if (item instanceof Armor){
                 eqArmor1.setVisible(true);
-            } else if (item instanceof Helmet helmet){
+            } else if (item instanceof Helmet){
                 eqHelmet1.setVisible(true);
-            } else if (item instanceof Shoes shoes){
+            } else if (item instanceof Shoes){
                 eqShoes1.setVisible(true);
-            }  else if (item instanceof SkeletonSkull skull){
+            }  else if (item instanceof SkeletonSkull){
                 eqSkull.setVisible(true);
             }
         }
     }
 
 
-    private void handleSecondQuestAction() {
-        actionBtn.setFocusTraversable(false);
-        actionBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
-            map.getPlayer().pickUpItem();
-            bloodCount++;
-            System.out.println(bloodCount);
-            updateGameView(actionBtn, context);
-            if (bloodCount == 4){
-                map = MapLoader.loadMap(false, false);
-                SecondQuest.isBloodLvlFinished = true;
-                SecondQuest.isQuestLevel = false;
-            }
-        });
-
-        hideActionButton(actionBtn);
-    }
 
 
     private void handleInventory() {
@@ -365,7 +346,7 @@ public class GameController {
         itemSword.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
             itemSword.setVisible(false);
             eqSword1.setVisible(true);
-            player.removeItem("Sword");
+            player.removeItem("sword");
             playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         itemArmor.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -395,7 +376,7 @@ public class GameController {
         eqSword1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
             eqSword1.setVisible(false);
             itemSword.setVisible(true);
-            player.addItemToInventoryFromEQ("Sword");
+            player.addItemToInventoryFromEQ("sword");
             playSound(Sounds.EQUIP_SWORD.getFile(), (float) 1);
         });
         eqArmor1.addEventFilter(MouseEvent.MOUSE_CLICKED, (e) ->{
@@ -476,6 +457,7 @@ public class GameController {
             FirstQuest.firstMissionAccess(output, input);
         } else if (isNpcAvailable && !SecondQuest.isSecondMissionFinished) {
             SecondQuest.secondMissionAccess(output, input);
+            SecondQuest.secondQuestCrud(output);
         } else {
             input.setVisible(false);
         }
@@ -514,7 +496,13 @@ public class GameController {
                             initMap();
                         }
                         //if player step on blood, show action button and change flag
-                        SecondQuest.isPlayerOnBlood = cell.getType() == CellType.BLOOD_1;
+                         /*SecondQuest.isPlayerOnBlood = cell.getType() == CellType.BLOOD_6 ||
+                                cell.getType() == CellType.BLOOD_7 ||
+                                cell.getType() == CellType.BLOOD_8 ||
+                                cell.getType() == CellType.BLOOD_9;
+
+                          */
+                        pentagramEscape(cell);
                     } else if (cell.getItem() != null) {
 
                         // draw item on map
@@ -534,11 +522,23 @@ public class GameController {
 
         // check if player steps on specific tiles
         checkForItem(pickUpItemBtn, playerOnItem);
-        checkForBlood(actionBtn, SecondQuest.isPlayerOnBlood);
         checkForStairs();
         checkForFight();
         // display player main statistics
         showPlayerStats();
+    }
+
+    private void pentagramEscape(Cell cell) {
+        if (cell.getType() == CellType.BLOOD_6) {
+            checkForBlood('W');
+        } else if (cell.getType() == CellType.BLOOD_7){
+            checkForBlood('N');
+        } else if (cell.getType() == CellType.BLOOD_8){
+            checkForBlood('E');
+        } else if (cell.getType() == CellType.BLOOD_9){
+            checkForBlood('S');
+        }
+        System.out.println(result);
     }
 
     /**
@@ -559,6 +559,11 @@ public class GameController {
         damageLabel.setText("" + map.getPlayer().getDamage());
         bpLabel.setText("" + map.getPlayer().getBlockPower());
         apLabel.setText("" + map.getPlayer().getAbilityPower());
+        if (SecondQuest.isSecondMissionFinished){
+            Image img = new Image("com/codecool/dungeoncrawl/img/sword_upgrade.jpg");
+            ImageView view = new ImageView(img);
+            itemSword.setGraphic(view);
+        }
     }
 
     /**
@@ -576,19 +581,6 @@ public class GameController {
         pickUpItemBtn.setVisible(false);
     }
 
-    /**
-     * Show PickUp Button
-     * <p></p>
-     * Shows the item pickup button.
-     * @param actionBtn Button for picking items up.
-     */
-    private static void showActionButton(ImageView actionBtn) {
-        actionBtn.setVisible(true);
-    }
-
-    private static void hideActionButton(ImageView actionBtn) {
-        actionBtn.setVisible(false);
-    }
 
     /**
      * Check For Item
@@ -606,11 +598,20 @@ public class GameController {
         }
     }
 
-    private static void checkForBlood(ImageView actionBtn, boolean playerOnBlood) {
-        if (playerOnBlood) {
-            showActionButton(actionBtn);
-        } else {
-            hideActionButton(actionBtn);
+    private static void checkForBlood(char bloodPosition) {
+        if (result.length() < 4 && !result.contains(Character.toString(bloodPosition))){
+            result += bloodPosition;
+        } else if (result.equals(questStr)) {
+            map = MapLoader.loadMap(false, false);
+            SecondQuest.isBloodLvlFinished = true;
+            SecondQuest.isQuestLevel = false;
+        } else if (result.length() == 4) {
+            player.setHealth(player.getHealth() - 100);
+            result = "";
+            if (player.getHealth() <= 0){
+                playRandomDeathSound();
+                ViewController.setEndView();
+            }
         }
     }
 
