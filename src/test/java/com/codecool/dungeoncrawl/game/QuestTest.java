@@ -18,12 +18,12 @@ class QuestTest{
     @Test
     void isAllFlagOnFalse() {
         assertFalse(FirstQuest.isFirstMissionOn);
-        assertEquals(false, FirstQuest.isFirstMissionFinished);
-        assertEquals(false,FirstQuest.isSkullInInventory);
-        assertEquals(false,SecondQuest.isQuestLevel);
-        assertEquals(false,SecondQuest.isSecondMissionOn);
-        assertEquals(false,SecondQuest.isSecondMissionFinished);
-        assertEquals(false,SecondQuest.isBloodLvlFinished);
+        assertFalse(FirstQuest.isFirstMissionFinished);
+        assertFalse(FirstQuest.isSkullInInventory);
+        assertFalse(SecondQuest.isQuestLevel);
+        assertFalse(SecondQuest.isSecondMissionOn);
+        assertFalse(SecondQuest.isSecondMissionFinished);
+        assertFalse(SecondQuest.isBloodLvlFinished);
     }
 
     @Test

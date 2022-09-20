@@ -14,7 +14,10 @@ public class NameController {
     public static String userName;
 
     public static String getUserName() {
-        return userName;
+        if (userName == null){
+             return userName = "Dzieki";
+        }
+            return userName;
     }
 
     @FXML
