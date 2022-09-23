@@ -60,7 +60,6 @@ public class GameController {
     public boolean isInventoryVisible = false;
     public static boolean isMapLoaded = false;
     GameDatabaseManager databaseManager = new GameDatabaseManager();
-    public static int bloodCount = 0;
 
     @FXML
     public Canvas mainView;
@@ -492,9 +491,6 @@ public class GameController {
                             playerOnItem = true;
                         }
                         // if player go on pentagram with quest access
-                        if (cell.getType() == CellType.PENTAGRAM && SecondQuest.isSecondMissionOn && cell.getCreature() instanceof Player){
-                            initMap();
-                        }
                         //if player step on blood, show action button and change flag
                          /*SecondQuest.isPlayerOnBlood = cell.getType() == CellType.BLOOD_6 ||
                                 cell.getType() == CellType.BLOOD_7 ||
@@ -522,7 +518,7 @@ public class GameController {
 
         // check if player steps on specific tiles
         checkForItem(pickUpItemBtn, playerOnItem);
-        checkForStairs();
+        checkForLvlChange();
         checkForFight();
         // display player main statistics
         showPlayerStats();
@@ -620,13 +616,18 @@ public class GameController {
      * <p></p>
      * Check if the player came down the stairs. If yes, then go to the next level.
      */
-    private static void checkForStairs() {
+    private static void checkForLvlChange() {
         if (map.getPlayer().getCell().getType().equals(CellType.STAIRS)) {
+            map.getPlayer().getCell().setCreature(null);
             level++;
             initMap();
             if (level > LEVELS_AMOUNT) {
                 playSound(bossSound, (float) 0.3);
             }
+        }
+        else if (map.getPlayer().getCell().getType().equals(CellType.PENTAGRAM) && SecondQuest.isQuestLevel) {
+            map.getPlayer().getCell().setCreature(null);
+            initMap();
         }
     }
 
