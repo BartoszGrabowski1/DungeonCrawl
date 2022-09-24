@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -14,7 +15,6 @@ public class Main extends Application {
     public static final int SCREEN_SIZE = 20;
     public static int LEVELS_AMOUNT = MapConfig.LEVELS.getNumber();
     public static GameMap[] levels = new GameMap[3];
-    public static GameMap bossLevel;
     public static int level = 1;
     public static int eqNumber = 0;
     public static GameMap map;

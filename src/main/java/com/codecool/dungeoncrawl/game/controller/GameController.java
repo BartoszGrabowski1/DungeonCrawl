@@ -446,6 +446,11 @@ public class GameController {
             case R:
                 npcInteraction();
                 break;
+            case ESCAPE:
+                stopSounds();
+                stopAllMonstersMoving();
+                ViewController.setOptionsView();
+                break;
             default:
                 break;
         }
@@ -705,12 +710,15 @@ public class GameController {
      * @see FightController
      */
     private void startFight() {
-        mainClipFramePosition = mainClip.getFramePosition();
-        animation.stop();
+        stopSounds();
+        stopAllMonstersMoving();
         FightController.player = map.getPlayer();
         getFight();
         FightController.isFightAvailable = false;
     }
 
+    public static void stopAllMonstersMoving() {
+        monstersMoving.stop();
+    }
 
 }
