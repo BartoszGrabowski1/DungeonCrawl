@@ -5,8 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.io.IOException;
-
 public class NameController {
     @FXML
     private TextField tfName;

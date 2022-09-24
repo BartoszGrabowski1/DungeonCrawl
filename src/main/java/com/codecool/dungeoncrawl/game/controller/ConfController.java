@@ -5,10 +5,7 @@ import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.map.generator.MapConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
-import java.sql.SQLException;
 
 public class ConfController {
 
@@ -31,9 +28,6 @@ public class ConfController {
     private TextField minRoomXY;
 
     @FXML
-    private TextField npcs;
-
-    @FXML
     private TextField randomConnections;
 
     @FXML
@@ -52,7 +46,7 @@ public class ConfController {
     private TextField width;
 
     @FXML
-    void startGame(ActionEvent event) throws SQLException {
+    void startGame(ActionEvent event) {
         MapConfig.LEVELS.setNumber(Integer.parseInt(levels.getText()));
         Main.LEVELS_AMOUNT = MapConfig.LEVELS.getNumber();
         Main.levels = new GameMap[MapConfig.LEVELS.getNumber()];
@@ -68,7 +62,6 @@ public class ConfController {
         MapConfig.SKELETONS.setNumber(Integer.parseInt(skeletons.getText()));
         MapConfig.VAMPIRES.setNumber(Integer.parseInt(vampires.getText()));
         MapConfig.MEDUSAS.setNumber(Integer.parseInt(medusas.getText()));
-        MapConfig.NPCS.setNumber(Integer.parseInt(npcs.getText()));
 
         ViewController.setGameView();
     }

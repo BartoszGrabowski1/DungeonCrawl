@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
-import static com.codecool.dungeoncrawl.game.controller.GameController.stopAllMonstersMoving;
 import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class FightController {
@@ -51,7 +49,7 @@ public class FightController {
 
         initEnemyGraphics();
 
-        initButtonGraphics();
+        initButtons();
         initBattleButtons();
 
         updateStats();
@@ -75,22 +73,17 @@ public class FightController {
         playerHealth.setText(NameController.userName + " HP: " + player.getHealth());
     }
 
-    private void initButtonGraphics() {
-        buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn.png")));
-        buttonAttack.setOnMouseEntered(t -> buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn-hover.png"))));
-        buttonAttack.setOnMouseExited(t -> buttonAttack.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/atk-btn.png"))));
+    private void initButton(ImageView button, String buttonImage, String buttonImageHover) {
+        button.setImage(new Image(Main.class.getResourceAsStream(buttonImage)));
+        button.setOnMouseEntered(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImageHover))));
+        button.setOnMouseExited(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImage))));
+    }
 
-        buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn.png")));
-        buttonBlock.setOnMouseEntered(t -> buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn-hover.png"))));
-        buttonBlock.setOnMouseExited(t -> buttonBlock.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/block-btn.png"))));
-
-        buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn.png")));
-        buttonAbility.setOnMouseEntered(t -> buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn-hover.png"))));
-        buttonAbility.setOnMouseExited(t -> buttonAbility.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/ability-btn.png"))));
-
-        buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn.png")));
-        buttonHeal.setOnMouseEntered(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn-hover.png"))));
-        buttonHeal.setOnMouseExited(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn.png"))));
+    private void initButtons() {
+        initButton(buttonAttack, "/com/codecool/dungeoncrawl/img/atk-btn.png", "/com/codecool/dungeoncrawl/img/atk-btn-hover.png");
+        initButton(buttonBlock, "/com/codecool/dungeoncrawl/img/block-btn.png", "/com/codecool/dungeoncrawl/img/block-btn-hover.png");
+        initButton(buttonAbility, "/com/codecool/dungeoncrawl/img/ability-btn.png", "/com/codecool/dungeoncrawl/img/ability-btn-hover.png");
+        initButton(buttonHeal, "/com/codecool/dungeoncrawl/img/heal-btn.png", "/com/codecool/dungeoncrawl/img/heal-btn-hover.png");
 
     }
 
@@ -100,37 +93,25 @@ public class FightController {
         buttonHeal.setOnMouseClicked(e -> makeMove(FightAction.SPECIAL, player, monster));
     }
 
+    private void setupFightViewBackgroundGraphic(String s) {
+        fightWindow.setBackground(new Background(new BackgroundImage(new Image(s),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT)));
+    }
+
     private void initEnemyGraphics() {
         if (monster instanceof Vampire) {
-            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-vampire.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.DEFAULT,
-                    BackgroundSize.DEFAULT)));
+            setupFightViewBackgroundGraphic("/com/codecool/dungeoncrawl/img/fight-view-vampire.jpg");
         } else if (monster instanceof Medusa) {
-            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-medusa.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.DEFAULT,
-                    BackgroundSize.DEFAULT)));
+            setupFightViewBackgroundGraphic("/com/codecool/dungeoncrawl/img/fight-view-medusa.jpg");
         } else if (monster instanceof Skeleton) {
-            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-skeleton.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.DEFAULT,
-                    BackgroundSize.DEFAULT)));
+            setupFightViewBackgroundGraphic("/com/codecool/dungeoncrawl/img/fight-view-skeleton.jpg");
         } else if (monster instanceof FinalBoss) {
-            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view-boss.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.DEFAULT,
-                    BackgroundSize.DEFAULT)));
+            setupFightViewBackgroundGraphic("/com/codecool/dungeoncrawl/img/fight-view-boss.jpg");
         } else {
-            fightWindow.setBackground(new Background(new BackgroundImage(new Image("/com/codecool/dungeoncrawl/img/fight-view.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.DEFAULT,
-                    BackgroundSize.DEFAULT)));
+            setupFightViewBackgroundGraphic("/com/codecool/dungeoncrawl/img/fight-view.jpg");
         }
     }
 

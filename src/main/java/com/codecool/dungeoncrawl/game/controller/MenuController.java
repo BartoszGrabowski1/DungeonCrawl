@@ -1,22 +1,10 @@
 package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
@@ -46,19 +34,21 @@ public class MenuController {
         ViewController.setNameSelectView();
     }
 
+    private void initButton(ImageView button, String buttonImage, String buttonImageHover) {
+        button.setImage(new Image(Main.class.getResourceAsStream(buttonImage)));
+        button.setOnMouseEntered(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImageHover))));
+        button.setOnMouseExited(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImage))));
+    }
+
+    private void initButtons() {
+        initButton(startGame, "/com/codecool/dungeoncrawl/img/button_start.png", "/com/codecool/dungeoncrawl/img/button_start_hover.png");
+        initButton(loadGame, "/com/codecool/dungeoncrawl/img/button_load.png", "/com/codecool/dungeoncrawl/img/button_load_hover.png");
+        initButton(exitGame, "/com/codecool/dungeoncrawl/img/button_exit.png", "/com/codecool/dungeoncrawl/img/button_exit_hover.png");
+    }
+
     @FXML
     void initialize() {
-        startGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_start.png")));
-        startGame.setOnMouseEntered(t -> startGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_start_hover.png"))));
-        startGame.setOnMouseExited(t -> startGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_start.png"))));
-
-        loadGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_load.png")));
-        loadGame.setOnMouseEntered(t -> loadGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_load_hover.png"))));
-        loadGame.setOnMouseExited(t -> loadGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_load.png"))));
-
-        exitGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_exit.png")));
-        exitGame.setOnMouseEntered(t -> exitGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_exit_hover.png"))));
-        exitGame.setOnMouseExited(t -> exitGame.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_exit.png"))));
+        initButtons();
     }
 
 }
