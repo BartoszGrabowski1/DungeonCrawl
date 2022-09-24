@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.game;
 
+import com.codecool.dungeoncrawl.game.Items.*;
 import com.codecool.dungeoncrawl.game.controller.FightAction;
 import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.map.CellType;
@@ -101,5 +102,102 @@ class CreatureTest {
         assertEquals(1, basicMap.getNPCS());
 
     }
+
+    @Test
+    void creatureSetCellShouldChangeCreaturesCellValues(){
+        Player player = new Player(gameMap.getCell(1,1),"dev");
+        player.setCell(gameMap.getCell(2,2));
+        assertEquals(2, player.getX());
+        assertEquals(2, player.getY());
+    }
+
+    @Test
+    void getManaAndGetHealthShouldReturnCurrentManaAndHealthValues(){
+        Player player = new Player(gameMap.getCell(1,1),"dev");
+        assertEquals(6000, player.getHealth());
+        assertEquals(100, player.getMana());
+    }
+
+    @Test
+    void monsterMovementFunctionShouldChangeMonstersPosition(){
+        Vampire vampire = new Vampire(gameMap.getCell(1,1),1);
+        Cell startingCell = vampire.getCell();
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        gameMap.setPlayer(player);
+        vampire.monsterMovement(gameMap);
+        assertNotEquals(startingCell,vampire.getCell());
+    }
+    @Test
+    void pickUpAndRemoveSwordShouldModifyPlayersDamageAndAlsoChangePlayersTileName(){
+        Sword sword = new Sword(gameMap.getCell(0,0));
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        player.pickUpItem();
+        assertEquals(230, player.getDamage());
+        assertNotEquals(1000, player.getDamage());
+        assertNotEquals(0, player.getDamage());
+        assertEquals("player_sword_shield",player.getTileName());
+        player.removeItem("sword");
+        assertEquals(130, player.getDamage());
+    }
+
+    @Test
+    void pickUpAndRemoveArmorShouldModifyPlayersHealthAndAlsoChangePlayersTileName(){
+        Armor armor = new Armor(gameMap.getCell(0,0));
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        player.pickUpItem();
+        assertEquals(6100, player.getHealth());
+        assertNotEquals(1000, player.getHealth());
+        assertNotEquals(0, player.getHealth());
+        assertEquals("player_armor_shield",player.getTileName());
+        player.removeItem("Armor");
+        assertEquals(6000, player.getHealth());
+    }
+
+    @Test
+    void pickUpAndRemoveHelmetShouldModifyPlayersHealthAndAlsoChangePlayersTileName(){
+        Helmet helmet = new Helmet(gameMap.getCell(0,0));
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        player.pickUpItem();
+        assertEquals(6100, player.getHealth());
+        assertNotEquals(1000, player.getHealth());
+        assertNotEquals(0, player.getHealth());
+        assertEquals("player_helmet_shield",player.getTileName());
+        player.removeItem("Helmet");
+        assertEquals(6000, player.getHealth());
+
+    }
+
+    @Test
+    void pickUpAndRemoveShieldShouldModifyPlayersBlockPowerAndAlsoChangePlayersTileName(){
+        Shield shield = new Shield(gameMap.getCell(0,0));
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        player.pickUpItem();
+        assertEquals(130, player.getBlockPower());
+        assertNotEquals(1000, player.getBlockPower());
+        assertNotEquals(0, player.getBlockPower());
+        assertEquals("player_shield",player.getTileName());
+        player.removeItem("Shield");
+        assertEquals(30,player.getBlockPower());
+    }
+    @Test
+    void pickUpAndRemoveShoesShouldModifyPlayersHealth(){
+        Shoes shoes = new Shoes(gameMap.getCell(0,0));
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        player.pickUpItem();
+        assertEquals(6100, player.getHealth());
+        assertNotEquals(1000, player.getHealth());
+        assertNotEquals(0, player.getHealth());
+        player.removeItem("Shoes");
+        assertEquals(6000,player.getHealth());
+    }
+
+    @Test
+    void playersCheckIfMovePossibleShouldReturnFalseWhenMeetsNPC(){
+        Player player = new Player(gameMap.getCell(0,0),"dev");
+        assertTrue(player.checkIfMovePossible(1,1));
+        Arthur arthur = new Arthur(gameMap.getCell(1,1));
+        assertFalse(player.checkIfMovePossible(1,1));
+    }
+
 
 }
