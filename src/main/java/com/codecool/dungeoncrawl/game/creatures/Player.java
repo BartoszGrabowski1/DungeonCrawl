@@ -186,7 +186,6 @@ public class Player extends Creature {
         if (helmet && shield) return "player_helmet_shield";
         if (helmet) return "player_helmet_shield";
         if (armor) return "player_armor_shield";
-        if (shield) return "player_shield";
         if (sword) return "player_sword_shield";
         return "player_shield";
     }
