@@ -119,7 +119,7 @@ public class MusicPlayer {
                     Main.class.getResourceAsStream(fileName));
             clip.open(inputStream);
             setVolume(volume,clip);
-            if (mainClipFramePosition > 0 && fileName.equals(Sounds.MAIN.getFile())) clip.setFramePosition(mainClipFramePosition);
+            if (fileName.equals(Sounds.MAIN.getFile())) clip.setFramePosition(mainClipFramePosition);
             clip.start();
             if (fileName.equals(Sounds.MAIN.getFile())) {
                 mainClip = clip;
@@ -136,7 +136,7 @@ public class MusicPlayer {
     }
 
     public static void stopSounds() {
-        if (mainClipFramePosition > 0 && mainClipFramePosition < Sounds.MAIN.getLengthInFrames()) mainClipFramePosition = mainClip.getFramePosition();
+        if (mainClipFramePosition >= 0 && mainClipFramePosition < Sounds.MAIN.getLengthInFrames()) mainClipFramePosition = mainClip.getFramePosition();
         else mainClipFramePosition = 0;
         mainClip.stop();
         monstersSounds.stop();

@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import static com.codecool.dungeoncrawl.game.controller.GameController.monstersMoving;
+import static com.codecool.dungeoncrawl.game.controller.GameController.stopAllMonstersMoving;
 import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 public class FightController {
@@ -47,8 +48,6 @@ public class FightController {
 
     @FXML
     void initialize() {
-        stopSounds();
-        stopAllMonstersMoving();
 
         initEnemyGraphics();
 
@@ -93,10 +92,6 @@ public class FightController {
         buttonHeal.setOnMouseEntered(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn-hover.png"))));
         buttonHeal.setOnMouseExited(t -> buttonHeal.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/heal-btn.png"))));
 
-    }
-
-    private static void stopAllMonstersMoving() {
-        monstersMoving.stop();
     }
 
     private void initBattleButtons() {

@@ -1,4 +1,3 @@
 package com.codecool.dungeoncrawl.game.controller;
 
-public class InventoryController {
-}
+public class InventoryController {}
