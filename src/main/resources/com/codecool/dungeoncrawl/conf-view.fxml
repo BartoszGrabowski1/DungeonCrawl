@@ -31,8 +31,6 @@
       <TextField fx:id="vampires" layoutX="178.0" layoutY="316.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
       <Label layoutX="55.0" layoutY="350.0" text="Medusas(1):" />
       <TextField fx:id="medusas" layoutX="178.0" layoutY="346.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
-      <Label layoutX="55.0" layoutY="380.0" text="Npc's(1):" />
-      <TextField fx:id="npcs" layoutX="178.0" layoutY="376.0" prefHeight="25.0" prefWidth="39.0" promptText="1" text="1" />
       <Button layoutX="116.0" layoutY="492.0" mnemonicParsing="false" onAction="#startGame" prefHeight="17.0" prefWidth="41.0" text="Start" textAlignment="CENTER" />
    </children>
 </AnchorPane>
