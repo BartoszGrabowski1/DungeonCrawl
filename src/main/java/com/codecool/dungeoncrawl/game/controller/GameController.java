@@ -534,7 +534,6 @@ public class GameController {
         } else if (cell.getType() == CellType.BLOOD_9){
             checkForBlood('S');
         }
-        System.out.println(result);
     }
 
     /**
@@ -594,21 +593,29 @@ public class GameController {
         }
     }
 
-    private static void checkForBlood(char bloodPosition) {
+    private void checkForBlood(char bloodPosition) {
         if (result.length() < 4 && !result.contains(Character.toString(bloodPosition))){
             result += bloodPosition;
         } else if (result.equals(questStr)) {
-            map = MapLoader.loadMap(false, false);
-            SecondQuest.isBloodLvlFinished = true;
-            SecondQuest.isQuestLevel = false;
+            finishBloodLvl();
         } else if (result.length() == 4) {
-            player.setHealth(player.getHealth() - 100);
-            result = "";
-            if (player.getHealth() <= 0){
-                playRandomDeathSound();
-                ViewController.setEndView();
-            }
+            wrongResultBloodLvl();
         }
+    }
+
+    private void wrongResultBloodLvl() {
+        player.setHealth(player.getHealth() - 100);
+        result = "";
+        if (player.getHealth() <= 0){
+            playRandomDeathSound();
+            ViewController.setEndView();
+        }
+    }
+
+    private void finishBloodLvl() {
+        map = MapLoader.loadMap(false, false);
+        SecondQuest.isBloodLvlFinished = true;
+        SecondQuest.isQuestLevel = false;
     }
 
     /**
