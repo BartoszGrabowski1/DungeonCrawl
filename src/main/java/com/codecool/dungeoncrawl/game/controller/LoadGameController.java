@@ -2,17 +2,13 @@ package com.codecool.dungeoncrawl.game.controller;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.game.Items.Item;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.ItemModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,12 +22,9 @@ public class LoadGameController {
 
     public static PlayerModel playerModel;
     public static GameState gameState;
-
     public static List<ItemModel> inventory;
-
-
-
     public String playerName;
+
     @FXML
     private ImageView mainMenuButton;
 
@@ -41,15 +34,20 @@ public class LoadGameController {
     @FXML
     private ImageView selectButton;
 
+    private void initButton(ImageView button, String buttonImage, String buttonImageHover) {
+        button.setImage(new Image(Main.class.getResourceAsStream(buttonImage)));
+        button.setOnMouseEntered(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImageHover))));
+        button.setOnMouseExited(t -> button.setImage(new Image(Main.class.getResourceAsStream(buttonImage))));
+    }
+
+    private void initButtons() {
+        initButton(selectButton, "/com/codecool/dungeoncrawl/img/button_select.png", "/com/codecool/dungeoncrawl/img/button_select_hover.png");
+        initButton(mainMenuButton, "/com/codecool/dungeoncrawl/img/button_menu.png", "/com/codecool/dungeoncrawl/img/button_menu_hover.png");
+    }
+
     @FXML
     void initialize() throws SQLException {
-        selectButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_select.png")));
-        selectButton.setOnMouseEntered(t -> selectButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_select_hover.png"))));
-        selectButton.setOnMouseExited(t -> selectButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_select.png"))));
-
-        mainMenuButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_menu.png")));
-        mainMenuButton.setOnMouseEntered(t -> mainMenuButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_menu_hover.png"))));
-        mainMenuButton.setOnMouseExited(t -> mainMenuButton.setImage(new Image(Main.class.getResourceAsStream("/com/codecool/dungeoncrawl/img/button_menu.png"))));
+        initButtons();
 
 
         gameDatabaseManager.setup();

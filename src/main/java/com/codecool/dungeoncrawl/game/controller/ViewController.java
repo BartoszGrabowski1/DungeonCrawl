@@ -69,4 +69,9 @@ public class ViewController {
         endViewLoader = new FXMLLoader(Main.class.getResource("conf-view.fxml"));
         setView(endViewLoader, "Game Over");
     }
+
+    public static void setOptionsView() {
+        endViewLoader = new FXMLLoader(Main.class.getResource("options-view.fxml"));
+        setView(endViewLoader, "Options");
+    }
 }

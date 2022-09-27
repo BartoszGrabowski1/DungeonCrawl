@@ -106,7 +106,7 @@ public class Player extends Creature {
 
     public void addItemToInventoryFromEQ(String item) {
         for (Item ite : equipment) {
-            if (ite.getItemName() == item) {
+            if (ite.getItemName().equals(item)) {
                 inventory.add(ite);
                 if (ite instanceof Sword sword) {
                     this.setDamage(this.getDamage() + sword.getItemValue());
