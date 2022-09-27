@@ -104,7 +104,6 @@ public class MapLoader {
                             addFloor(cell);
                             if (GameController.isMapLoaded) {
                                 putPlayerOnMap(map, cell);
-
                             } else if (GameController.player == null) {
                                 GameController.player = new Player(cell, NameController.getUserName());
                             } else {
