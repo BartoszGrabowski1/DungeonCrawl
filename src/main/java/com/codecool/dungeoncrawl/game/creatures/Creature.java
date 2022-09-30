@@ -18,6 +18,7 @@ public abstract class Creature implements Drawable {
 
     private int blockPower;
 
+
     public int getExp() {
         return exp;
     }

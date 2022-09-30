@@ -8,7 +8,7 @@ public class Medusa extends Monster {
     private final float chanceOfFreeze = 0.10f;
 
     public Medusa(Cell cell, int level) {
-        super(cell);
+        super(cell, false);
         super.setHealth((int) (250 * (1 + 0.25*level)));
         super.setDamage((int) (30 * (1 + 0.25*level)));
         super.setAbilityPower((int) (20 * (1 + 0.25*level)));

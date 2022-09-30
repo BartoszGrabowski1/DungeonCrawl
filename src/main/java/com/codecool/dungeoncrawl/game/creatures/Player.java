@@ -144,8 +144,7 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            FightController.isFightAvailable = true;
-            FightController.monster = (Monster) this.getCell().getNeighbor(x, y).getCreature();
+            ((Monster) this.getCell().getNeighbor(x, y).getCreature()).setAttacked(true);
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {

@@ -13,9 +13,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Monster extends Creature {
 
     protected int specialAbilityCoolDown;
+    protected boolean isAttacked;
 
-    public Monster(Cell cell) {
+    public Monster(Cell cell, boolean isAttacked) {
         super(cell);
+        this.isAttacked = isAttacked;
+    }
+
+    public boolean isAttacked() {
+        return isAttacked;
+    }
+
+    public void setAttacked(boolean attacked) {
+        isAttacked = attacked;
     }
 
     private final Directions[] possibleDirections = {

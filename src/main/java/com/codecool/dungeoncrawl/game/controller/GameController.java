@@ -4,10 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.*;
-import com.codecool.dungeoncrawl.game.creatures.Creature;
-import com.codecool.dungeoncrawl.game.creatures.Monster;
-import com.codecool.dungeoncrawl.game.creatures.Npc;
-import com.codecool.dungeoncrawl.game.creatures.Player;
+import com.codecool.dungeoncrawl.game.creatures.*;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.map.GameMap;
 import com.codecool.dungeoncrawl.game.map.MapLoader;
@@ -431,9 +428,14 @@ public class GameController {
                 stopAllMonstersMoving();
                 ViewController.setOptionsView();
                 break;
+            case E:
+                //Skeleton.attacked = true;
+                updateGameView(pickUpItemBtn, context);
+                break;
             default:
                 break;
         }
+        //Skeleton.attacked = false;
     }
 
     private void npcInteraction() {
@@ -672,7 +674,7 @@ public class GameController {
      */
     private void checkForFight() {
         if (FightController.isFightAvailable) {
-            startFight();
+
         }
     }
 
