@@ -50,8 +50,6 @@ public abstract class Creature implements Drawable {
         switch (action) {
             case ATTACK:
                 return damage;
-            case ABILITY:
-                return abilityPower;
             case BLOCK:
                 return blockPower;
         }

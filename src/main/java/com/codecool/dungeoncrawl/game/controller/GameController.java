@@ -659,6 +659,7 @@ public class GameController {
 
         for (Monster monster : monsters) {
             monster.monsterMovement(map);
+            monster.setAttacked(false);
         }
         updateGameView(pickUpItemBtn, mainView.getGraphicsContext2D());
     }
@@ -698,7 +699,6 @@ public class GameController {
     private void startFight() {
         stopSounds();
         stopAllMonstersMoving();
-        FightController.player = map.getPlayer();
         getFight();
         FightController.isFightAvailable = false;
     }

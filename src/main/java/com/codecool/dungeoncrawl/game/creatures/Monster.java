@@ -50,8 +50,6 @@ public abstract class Monster extends Creature {
     @Override
     public boolean checkIfMovePossible(int x, int y) {
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
-            FightController.isFightAvailable = true;
-            FightController.monster = this;
             return false;
         } else if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
             return false;

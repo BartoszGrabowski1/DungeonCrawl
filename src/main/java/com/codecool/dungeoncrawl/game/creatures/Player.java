@@ -2,11 +2,13 @@ package com.codecool.dungeoncrawl.game.creatures;
 
 import com.codecool.dungeoncrawl.game.Cell;
 import com.codecool.dungeoncrawl.game.Items.*;
+import com.codecool.dungeoncrawl.game.controller.FightAction;
 import com.codecool.dungeoncrawl.game.controller.FightController;
 import com.codecool.dungeoncrawl.game.controller.GameController;
 import com.codecool.dungeoncrawl.game.map.CellType;
 import com.codecool.dungeoncrawl.game.music.MusicPlayer;
 import com.codecool.dungeoncrawl.game.music.Sounds;
+import com.codecool.dungeoncrawl.game.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +146,9 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            ((Monster) this.getCell().getNeighbor(x, y).getCreature()).setAttacked(true);
+            // ((Monster) this.getCell().getNeighbor(x, y).getCreature()).setAttacked(true);
+            FightController fight = new FightController();
+            fight.makeMove(FightAction.ATTACK, map.getPlayer(), ((Monster) this.getCell().getNeighbor(x, y).getCreature()));
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {

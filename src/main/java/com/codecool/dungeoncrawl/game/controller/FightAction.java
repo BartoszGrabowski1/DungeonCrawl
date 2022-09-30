@@ -6,26 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 public enum FightAction {
-    ATTACK, ABILITY, BLOCK, SPECIAL;
+    ATTACK, BLOCK, SPECIAL;
 
     private static final Map<FightAction, List<FightAction>> winMap = new HashMap<>();
 
     static {
         List<FightAction> attack = new ArrayList<>();
-        List<FightAction> ability = new ArrayList<>();
         List<FightAction> block = new ArrayList<>();
         List<FightAction> allActions = new ArrayList<>();
         attack.add(ATTACK);
-        ability.add(ABILITY);
         block.add(BLOCK);
         allActions.add(ATTACK);
-        allActions.add(ABILITY);
         allActions.add(BLOCK);
 
-        winMap.put(ATTACK, ability);
-        winMap.put(ABILITY, block);
-        winMap.put(BLOCK, attack);
+        winMap.put(ATTACK, allActions);
         winMap.put(SPECIAL, allActions);
+        winMap.put(BLOCK, attack);
     }
 
     ActionResult checkAgainst(FightAction action) {

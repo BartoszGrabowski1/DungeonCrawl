@@ -9,7 +9,7 @@ public class Skeleton extends Monster {
 
     public Skeleton(Cell cell, int level) {
         super(cell, false);
-        super.setHealth((int) (100 * (1 + 0.25*level)));
+        super.setHealth((int) (1000 * (1 + 0.25*level)));
         super.setDamage((int) (5 * (1 + 0.25*level)));
         super.setAbilityPower((int) (40 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));
@@ -33,8 +33,9 @@ public class Skeleton extends Monster {
     public String getTileName() {
         if (this.isAttacked()){
             return "skeleton_attacked";
+        } else {
+            return "skeleton";
         }
-        return "skeleton";
     }
 
 }
