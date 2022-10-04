@@ -22,6 +22,14 @@ public class Tiles {
             w = TILE_WIDTH;
             h = TILE_WIDTH;
         }
+
+        Tile(int i, int j, int playerAttackWidth) {
+            x = i * (TILE_WIDTH);
+            y = j * (TILE_WIDTH);
+            w = playerAttackWidth;
+            h = playerAttackWidth;
+        }
+
     }
 
     static {
@@ -49,6 +57,7 @@ public class Tiles {
         tileMap.put("player_sword_shield", new Tile(14, 78));
         tileMap.put("player_armor_sword", new Tile(15, 78));
         tileMap.put("skeleton", new Tile(18, 74));
+        tileMap.put("skeleton_attacked", new Tile(19, 74));
         tileMap.put("vampire", new Tile(13, 77));
         tileMap.put("medusa", new Tile(6, 77));
         tileMap.put("arthur", new Tile(10,68));
@@ -87,6 +96,6 @@ public class Tiles {
         Tile tile = tileMap.get(d.getTileName());
 //        System.out.println("tile " + d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+                x * TILE_WIDTH, y * TILE_WIDTH, tile.w, tile.h);
     }
 }

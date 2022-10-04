@@ -146,9 +146,8 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            // ((Monster) this.getCell().getNeighbor(x, y).getCreature()).setAttacked(true);
-            FightController fight = new FightController();
-            fight.makeMove(FightAction.ATTACK, map.getPlayer(), ((Monster) this.getCell().getNeighbor(x, y).getCreature()));
+            FightController.makeMove(FightAction.ATTACK, map.getPlayer(), ((Monster) this.getCell().getNeighbor(x, y).getCreature()));
+            System.out.println(this.getCell().getNeighbor(x, y).getCreature().getHealth());
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {

@@ -21,7 +21,7 @@ public class FightController {
 
 
 
-    public void makeMove(FightAction userAction, Player player, Monster monster) {
+    public static void makeMove(FightAction userAction, Player player, Monster monster) {
         monster.setAttacked(true);
         FightAction monsterAction = makeMonsterMove();
         FightAction.ActionResult result = userAction.checkAgainst(monsterAction);
@@ -30,7 +30,7 @@ public class FightController {
 
     }
 
-    public void fightTurn(FightAction userAction, Player player, Monster monster, FightAction monsterAction, FightAction.ActionResult result) {
+    public static void fightTurn(FightAction userAction, Player player, Monster monster, FightAction monsterAction, FightAction.ActionResult result) {
         if (result == FightAction.ActionResult.DRAW) {
             playRandomBlockSound();
         } else if (result == FightAction.ActionResult.WIN) {
@@ -43,12 +43,12 @@ public class FightController {
     }
 
 
-    public void dealDamageToPlayer(Player player, Monster monster, FightAction monsterAction) {
+    public static void dealDamageToPlayer(Player player, Monster monster, FightAction monsterAction) {
         int dmg = monster.calcDamage(monsterAction);
         player.setHealth(player.getHealth() - dmg);
     }
 
-    public void dealDamageToMonster(FightAction userAction, Player player, Monster monster) {
+    public static void dealDamageToMonster(FightAction userAction, Player player, Monster monster) {
         int dmg = player.calcDamage(userAction);
         if (userAction == FightAction.SPECIAL) {
             player.setHealth(player.getHealth() + 100);
@@ -57,7 +57,7 @@ public class FightController {
         }
     }
 
-    public void checkBattleResult(Player player, Monster monster) {
+    public static void checkBattleResult(Player player, Monster monster) {
         if (monster.getHealth() <= 0) {
             playerWin(monster);
         } else if (player.getHealth() <= 0){
@@ -65,7 +65,7 @@ public class FightController {
         }
     }
 
-    public void playerWin(Monster monster) {
+    public static void playerWin(Monster monster) {
         if (monster instanceof Medusa) playRandomMedusaDeathSound();
         else if (monster instanceof Vampire) playRandomVampireDeathSound();
         else if (monster instanceof Skeleton) playRandomSkeletonDeathSound();
@@ -76,12 +76,12 @@ public class FightController {
         GameMap.removeMonster(monster);
     }
 
-    public void monsterWin() {
+    public static void monsterWin() {
         playRandomDeathSound();
         ViewController.setEndView();
     }
 
-    public FightAction makeMonsterMove() {
+    public static FightAction makeMonsterMove() {
         return FightAction.values()[(int) (Utils.RANDOM.nextInt(0, FightAction.values().length))];
     }
 
