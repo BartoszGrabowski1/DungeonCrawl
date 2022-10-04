@@ -17,6 +17,7 @@ public class Vampire extends Monster {
         super.setAbilityPower((int) (20 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));
         super.setExp((int) (250 * (1 + 0.25*level)));
+        super.setAttacked(false);
     }
 
     @Override
@@ -27,7 +28,11 @@ public class Vampire extends Monster {
 
     @Override
     public String getTileName() {
-        return "vampire";
+        if (this.isAttacked()){
+            return "vampire_attacked";
+        } else {
+            return "vampire";
+        }
     }
     @Override
     public void specialAbility(GameMap map) {

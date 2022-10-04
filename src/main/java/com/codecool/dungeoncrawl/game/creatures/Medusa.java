@@ -14,6 +14,7 @@ public class Medusa extends Monster {
         super.setAbilityPower((int) (20 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));
         super.setExp((int) (500 * (1 + 0.25*level)));
+        super.setAttacked(false);
     }
 
     @Override
@@ -28,6 +29,10 @@ public class Medusa extends Monster {
 
     @Override
     public String getTileName() {
-        return "medusa";
+        if (this.isAttacked()){
+            return "medusa_attacked";
+        } else {
+            return "medusa";
+        }
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 public class Tiles {
     public static int TILE_WIDTH = 32;
 
-    private static Image tileset = new Image("/com/codecool/dungeoncrawl/img/tiles_player.png", 2048, 3040, true, false);
+    private static Image tileset = new Image("/com/codecool/dungeoncrawl/img/tiles.png", 2048, 3040, true, false);
     private static Map<String, Tile> tileMap = new HashMap<>();
 
     public static class Tile {
@@ -59,7 +59,9 @@ public class Tiles {
         tileMap.put("skeleton", new Tile(18, 74));
         tileMap.put("skeleton_attacked", new Tile(19, 74));
         tileMap.put("vampire", new Tile(13, 77));
+        tileMap.put("vampire_attacked", new Tile(14,77));
         tileMap.put("medusa", new Tile(6, 77));
+        tileMap.put("medusa_attacked", new Tile(7, 77));
         tileMap.put("arthur", new Tile(10,68));
         tileMap.put("crudy", new Tile(44, 77));
         tileMap.put("boss", new Tile(0, 66));
