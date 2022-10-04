@@ -9,7 +9,7 @@ public class Medusa extends Monster {
 
     public Medusa(Cell cell, int level) {
         super(cell, false);
-        super.setHealth((int) (250 * (1 + 0.25*level)));
+        super.setHealth((int) (700 * (1 + 0.25*level)));
         super.setDamage((int) (30 * (1 + 0.25*level)));
         super.setAbilityPower((int) (20 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));

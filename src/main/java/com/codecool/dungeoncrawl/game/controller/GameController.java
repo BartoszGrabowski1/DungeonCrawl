@@ -429,8 +429,7 @@ public class GameController {
                 ViewController.setOptionsView();
                 break;
             case E:
-                //Skeleton.attacked = true;
-                updateGameView(pickUpItemBtn, context);
+                player.setHealth(player.getHealth() + 100);
                 break;
             default:
                 break;
@@ -538,7 +537,7 @@ public class GameController {
     private void showPlayerStats() {
         playersNameLabel.setText(map.getPlayer().getName());
         levelLabel.setText(String.valueOf(map.getPlayer().calculateLevel()));
-        healthBar.setProgress((double) (map.getPlayer().getHealth()) / 6000);
+        healthBar.setProgress((double) (map.getPlayer().getHealth()) / 600);
         manaBar.setProgress((double) (map.getPlayer().getMana()) / 100);
         experienceBar.setProgress((double) (map.getPlayer().getExp()) / 10000);
         damageLabel.setText("" + map.getPlayer().getDamage());
@@ -638,7 +637,7 @@ public class GameController {
      * @see Monster
      */
     private void moveMonsters() {
-        animation = new Timeline(new KeyFrame(Duration.seconds(1.0), e -> updateMonstersPosition()));
+        animation = new Timeline(new KeyFrame(Duration.seconds(0.3), e -> updateMonstersPosition()));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.playFromStart();
         monstersMoving = animation;

@@ -10,7 +10,7 @@ public class Skeleton extends Monster {
     public Skeleton(Cell cell, int level) {
         super(cell, false);
         super.setHealth((int) (1000 * (1 + 0.25*level)));
-        super.setDamage((int) (5 * (1 + 0.25*level)));
+        super.setDamage((int) (10 * (1 + 0.25*level)));
         super.setAbilityPower((int) (40 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));
         super.setExp((int) (100 * (1 + 0.25*level)));

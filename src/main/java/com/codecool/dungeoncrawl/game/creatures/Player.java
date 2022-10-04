@@ -42,7 +42,7 @@ public class Player extends Creature {
 
     public Player(Cell cell, String name) {
         super(cell);
-        super.setHealth(6000);
+        super.setHealth(600);
         super.setDamage(130);
         super.setAbilityPower(70);
         super.setBlockPower(30);
@@ -146,8 +146,8 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
-            FightController.makeMove(FightAction.ATTACK, map.getPlayer(), ((Monster) this.getCell().getNeighbor(x, y).getCreature()));
-            System.out.println(this.getCell().getNeighbor(x, y).getCreature().getHealth());
+            FightController.dealDamageToMonster(this, (Monster) this.getCell().getNeighbor(x, y).getCreature());
+            System.out.println(this.getHealth());
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Npc) {

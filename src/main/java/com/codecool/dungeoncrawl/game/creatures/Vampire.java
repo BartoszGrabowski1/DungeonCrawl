@@ -12,7 +12,7 @@ public class Vampire extends Monster {
 
     public Vampire(Cell cell, int level) {
         super(cell, false);
-        super.setHealth((int) (200 * (1 + 0.25*level)));
+        super.setHealth((int) (1000 * (1 + 0.25*level)));
         super.setDamage((int) (10 * (1 + 0.25*level)));
         super.setAbilityPower((int) (20 * (1 + 0.25*level)));
         super.setBlockPower((int) (50 * (1 + 0.25*level)));
