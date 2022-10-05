@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.codecool.dungeoncrawl.Main.map;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playSound;
-import static com.codecool.dungeoncrawl.game.music.MusicPlayer.stepSound;
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.*;
 
 
 public class Player extends Creature {
@@ -146,6 +145,7 @@ public class Player extends Creature {
             return false;
         }
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Monster) {
+            playRandomHitSound();
             FightController.dealDamageToMonster(this, (Monster) this.getCell().getNeighbor(x, y).getCreature());
             System.out.println(this.getHealth());
             return false;

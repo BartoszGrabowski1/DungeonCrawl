@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.codecool.dungeoncrawl.game.music.MusicPlayer.playRandomPlayerHittedSound;
+
 public abstract class Monster extends Creature {
 
     protected int specialAbilityCoolDown;
@@ -50,6 +52,7 @@ public abstract class Monster extends Creature {
     @Override
     public boolean checkIfMovePossible(int x, int y) {
         if (this.getCell().getNeighbor(x, y).getCreature() instanceof Player) {
+            playRandomPlayerHittedSound();
             FightController.dealDamageToPlayer((Player) this.getCell().getNeighbor(x, y).getCreature(), this);
             System.out.println(this.getCell().getNeighbor(x, y).getCreature().getHealth());
             return false;
